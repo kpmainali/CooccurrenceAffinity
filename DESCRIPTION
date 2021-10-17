@@ -1,0 +1,15 @@
+Package: affinity
+Title: Computes affinity between two entities based on their cooccurrence
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Kumar",
+           family = "Mainali",
+           role = c("aut", "cre"),
+           email = "kpmainali@gmail.com",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
