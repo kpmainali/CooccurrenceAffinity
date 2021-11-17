@@ -8,20 +8,40 @@ dataformatcheck <- function(data) {
     }
   }
   if(length(cols.improper) > 0) {
-    # print(paste(length(cols.improper), "column(s) are not in proper format; the columns should be in either numeric or integer format"))
-    # print(paste("columns in improper format are the following:"))
-    # print(cols.improper)
-    # stopifnot("at least one column is not in proper format, see above for details"= length(cols.improper) == 0)
-
     msg.a <- paste("the following columns/rows are NOT in numeric or integer format: ")
     msg.b <- paste(cols.improper, collapse = ", ")
     msg.c <- paste(" --- ***the data should be in numeric or integer formats only***")
     stop(paste0(msg.a, msg.b, msg.c))
-
   }
 }
 
+
+# the following function converts each column of a dataframe from numeric or integer format to binary 1/0
+# for this function to work, the object should first pass through dataformatcheck() function, ensuring it is either numeric or integer.
+abun2binary <- function(data, threshold, class0.rule) {
+  if(is.null(threshold) & is.null(class0.rule)) {
+    stop("arguments threshold and class0.rule  missing for converting abundance data to binary format")
+  }
+  if(is.null(threshold)) {
+    stop("argument threshold missing for converting abundance data to binary format")
+  }
+  if(is.null(class0.rule)) {
+    stop("argument class0.rule missing for converting abundance data to binary format")
+  }
+
+  # class0.rule = "less.or.equal" for "<= threshold" and "less" for "< threshold".
+  if(class0.rule == "less.or.equal") {
+    data <- data.frame(ifelse(data <= threshold, yes = 0, no = 1))
+  }
+  if(class0.rule == "less") {
+    data <- data.frame(ifelse(data < threshold, yes = 0, no = 1))
+  }
+  return(data)
+}
+
+
 # the following function checks if each column of a dataframe is in binary 1/0 format or not; it throws error message if not in binary format.
+# for this function to work, the object should first pass through dataformatcheck() function, ensuring it is either numeric or integer.
 databinarycheck <- function(data) {
   cols.improper <- c()
   for(cols in colnames(data)) {
@@ -39,7 +59,7 @@ databinarycheck <- function(data) {
   if(length(cols.improper) > 0) {
     msg.a <- paste("the following columns/rows are NOT in binary format: ")
     msg.b <- paste(cols.improper, collapse = ", ")
-    msg.c <- paste(" --- ***the data should include 1 and 0 only***")
+    msg.c <- paste(" --- ***the data should include 1 and 0 only; if you have abundance data, add the arguments datatype, threshold and class0.rule***")
     stop(paste0(msg.a, msg.b, msg.c))
   } else {
     print("------------ only 1 and 0 found in the data... 1 = present, 0 = absent used for the interpretation")
@@ -55,9 +75,7 @@ databinarycheck <- function(data) {
 # 5) checks if the selected cols/rows are in numeric or integer format or not
 # 6) checks if the selected cols/rows have data in binary 1/0 format or not
 
-dataprep <- function(data, row.or.col, which.row.or.col) {
-  # data = df
-  # head(data)
+dataprep <- function(data, row.or.col, which.row.or.col, datatype=NULL, threshold=NULL, class0.rule=NULL) {
 
   # check if the input data is either dataframe or a matrix
   if(!is.matrix(data) & !is.data.frame(data)) {
@@ -95,13 +113,25 @@ dataprep <- function(data, row.or.col, which.row.or.col) {
 
   # print(head(datasub))
 
-  sapply(datasub, class)
+  # check if the input data is only numeric or integer only
   dataformatcheck(datasub)
+
+  # convert abundance data to binary data if datatype = abundance
+  # datatype will be binary by default
+  if(!is.null(datatype)) {
+    if(datatype == "abundance") {
+      datasub <- abun2binary(datasub, threshold = threshold, class0.rule = class0.rule)
+    }
+  }
+
+
+  # check if the input data is binary 1/0 only
   databinarycheck(datasub)
 
-  return(head(datasub))
+  return((datasub))
 
 }
+
 
 # after dataprep() function, run the affinity() function. affinity() will have dataprep() at the beginning.
 # affinity should have an argument something like "indices" with the eighty options. pvalue and cumulative prob and a few others listed in working space should always be included.
@@ -110,20 +140,20 @@ dataprep <- function(data, row.or.col, which.row.or.col) {
 
 
 matrix.data <- matrix(1:40, nrow = 10, ncol = 4)
-
-matrix.data <- matrix(sample(c(0,1), size = 40, replace = T), nrow = 10, ncol = 4)
+# matrix.data <- matrix(sample(c(0,1), size = 40, replace = T), nrow = 10, ncol = 4)
 
 row.names(matrix.data) <- paste0("id_", 1:nrow(matrix.data))
 colnames(matrix.data) <- paste0("variable_", 1:ncol(matrix.data))
 class(matrix.data)
 matrix.data
-
+matrix.data[1,1] <- 1.55
 matrix.data[,'variable_1']
 class(matrix.data)
 
 df <- as.data.frame(matrix.data)
 class(df)
 df["variable_1"]
+df[["variable_1"]]
 
 
 # bad example
@@ -134,8 +164,13 @@ dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = 2:12)
 dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = c("variable_1", "variable_9", "variable_6"))
 
 # good example
-dataprep(data = matrix.data, row.or.col = "row", which.row.or.col = c("id_1", "id_4"))
-dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = c("variable_1", "variable_4"))
+dataprep(data = matrix.data, row.or.col = "row", which.row.or.col = c("id_2", "id_4"), datatype = "abundance", threshold = 10, class0.rule = "less")
+dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = c("variable_1", "variable_4"), datatype = "abundance", threshold = 8, class0.rule = "less")
+dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = c("variable_1", "variable_4"), datatype = "abundance", threshold = 8, class0.rule = "less.or.equal")
+
+dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = c("variable_1", "variable_4"), datatype = "abundance", threshold = 10)
+dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = c("variable_1", "variable_4"), datatype = "abundance", class0.rule = "less.or.equal")
+dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = c("variable_1", "variable_4"), datatype = "abundance")
 
 
 
