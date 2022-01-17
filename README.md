@@ -13,12 +13,15 @@ Our primary functions ML.Alpha and AlphInts calculate the maximum likelihood est
     ( a1(x,0.95), a2(x,0.05) )                                         (1)
 
 which is probably a conservative confidence interval for alpha, analogous to the Clopper-Pearson (1934) interval for binomial proportions, or
+
     ( (a1(x,0.95)+a2(x,0.95)/2, (a1(x,0.05)+a2(x,0.05)/2 )             (2)
+
 which (as we will see below) has coverage much closer to its nominal level of 90%.  All these estimates and confidence intervals are viewed as functions of the co-occurrence count x for a 2x2 table with fixed marginal counts mA, mB and table-total N. 
 
 Two other confidence intervals for alpha are calculated in the package functions  AlphaInts  and ML.Alpha. One is another conservative confidence interval based on theoretical results of Blaker (2000) (that is, an interval whose coverage probability is provably at least as large as the nominal  confidence level) using the so-called "Acceptability Function" in that paper's Theorem 1. This confidence interval also provably lies within the first interval (1) above, so nothing is long in using it in preference to (1) except that it is somewhat less direct to explain. The last confidence interval we calculate is similar in performance to (2) defined above, but is close in spirit to the "mid-P" confidence interval defined in standard references like Agresti (2013) for the unknown probability of success in Binomial triala. This interval expressed for the Extended Hypergeometric distribution is
-   (b(x,mA,mB,N,0.95), b(x,mA,mB,N,0.05))                                     (3)
 
+   (b(x,mA,mB,N,0.95), b(x,mA,mB,N,0.05))                               (3)
+   
 where b = b(x,mA,mB,N, gamma)   solves
     (F(x,mA,mB,N,exp(b))+F(x-1,mA,mB,N,exp(b)))/2 = gamma
 
