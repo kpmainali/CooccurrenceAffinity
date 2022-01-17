@@ -111,8 +111,6 @@ dataprep <- function(data, row.or.col, which.row.or.col, datatype=NULL, threshol
 
   datasub <- subset(data, select = which.row.or.col)
 
-  # print(head(datasub))
-
   # check if the input data is only numeric or integer only
   dataformatcheck(datasub)
 
@@ -137,70 +135,4 @@ dataprep <- function(data, row.or.col, which.row.or.col, datatype=NULL, threshol
 # affinity should have an argument something like "indices" with the eighty options. pvalue and cumulative prob and a few others listed in working space should always be included.
 # if a user selects jaccard and alpha, then give square dataframes of these as well as p value, expected cooccurrence, observed cooccurrence and then also a combined dataframe
 # of all selected indices. allow them to save all square matrices in a list. is there a way to save a list of dataframes as a single file??
-
-
-matrix.data <- matrix(1:40, nrow = 10, ncol = 4)
-# matrix.data <- matrix(sample(c(0,1), size = 40, replace = T), nrow = 10, ncol = 4)
-
-row.names(matrix.data) <- paste0("id_", 1:nrow(matrix.data))
-colnames(matrix.data) <- paste0("variable_", 1:ncol(matrix.data))
-class(matrix.data)
-matrix.data
-matrix.data[1,1] <- 1.55
-matrix.data[,'variable_1']
-class(matrix.data)
-
-df <- as.data.frame(matrix.data)
-class(df)
-df["variable_1"]
-df[["variable_1"]]
-
-
-# bad example
-dataprep(data = matrix.data, row.or.col = "row", which.row.or.col = c("id_1", "id_4", "id_11", "id_39"))
-dataprep(data = matrix.data, row.or.col = "row", which.row.or.col = c(4,7,17))
-
-dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = 2:12)
-dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = c("variable_1", "variable_9", "variable_6"))
-
-# good example
-dataprep(data = matrix.data, row.or.col = "row", which.row.or.col = c("id_2", "id_4"), datatype = "abundance", threshold = 10, class0.rule = "less")
-dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = c("variable_1", "variable_4"), datatype = "abundance", threshold = 8, class0.rule = "less")
-dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = c("variable_1", "variable_4"), datatype = "abundance", threshold = 8, class0.rule = "less.or.equal")
-
-dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = c("variable_1", "variable_4"), datatype = "abundance", threshold = 10)
-dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = c("variable_1", "variable_4"), datatype = "abundance", class0.rule = "less.or.equal")
-dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = c("variable_1", "variable_4"), datatype = "abundance")
-
-
-
-
-
-# an example of temporal beta diversity
-df <- read.csv("/Users/kpmainali/RPackages/CooccurrenceAffinity/data/argentario.csv")
-
-head(df)
-dim(df)
-
-# ----------
-dataformatcheck(df[["life.form"]])
-dataformatcheck(df$period1)
-
-# --------
-
-sub$cooccur <- sub$period1 + sub$period2
-
-head(sub)
-print(sum(is.na(sub)))
-A <- sub$period1
-A <- A[!is.na(A)]
-B <- sub$period2
-B <- B[!is.na(B)]
-t <- as.data.frame(table(sub$cooccur)); print(t)
-X <- t$Freq[t$Var1==2]; X
-
-# affinity mle -- make sure R package "BiasedUrn" has been installed to your computer
-alpha_mle_list <- NewAlph(x=X, mA=sum(A), mB=sum(B), N=nrow(sub)); alpha_mle_list
-# alpha MLE
-alpha_mle_list$AlphMLE
 
