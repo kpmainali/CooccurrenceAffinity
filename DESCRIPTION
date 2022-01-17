@@ -1,4 +1,4 @@
-Package: affinity
+Package: CooccurrenceAffinity
 Title: Computes affinity between two entities based on their cooccurrence
 Version: 0.0.0.9000
 Authors@R: 
