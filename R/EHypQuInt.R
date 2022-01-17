@@ -1,3 +1,23 @@
+#' Largest interval of alpha values
+#'
+#' This function outputs the largest interval of alpha values within which the Extended Hypergeometric distribution function
+#' at x is >= q  and the complementary distribution function 1 - F(x-) is >= 1-q.
+#'
+#' @details  This function outputs the largest interval of alpha values within which the Extended Hypergeometric distribution
+#' function at x is >= q  and the complementary distribution function 1 - F(x-) is >= 1-q.
+#' This is the set of alpha values "compatible" with x being a q'th quantile for the Extended Hypergeometric.
+#'
+#' @param marg a 3-entry integer vector containing (mA,mB,N)
+#' @param x nteger co-occurrence counts that should properly fall within the closed interval  [max(0,mA+mB-N), min(mA,mB)]
+#' @param q a quantile falling strictly between 0 and 1
+#' @param scal an integer parameter (default 10) that should fall somewhere between 2 and 10
+#'
+#' @return This function returns the largest interval of alpha values
+#'
+#' @author Eric Slud
+#'
+#' @references to be added
+
 
 EHypQuInt <-
 function(marg, x, q, scal=log(2*marg[3]^2)) {

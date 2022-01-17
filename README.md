@@ -41,3 +41,13 @@ Clopper, C., and E. Pearson (1934), “The Use of Confidence or Fiducial Limits 
 Mainali, K., Slud, E., Singer, M. and Fagan, B. (2021), “A better index for analysis of co-occurrence and similarity”, Science Advances [in press].
 
 Wilson, E. (1927), “Probable Inference, the Law of Succession, and Statistical Inference,” Journal of the American Statistical Association, 22, 209–212.
+
+
+# Installation
+
+The library can be installed from GitHub with devtools:
+
+```
+require(devtools)
+install_github("kpmainali/CooccurrenceAffinity")
+```
