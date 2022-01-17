@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "kpmainali@gmail.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: This package computes affinity between two entities based on their co-occurrence (using binary presence/absence data).
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

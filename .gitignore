@@ -37,3 +37,9 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+
+# Kumar manually added
+.Rbuildignore
+.CooccurrenceAffinity.Rproj
+
