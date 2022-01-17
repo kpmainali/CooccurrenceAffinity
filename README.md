@@ -20,9 +20,9 @@ which (as we will see below) has coverage much closer to its nominal level of 90
 
 Two other confidence intervals for alpha are calculated in the package functions  AlphaInts  and ML.Alpha. One is another conservative confidence interval based on theoretical results of Blaker (2000) (that is, an interval whose coverage probability is provably at least as large as the nominal  confidence level) using the so-called "Acceptability Function" in that paper's Theorem 1. This confidence interval also provably lies within the first interval (1) above, so nothing is long in using it in preference to (1) except that it is somewhat less direct to explain. The last confidence interval we calculate is similar in performance to (2) defined above, but is close in spirit to the "mid-P" confidence interval defined in standard references like Agresti (2013) for the unknown probability of success in Binomial triala. This interval expressed for the Extended Hypergeometric distribution is
 
-   (b(x,mA,mB,N,0.95), b(x,mA,mB,N,0.05))                               (3)
+    ( b(x,mA,mB,N,0.95), b(x,mA,mB,N,0.05) )                               (3)
    
-where b = b(x,mA,mB,N, gamma)   solves
+    where b = b(x,mA,mB,N, gamma)   solves
     (F(x,mA,mB,N,exp(b))+F(x-1,mA,mB,N,exp(b)))/2 = gamma
 
 The test-based confidence intervals for alpha described in the previous paragraphs have more reliable moderate-sample coverage than Confidence Intervals based on a normal-distribution approximation to the MLE of alpha. This will be established in a separate small simulation study. The situation is closely related to that of confidence intervals for an unknown binomial-dstribution success probability p (Brown, Cai and DasGupta 2001). The test-based interval (a1(x,0.05), a2(x,0.95)) is analogous to the Clopper-Pearson (1934) confidence interval for the binomial p. The famous Wald interval for binomial p would correspond here to a symmetric confidence interval round the MLE based on the approximate normal distribution of the MLE of alpha. 
