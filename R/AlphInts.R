@@ -3,7 +3,7 @@
 #' This function calculates five intervals, one of them should be interpreted as an interval of alpha that is inevitable in discrete data.
 #' The other intervals are various types of Confidence Intervals.
 #'
-#' @details  his function calculates five intervals, three of them using EHypQuInt, one using EHypMidP,
+#' @details  This function calculates five intervals, three of them using EHypQuInt, one using EHypMidP,
 #' and one using AcceptAffCI. First ("Int1") is the interval of alpha values compatible with x as median for the
 #' Extended Hypergeometric distribution (with fixed margins and alpha);
 #' second ("Int2") an "exact" conservative test-based confidence intrval (in a sense analogous to the Clopper-Pearson (1934)
@@ -24,7 +24,7 @@
 #' while the very similar intervals Int4 and Int5 have coverage typically closer than
 #' Int2 or Int3 to the nominal level f coverage, at the cost of occasionally under-covering by as much as 0.04 or 0.05 for confidence levels 0.90 or 0.95.
 #'
-#' @param x nteger co-occurrence counts that should properly fall within the closed interval  [max(0,mA+mB-N), min(mA,mB)]
+#' @param x integer co-occurrence counts that should properly fall within the closed interval  [max(0,mA+mB-N), min(mA,mB)]
 #' @param marg a 3-entry integer vector containing (mA,mB,N)
 #' @param scal an integer parameter (default 10) that should fall somewhere between 2 and 10
 #' @param lev a confidence level, generally somewhere from 0.8 to 0.95  (default 0.95)
