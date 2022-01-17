@@ -67,7 +67,7 @@ databinarycheck <- function(data) {
 }
 
 
-# the following function does the following:
+# the following function dataprep() does the following:
 # 1) checks if the supplied data is in matrix or dataframe format
 # 2) if the data is in matrix format, it converts it to dataframe
 # 3) if rows are selected for affinity analysis, it transposes the dataframe
