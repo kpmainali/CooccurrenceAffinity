@@ -1,3 +1,5 @@
+# this script is NOT intended for the users of this package.
+
 library(cooccur)
 data(finches)
 finches
@@ -46,7 +48,7 @@ pair.attributes(cooccur.finches)
 
 # 3) The input data should be data frame or matrix. Check if it has numeric or integers only. And check if it has just 1 and 0. If other numbers, what to do?
 # if I find >1, give warning, does this data carry abundance rather than binary presence/absence recoded as 1/0? Because observed numbers greater than 1.
-# If it has abundance data that you want to convert to binary presence/absence, please use the function .....
+# If it has abundance data that you want to convert to binary presence/absence, please use the function abundance2binry()
 # If the input is not numeric or integer (e.g., characters or factors), fail the code with error message
 # argument "compute.for" shoudl have options of row and columns.
 
