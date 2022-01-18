@@ -37,6 +37,8 @@
 #'
 #' @example
 #' to be added
+#'
+#' @export
 
 AlphInts <-
   function(x, marg, scal=log(2*marg[3]^2), lev=0.95) {

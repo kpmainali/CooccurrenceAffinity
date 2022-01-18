@@ -13,3 +13,4 @@ Roxygen: list(markdown = TRUE)
 Depends: R (>= 4.0.5)
 Imports:
     BiasedUrn
+RoxygenNote: 7.1.2

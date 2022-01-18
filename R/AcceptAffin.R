@@ -20,6 +20,8 @@
 #'
 #' @example
 #' to be added
+#'
+#' @export
 
 AcceptAffin <-
   function(x, marg, alph, lev) {

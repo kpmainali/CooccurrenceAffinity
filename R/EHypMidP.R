@@ -18,6 +18,8 @@
 #'
 #' @example
 #' to be added
+#'
+#' @export
 
 EHypMidP <-
   function(marg, x, lev) {

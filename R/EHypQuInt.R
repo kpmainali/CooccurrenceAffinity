@@ -17,6 +17,8 @@
 #' @author Eric Slud
 #'
 #' @references to be added
+#'
+#' @export
 
 
 EHypQuInt <-

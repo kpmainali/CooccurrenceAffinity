@@ -23,6 +23,8 @@
 #'
 #' @example
 #' to be added
+#'
+#' @export
 
 ML.Alpha <-
   function( x, marg, bound=T, scal=log(2*marg[3]^2), lev=0.95) {

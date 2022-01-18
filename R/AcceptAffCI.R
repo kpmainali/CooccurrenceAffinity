@@ -17,6 +17,8 @@
 #'
 #' @example
 #' to be added
+#'
+#' @export
 
 AcceptAffCI <-
   function(x, marg, lev, CPint){
