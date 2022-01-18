@@ -53,7 +53,7 @@ install_github("kpmainali/CooccurrenceAffinity")
 ```
 
 
-# Some examples of the usage of the functions
+# Some examples of the usage of the functions and illustrations
 
 We compute with a running example X = 35, m A = 50, m B = 70, N = 150. The syntax and results of the function calls for ﬁguring the MLE α ˆ , the median interval, and the 90% two-sided equal-tailed conﬁdence intervals for α, are as follows:
 
@@ -79,4 +79,25 @@ $LLK                        ## logLik
 
 $Flag                       ## indicator that MLE falls in the median interval
 [1] TRUE
+```
+
+To illustrate the relative sizes of the median interval and conﬁdence interval and their positioning with respect to MLE, we supply code to plot the point and interval estimates for X values from 1 to 49 on a single graph, in Figure 1. The graph is chopped oﬀ at α = ±5 for clarity. The maximum absolute value of log(2N^2) in this instance is 10.7.
+
+```
+CIs = array(0, c(49,5), dimnames=list(NULL,c("MedLo","MedHi","MLE","CIlo","CIhi")))
+
+for(x in 1:49) {
+    tmp = AlphInts(x,c(50,70,150), lev=0.9)
+    CIs[x,] = c(tmp$Int1, ML.Alpha(x,c(50,70,150))$est, tmp$Int3)
+}
+
+plot(1:49,rep(0,49), ylim=c(-5,5), xlab="X value", ylab="alpha",
+     main=paste0("MLE, Median Interval and 90% CI for alpha","\n",
+                 "for all X’s with mA=50, mB=70, N=150"), type="n")
+for(i in 1:49) {
+    segments(i,CIs[i,4],i,CIs[i,5], col="blue", lwd=2)
+    segments(i,CIs[i,1],i,CIs[i,2], col="red", lwd=4) 
+}
+points(1:49,CIs[,3], pch=20) 
+legend(10,3, legend=c("CI interval","med interval","MLE"), pch=c(NA,NA,20), lwd=c(2,4,NA), col=c("blue","red","black"))
 ```
