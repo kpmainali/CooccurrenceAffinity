@@ -3,6 +3,7 @@
 export(AcceptAffCI)
 export(AcceptAffin)
 export(AlphInts)
+export(Bisect)
 export(CovrgPlot)
 export(EHypMidP)
 export(EHypQuInt)
