@@ -1,16 +1,16 @@
 Package: CooccurrenceAffinity
-Title: Computes affinity between two entities based on their cooccurrence
-Version: 0.0.0.9000
-Authors@R: 
-    person(given = "Kumar",
-           family = "Mainali",
-           role = c("aut", "cre"),
-           email = "kpmainali@gmail.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+Type: Package
+Title: Affinity in cooccrrence data
+Version: 1.0
+Date: 2022-01-17
+Author: Kumar Mainali, Eric Slud
+Maintainer: Who to complain to <kpmainali@gmail.com>
 Description: This package computes affinity between two entities based on their co-occurrence (using binary presence/absence data).
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-Depends: BiasedUrn
+Depends: R (>= 3.5.0)
+Imports:
+    BiasedUrn

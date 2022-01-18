@@ -7,7 +7,7 @@
 AlphInts(x, marg, scal = log(2 * marg[3]^2), lev = 0.95)
 }
 \arguments{
-\item{x}{nteger co-occurrence counts that should properly fall within the closed interval  \link{max(0,mA+mB-N), min(mA,mB)}}
+\item{x}{integer co-occurrence counts that should properly fall within the closed interval  \link{max(0,mA+mB-N), min(mA,mB)}}
 
 \item{marg}{a 3-entry integer vector containing (mA,mB,N)}
 
@@ -23,7 +23,7 @@ This function calculates five intervals, one of them should be interpreted as an
 The other intervals are various types of Confidence Intervals.
 }
 \details{
-his function calculates five intervals, three of them using EHypQuInt, one using EHypMidP,
+This function calculates five intervals, three of them using EHypQuInt, one using EHypMidP,
 and one using AcceptAffCI. First ("Int1") is the interval of alpha values compatible with x as median for the
 Extended Hypergeometric distribution (with fixed margins and alpha);
 second ("Int2") an "exact" conservative test-based confidence intrval (in a sense analogous to the Clopper-Pearson (1934)
