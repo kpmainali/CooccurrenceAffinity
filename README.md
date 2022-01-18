@@ -58,19 +58,25 @@ install_github("kpmainali/CooccurrenceAffinity")
 We compute with a running example X = 35, m A = 50, m B = 70, N = 150. The syntax and results of the function calls for ﬁguring the MLE α ˆ , the median interval, and the 90% two-sided equal-tailed conﬁdence intervals for α, are as follows:
 
 ```
-> AlphInts(35,c(50,70,150), lev=0.9) Loading required package: BiasedUrn $Int1
+> AlphInts(35,c(50,70,150), lev=0.9) 
+Loading required package: BiasedUrn 
 
-[1] 1.382585 1.520007 ## median interval $Int2
+$Int1
+[1] 1.382585 1.520007       ## median interval 
 
-[1] 0.7906624 2.1474812 ## conservative interval (4) $Int3
+$Int2
+[1] 0.7906624 2.1474812     ## conservative interval (4) 
 
-[1] 0.8557288 2.0733506 ## modified interval (5)
+$Int3
+[1] 0.8557288 2.0733506     ## modified interval (5)
 
-> ML.Alpha(35,c(50,70,150), lev=0.9)[1:3] $est [1] 1.455814 ## MLE
+> ML.Alpha(35,c(50,70,150), lev=0.9)[1:3] 
+$est 
+[1] 1.455814                ## MLE
 
-$LLK
+$LLK                        ## logLik
+[1] 1.912295 
 
-[1] 1.912295 $Flag
-
+$Flag                       ## indicator that MLE falls in the median interval
 [1] TRUE
 ```
