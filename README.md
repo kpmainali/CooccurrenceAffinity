@@ -1,5 +1,8 @@
 # CooccurrenceAffinity
 
+NOTE: please expect a major revision of this package by mid-Feb 2022. This includes important improvements in the existing functions and addition of new functions.
+
+
 This package computes affinity between two entities based on their co-occurrence (using binary presence/absence data). 
 
 The package refers to and requires an existing package called BiasedUrn, the primary functions in which calculate distributional characteristics of the Fisher Noncentral Hypergeometric distribution (pFNCHypergeo) otherwise known as Extended Hypergeometric (Harkness 1965), which is the way we refer to it in these notes.
