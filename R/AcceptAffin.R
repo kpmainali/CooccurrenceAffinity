@@ -22,19 +22,20 @@
 #' @export
 
 
-function(x, marg, alph) {
-  mA=marg[1]; mB=marg[2]; N=marg[3]
-  if(length(intersect(c(mA,mB), c(0,N))))
-    return("Degenerate co-occurrence distribution!")
-  K = length(alph)
-  out=numeric(K)
-  for(i in 1:K) {
-    ealp = exp(alph[i])
-    p1 = 1 - pFNCHypergeo(x - 1, mA,N-mA,mB,ealp)
-    p2 = pFNCHypergeo(x, mA,N-mA,mB,ealp)
-    a1 = p1 + pFNCHypergeo(qFNCHypergeo(p1,mA,N-mA,mB,ealp) - 1,
-                           mA,N-mA,mB,ealp)
-    a2 = p2+1 - pFNCHypergeo(qFNCHypergeo(1-p2, mA,N-mA,mB,ealp),
+AcceptAffin <-
+  function(x, marg, alph) {
+    mA=marg[1]; mB=marg[2]; N=marg[3]
+    if(length(intersect(c(mA,mB), c(0,N))))
+      return("Degenerate co-occurrence distribution!")
+    K = length(alph)
+    out=numeric(K)
+    for(i in 1:K) {
+      ealp = exp(alph[i])
+      p1 = 1 - pFNCHypergeo(x - 1, mA,N-mA,mB,ealp)
+      p2 = pFNCHypergeo(x, mA,N-mA,mB,ealp)
+      a1 = p1 + pFNCHypergeo(qFNCHypergeo(p1,mA,N-mA,mB,ealp) - 1,
                              mA,N-mA,mB,ealp)
-    out[i] = pmin(a1,a2) }
-  out   }
+      a2 = p2+1 - pFNCHypergeo(qFNCHypergeo(1-p2, mA,N-mA,mB,ealp),
+                               mA,N-mA,mB,ealp)
+      out[i] = pmin(a1,a2) }
+    out   }
