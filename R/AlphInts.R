@@ -1,7 +1,10 @@
-#' Five intervals, three using EHypQuInt(), one using EHypMidP(), and one using AcceptAffCI()
+#' Median interval, four confidence intervals, null expectation of cooccurrence count, p-value
 #'
-#' This function calculates five intervals, one of them should be interpreted as an interval of alpha that is inevitable in discrete data.
-#' The other intervals are various types of Confidence Intervals.
+#' This function calculates
+#' (i) MedianIntrvl, the interval of alpha values for which the co-occurrence count is a median,
+#' (ii) four Confidence Intervals, two using EHypQuInt(), one using EHypMidP(), and one using AcceptAffCI(),
+#' (iii) the Expected Co-occurrence count under the Null distibution, and
+#' (iv) the p-value for the observed co-occurrence count.
 #'
 #' @details  This function calculates five intervals, three of them using EHypQuInt, one using EHypMidP,
 #' and one using AcceptAffCI. First ("Int1") is the interval of alpha values compatible with x as median for the
