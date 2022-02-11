@@ -56,9 +56,13 @@ according to Blaker's (2000) "Acceptability" function; if the input parameter pv
 }
 \references{
 Agresti, A. (2013) Categorical Data Analysis, 3rd edition, Wiley.
+
 Blaker, H. (2000), “Confidence curves and improved exact confidence intervals for discrete distributions", Canadian Journal of Statistics 28, 783-798.
+
 Brown, L., T. Cai, and A. DasGupta (2001), “Interval Estimation for a Binomial Proportion,” Statistical Science, 16, 101–117.
+
 Clopper, C., and E. Pearson (1934), “The Use of Confidence or Fiducial Limits Illustrated in the Case of the Binomial,” Biometrika, 26, 404–413.
+
 Harkness, W. (1965), “Properties of the extended hypergeometric distribution“, Annals of Mathematical Statistics, 36, 938-945.
 }
 \author{
