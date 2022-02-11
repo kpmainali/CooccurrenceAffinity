@@ -2,30 +2,33 @@
 % Please edit documentation in R/EHypMidP.R
 \name{EHypMidP}
 \alias{EHypMidP}
-\title{Largest interval of alpha values-2}
+\title{Quantile of the Extended Hypergeometric dstribution approximed by the midP distribution function}
 \usage{
-EHypMidP(marg, x, lev)
+EHypMidP(x, marg, lev)
 }
 \arguments{
-\item{marg}{a 3-entry integer vector containing (mA,mB,N)}
+\item{x}{integer co-occurrence count that should properly fall within the closed interval from  max(0,mA+mB,N) to  min(mA,mB)}
 
-\item{x}{nteger co-occurrence counts that should properly fall within the closed interval  \link{max(0,mA+mB-N), min(mA,mB)}}
+\item{marg}{a 3-entry integer vector (mA,mB,N) consisting of the first row and column totals and the table total for a 2x2 contingency table}
 
 \item{lev}{a confidence level, generally somewhere from 0.8 to 0.95  (default 0.95)}
 }
 \value{
-This function returns the largest interval of alpha values
+This function returns the interval of alpha values with endpoints
+(F(x,alpha)+F(x-1,alpha))/2 = (1+lev)/2   and  (F(x,alpha)+F(x+1,alpha))/2 = (1-lev)/2.
+
+The idea of calculating a Confidence Interval this way is analogous to the midP CI used for unknown binomial proportions (Agresti 2013, p.605).
 }
 \description{
-This function does the analogous calculation to that of EHypQuInt,
-but with the Extended Hypergeometric distribution function  F(x) = F(x,mA,mB,N, exp(alpha)) replaced by  (F(x) + F(x-1))/2.
+This function does the analogous calculation to that of EHypQuInt, but with the Extended Hypergeometric distribution
+function F(x) = F(x,mA,mB,N, exp(alpha)) replaced by (F(x) + F(x-1))/2.
 }
 \details{
-This function does the analogous calculation to that of EHypQuInt,
-but with the Extended Hypergeometric distribution function  F(x) = F(x,mA,mB,N, exp(alpha)) replaced by  (F(x) + F(x-1))/2.
+This function does the analogous calculation to that of CI.CP, but with the Extended Hypergeometric distribution
+function F(z, alpha) = F(z,mA,mB,N, exp(alpha)) replaced by (F(z,alpha) + F(z-1,alpha))/2.
 }
 \references{
-to be added
+Agresti, A. (2013) Categorical Data Analysis, 3rd edition, Wiley.
 }
 \author{
 Eric Slud

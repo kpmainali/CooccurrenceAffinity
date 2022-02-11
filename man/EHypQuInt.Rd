@@ -2,33 +2,34 @@
 % Please edit documentation in R/EHypQuInt.R
 \name{EHypQuInt}
 \alias{EHypQuInt}
-\title{Largest interval of alpha values}
+\title{Interval of alpha values for which X is a specified q'th quantile}
 \usage{
-EHypQuInt(marg, x, q, scal = log(2 * marg[3]^2))
+EHypQuInt(x, marg, q, scal = log(2 * marg[3]^2))
 }
 \arguments{
-\item{marg}{a 3-entry integer vector containing (mA,mB,N)}
+\item{x}{integer co-occurrence count that should properly fall within the closed interval from  max(0,mA+mB-N) to  min(mA,mB)}
 
-\item{x}{nteger co-occurrence counts that should properly fall within the closed interval  \link{max(0,mA+mB-N), min(mA,mB)}}
+\item{marg}{a 3-entry integer vector (mA,mB,N) consisting of the first row and column totals and the table total for a 2x2 contingency table}
 
 \item{q}{a quantile falling strictly between 0 and 1}
 
-\item{scal}{an integer parameter (default 10) that should fall somewhere between 2 and 10}
+\item{scal}{an integer parameter (default 2*N^2, capped at 10 within the function) that should be 2 or greater}
 }
 \value{
-This function returns the largest interval of alpha values
+This function returns the vector (a1, a2) defined above, the endpoints of the set of alpha values for which x is a q'th quantile of the Extended Hypergeometric distribution.
 }
 \description{
-This function outputs the largest interval of alpha values within which the Extended Hypergeometric distribution function
-at x is >= q  and the complementary distribution function 1 - F(x-) is >= 1-q.
+This function outputs the largest interval of log-odds parameter values alpha for which
+the Extended Hypergeometric distribution function at x is >= q and the complementary distribution function 1 - F(x-) is >= 1-q.
 }
 \details{
-This function outputs the largest interval of alpha values within which the Extended Hypergeometric distribution
-function at x is >= q  and the complementary distribution function 1 - F(x-) is >= 1-q.
-This is the set of alpha values "compatible" with x being a q'th quantile for the Extended Hypergeometric.
+This function outputs the endpoints  a1, a2 defined by
+F(x, a1) = q      and    F(x-1, a2) = q
+where  F(z, a) = F(z, mA,mB,N, exp(a)) is the extended Hypergeometric distribution function.
+The interval of alpha values with these endpoints a1, a2 is viewed as the set of alpha values "compatible" with x being a q'th quantile for the Extended Hypergeometric.
 }
 \references{
-to be added
+
 }
 \author{
 Eric Slud
