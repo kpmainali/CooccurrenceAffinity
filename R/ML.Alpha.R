@@ -40,6 +40,7 @@
 #'
 #' @export
 
+
 ML.Alpha <-
   function(x, marg, bound=T, scal=log(2*marg[3]^2), lev=0.95, pval="Blaker") {
     ## output now includes intervals, MLE, Null expectation and p-value
