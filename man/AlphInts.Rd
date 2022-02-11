@@ -2,21 +2,27 @@
 % Please edit documentation in R/AlphInts.R
 \name{AlphInts}
 \alias{AlphInts}
-\title{Median interval, four confidence intervals, null expectation of cooccurrence count, p-value}
+\title{Median interval, four confidence intervals, null expectation of cooccurrence count, and p-value}
 \usage{
-AlphInts(x, marg, scal = log(2 * marg[3]^2), lev = 0.95)
+AlphInts(x, marg, scal = log(2 * marg[3]^2), lev = 0.95, pval = "Blaker")
 }
 \arguments{
-\item{x}{integer co-occurrence counts that should properly fall within the closed interval  \link{max(0,mA+mB-N), min(mA,mB)}}
+\item{x}{integer co-occurrence count that should properly fall within the closed interval  \link{max(0,mA+mB-N), min(mA,mB)}}
 
-\item{marg}{a 3-entry integer vector containing (mA,mB,N)}
+\item{marg}{a 3-entry integer vector (mA,mB,N) consisting of the first row and column totals and the table total for a 2x2 contingency table}
 
-\item{scal}{an integer parameter (default 10) that should fall somewhere between 2 and 10}
+\item{scal}{an integer parameter (default 2*N^2, capped at 10 within the function) that should be 2 or greater}
 
 \item{lev}{a confidence level, generally somewhere from 0.8 to 0.95  (default 0.95)}
+
+\item{pval}{a character string telling what kind of p-value to calculate. ‘Blaker’ or “midP’.
+If ‘pval=Blaker” (the default value), the p-value is calculated according to "Acceptability" function of Blaker (2000).
+If ‘pval=midP’, the p-value is calculated using the same idea as the midP confidence interval.}
 }
 \value{
-This function returns various types of intervals including confidence intervals
+A list of five components, the median interval MedianIntrvl and the four two-sided Confidence Intervals described above,
+two (CI.CP and CI.Blaker) conservative and two (CI.midQ and CI.midP) with coverage probabilities generally closer to the nominal level.
+Of these intervals CI.Blaker is the recommended conservative interval and CI.midQ the interval to use if coverage close to the nominal is desired.
 }
 \description{
 This function calculates
@@ -26,29 +32,34 @@ This function calculates
 (iv) the p-value for the observed co-occurrence count.
 }
 \details{
-This function calculates five intervals, three of them using EHypQuInt, one using EHypMidP,
-and one using AcceptAffCI. First ("Int1") is the interval of alpha values compatible with x as median for the
-Extended Hypergeometric distribution (with fixed margins and alpha);
-second ("Int2") an "exact" conservative test-based confidence intrval (in a sense analogous to the Clopper-Pearson (1934)
-confidence interval for unknown binomial proportion) for alpha based on data (x,mA,mB,N);
-third the Acceptability Confidence Interval ("Int3") of Blaker (2000)
-which is a better confidence interval than the CP-type interval "Int2" in the sense of being contained within "Int2"
-but still provably conservative.
-The fourth confidence interval ("Int4") is the one given in formula (2) above of the Introduction to this documentation,
-with endpoints obtained as the midpoints of quantile intervals respectively to the (1+lev)/2 and (1-lev)/2
-quantiles of the Extended Hypergeometric distribution; and the fifth ("Int5")
-which behaves very similarly to "Int4" is defined by the midP approach analogous to the midP confidence interval
-for binomial proportions (Agresti 2013, p.605), and is calculated from EHypMidP.
+This function calculates five intervals, three of them using EHypQuInt, one using EHypMidP, and one using AcceptAffCI.
+First ("MedianIntrvl") is the interval of alpha values compatible with x as median for the Extended Hypergeometric distribution (Harkness 1965)
+with fixed margins and alpha; second ("CI.CP") an "exact" conservative test-based 2-sided confidence interval (analogous to the Clopper-Pearson (1934)
+confidence interval for unknown binomial proportion) for alpha based on data (x,mA,mB,N); third the Acceptability Confidence Interval ("CI.Blaker")
+of Blaker (2000, Theorem 1) which is a better confidence interval than the CP-type interval "CI.CP" in the sense of being contained within "CI.CP"
+but still provably conservative, i.e., with coverage probability always at least as large as the nominal level.
+The fourth confidence interval ("CI.midQ") is the one given in formula (2) above of the Introduction to this documentation,
+with endpoints obtained as the midpoints of quantile intervals respectively to the (1+lev)/2 and (1-lev)/2 quantiles of the Extended Hypergeometric distribution;
+and the fifth ("CI.midP") which behaves very similarly to "CI.midQ" is defined by the midP approach analogous
+to the midP confidence interval for binomial proportions (Agresti 2013, p.605), and is calculated from EHypMidP.
 
-The first of these intervals provides quantification of the underlying discreteness of the
-Extended Hypergeometric and the impact of that discreteness on the estimation of alpha:
-Int1 is an interval that will contain the MLE alpha-hat, and the mid-point of that interval is another reasonable estimator of alpha from the data.
-The recommended (slightly conservative) confidence interval is Int3,
-while the very similar intervals Int4 and Int5 have coverage typically closer than
-Int2 or Int3 to the nominal level f coverage, at the cost of occasionally under-covering by as much as 0.04 or 0.05 for confidence levels 0.90 or 0.95.
+The first of these intervals quantifies the underlying discreteness of the Extended Hypergeometric and its impact on the estimation of alpha.
+MedianIntrvl is an interval that will contain the MLE alpha-hat, and the mid-point of that interval is another reasonable estimator of alpha from the data.
+The recommended (slightly conservative) confidence interval is CI.Blaker, while the very similar intervals CI.midQ and CI.midP have
+coverage generally closer than CI.CP or CI.Blaker to the nominal level of coverage, at the cost of occasionally under-covering
+by as much as 0.04 or 0.05 for confidence levels 0.90 or 0.95. The comparison among intervals, and different possible goals that CIs of
+conservative or close-to-nominal coverage can serve, are similar to those compared by  Brown et al. (2001) for interval estimation of an unknown binomial proportion.
+
+Two other output list components are computed. First is Null.Exp, the expected co-occurrence count under the null (hypergeometric, corresponding to alpha=0)
+distribution, and second is the two-sided p-value for the equal-tailed test of the null hypothesis alpha=0. This p-value is calculated when pval="Blaker"
+according to Blaker's (2000) "Acceptability" function; if the input parameter pval is anything else, the p-value is calculated using the same idea as the midP confidence interval.
 }
 \references{
-to be added
+Agresti, A. (2013) Categorical Data Analysis, 3rd edition, Wiley.
+Blaker, H. (2000), “Confidence curves and improved exact confidence intervals for discrete distributions", Canadian Journal of Statistics 28, 783-798.
+Brown, L., T. Cai, and A. DasGupta (2001), “Interval Estimation for a Binomial Proportion,” Statistical Science, 16, 101–117.
+Clopper, C., and E. Pearson (1934), “The Use of Confidence or Fiducial Limits Illustrated in the Case of the Binomial,” Biometrika, 26, 404–413.
+Harkness, W. (1965), “Properties of the extended hypergeometric distribution“, Annals of Mathematical Statistics, 36, 938-945.
 }
 \author{
 Eric Slud
