@@ -2,7 +2,7 @@
 % Please edit documentation in R/AlphInts.R
 \name{AlphInts}
 \alias{AlphInts}
-\title{Five intervals, three using EHypQuInt(), one using EHypMidP(), and one using AcceptAffCI()}
+\title{Median interval, four confidence intervals, null expectation of cooccurrence count, p-value}
 \usage{
 AlphInts(x, marg, scal = log(2 * marg[3]^2), lev = 0.95)
 }
@@ -19,8 +19,11 @@ AlphInts(x, marg, scal = log(2 * marg[3]^2), lev = 0.95)
 This function returns various types of intervals including confidence intervals
 }
 \description{
-This function calculates five intervals, one of them should be interpreted as an interval of alpha that is inevitable in discrete data.
-The other intervals are various types of Confidence Intervals.
+This function calculates
+(i) MedianIntrvl, the interval of alpha values for which the co-occurrence count is a median,
+(ii) four Confidence Intervals, two using EHypQuInt(), one using EHypMidP(), and one using AcceptAffCI(),
+(iii) the Expected Co-occurrence count under the Null distibution, and
+(iv) the p-value for the observed co-occurrence count.
 }
 \details{
 This function calculates five intervals, three of them using EHypQuInt, one using EHypMidP,
