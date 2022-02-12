@@ -4,12 +4,12 @@
 \alias{EHypMidP}
 \title{Quantile of the Extended Hypergeometric dstribution approximed by the midP distribution function}
 \usage{
-EHypMidP(x, marg, lev)
+EHypMidP(marg, x, lev)
 }
 \arguments{
-\item{x}{integer co-occurrence count that should properly fall within the closed interval from  max(0,mA+mB,N) to  min(mA,mB)}
-
 \item{marg}{a 3-entry integer vector (mA,mB,N) consisting of the first row and column totals and the table total for a 2x2 contingency table}
+
+\item{x}{integer co-occurrence count that should properly fall within the closed interval from  max(0,mA+mB,N) to  min(mA,mB)}
 
 \item{lev}{a confidence level, generally somewhere from 0.8 to 0.95  (default 0.95)}
 }
