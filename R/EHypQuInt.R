@@ -24,7 +24,7 @@
 
 
 EHypQuInt <-
-  function(x, marg, q, scal=log(2*marg[3]^2)) {
+  function(marg, x, q, scal=log(2*marg[3]^2)) {
     #  marg = c(mA, mB, N),
     # x an observed co-occurrence count, q the desired quantile
     require(BiasedUrn)
