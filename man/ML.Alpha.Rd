@@ -10,7 +10,7 @@ ML.Alpha(
   bound = T,
   scal = log(2 * marg[3]^2),
   lev = 0.95,
-  pval = "Blaker"
+  pvalType = "Blaker"
 )
 }
 \arguments{
@@ -18,15 +18,15 @@ ML.Alpha(
 
 \item{marg}{a 3-entry integer vector (mA,mB,N) consisting of the first row and column totals and the table total for a 2x2 contingency table}
 
-\item{bound}{a boolean parameter which when TRUE replaces the MLE of +/- infinity, applicable when x is respectively at the upper extreme  min(mA,mB)
-or the lower extreme  max(mA+mB-N,0) of its possible range, by a finite value with absolute value upper-bounding the value of
+\item{bound}{a boolean parameter which when TRUE replaces the MLE of "+/-Infinity", applicable when x is respectively at the upper extreme min(mA,mB)
+or the lower extreme max(mA+mB-N,0) of its possible range, by a finite value with absolute value upper-bounding the value of
 MLEs attainable for values of x not equal to its extremes}
 
 \item{scal}{an integer parameter (default 2*N^2, capped at 10 within the function) that should be 2 or greater}
 
 \item{lev}{a confidence level, generally somewhere from 0.8 to 0.95  (default 0.95)}
 
-\item{pval}{a character string telling what kind of p-value to calculate. ‘Blaker’ or “midP’.
+\item{pvalType}{a character string telling what kind of p-value to calculate. ‘Blaker’ or “midP’.
 If ‘pval=Blaker” (the default value), the p-value is calculated according to "Acceptability" function of Blaker (2000).
 If ‘pval=midP’, the p-value is calculated using the same idea as the midP confidence interval.}
 }

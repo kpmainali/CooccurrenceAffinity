@@ -4,7 +4,7 @@
 \alias{AlphInts}
 \title{Median interval, four confidence intervals, null expectation of cooccurrence count, and p-value}
 \usage{
-AlphInts(x, marg, scal = log(2 * marg[3]^2), lev = 0.95, pval = "Blaker")
+AlphInts(x, marg, scal = log(2 * marg[3]^2), lev = 0.95, pvalType = "Blaker")
 }
 \arguments{
 \item{x}{integer co-occurrence count that should properly fall within the closed interval  \link{max(0,mA+mB-N), min(mA,mB)}}
@@ -15,9 +15,9 @@ AlphInts(x, marg, scal = log(2 * marg[3]^2), lev = 0.95, pval = "Blaker")
 
 \item{lev}{a confidence level, generally somewhere from 0.8 to 0.95  (default 0.95)}
 
-\item{pval}{a character string telling what kind of p-value to calculate. ‘Blaker’ or “midP’.
-If ‘pval=Blaker” (the default value), the p-value is calculated according to "Acceptability" function of Blaker (2000).
-If ‘pval=midP’, the p-value is calculated using the same idea as the midP confidence interval.}
+\item{pvalType}{a character string telling what kind of p-value to calculate. ‘Blaker’ or “midP’.
+If ‘pvalType=Blaker” (the default value), the p-value is calculated according to "Acceptability" function of Blaker (2000).
+If ‘pvalType=midP’, the p-value is calculated using the same idea as the midP confidence interval.}
 }
 \value{
 A list of five components, the median interval MedianIntrvl and the four two-sided Confidence Intervals described above,

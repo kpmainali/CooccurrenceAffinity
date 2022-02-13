@@ -37,6 +37,8 @@ CovrgPlot <-
     ## step 0 the vector of alpha values to use as evaluation points
     require(BiasedUrn)
     mA=marg[1]; mB=marg[2]; N=marg[3]
+    if(length(intersect(c(mA,mB), c(0,N))))
+      return("Degenerate co-occurrence distribution!")
     xrng = c(max(0, mA+mB-N), min(mA,mB))
     xn = xrng[2]-xrng[1]+1
     avec0L = avec0U = numeric(xn)
@@ -44,8 +46,8 @@ CovrgPlot <-
     avec0U[1] = MinX.Int(marg, scal=scal, lev=lev)[2]
     avec0L[xn] = MinX.Int(marg, scal=scal, lev=lev)[1]
     for(x in 2:(xn-1)) {
-      avec0L[x] = EHypQuInt(marg, x+xrng[1]-1, (1+lev)/2, scal=scal)[1]
-      avec0U[x] = EHypQuInt(marg, x+xrng[1]-1, (1-lev)/2, scal=scal)[1] }
+      avec0L[x] = EHypQuInt(x+xrng[1]-1, marg, (1+lev)/2, scal=scal)[1]
+      avec0U[x] = EHypQuInt(x+xrng[1]-1, marg, (1-lev)/2, scal=scal)[1] }
     avec = sort(union(round(avec0L,4), round(avec0U,4)))
     ## add at least intpts extra equally spaced points between all the points
     avec = bvec = avec[abs(avec)<alim+0.5]
@@ -58,8 +60,8 @@ CovrgPlot <-
     minx = xrng[1]-1
     for(k in 2:(xn-1)) {
       tmp = AlphInts(k+minx,marg,scal=scal, lev=lev)
-      arrCI[k,,] = rbind(tmp$Int2, tmp$Int3,
-                         tmp$Int4, tmp$Int5) }
+      arrCI[k,,] = rbind(tmp$CI.CP, tmp$CI.Blaker,
+                         tmp$CI.midQ, tmp$CI.midP) }
     ## special case for X = xrng[1] or xrng[2]
     arrCI[1,,] = rep(1,4) %o% MinX.Int(marg, scal=scal, lev=(1+lev)/2)
     arrCI[xn,,] = rep(1,4) %o% MaxX.Int(marg, scal=scal, lev=(1+lev)/2)
@@ -81,5 +83,4 @@ CovrgPlot <-
                                               "Consrv.Accept","MidQ.Exact", "MidP.Exact"),
            lty=1:2, lwd=1.6, col=colors)
     abline(h=lev, col="brown", lwd=2, lty=5)
-    list(covPrb=covPrb, arrCI=arrCI, avec=avec)
-  }
+    list(covPrb=covPrb, arrCI=arrCI, avec=avec)}

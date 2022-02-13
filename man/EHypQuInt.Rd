@@ -4,12 +4,12 @@
 \alias{EHypQuInt}
 \title{Interval of alpha values for which X is a specified q'th quantile}
 \usage{
-EHypQuInt(marg, x, q, scal = log(2 * marg[3]^2))
+EHypQuInt(x, marg, q, scal = log(2 * marg[3]^2))
 }
 \arguments{
-\item{marg}{a 3-entry integer vector (mA,mB,N) consisting of the first row and column totals and the table total for a 2x2 contingency table}
-
 \item{x}{integer co-occurrence count that should properly fall within the closed interval from  max(0,mA+mB-N) to  min(mA,mB)}
+
+\item{marg}{a 3-entry integer vector (mA,mB,N) consisting of the first row and column totals and the table total for a 2x2 contingency table}
 
 \item{q}{a quantile falling strictly between 0 and 1}
 
@@ -24,8 +24,11 @@ the Extended Hypergeometric distribution function at x is >= q and the complemen
 }
 \details{
 This function outputs the endpoints  a1, a2 defined by
+
 F(x, a1) = q      and    F(x-1, a2) = q
+
 where  F(z, a) = F(z, mA,mB,N, exp(a)) is the extended Hypergeometric distribution function.
+
 The interval of alpha values with these endpoints a1, a2 is viewed as the set of alpha values "compatible" with x being a q'th quantile for the Extended Hypergeometric.
 }
 \references{

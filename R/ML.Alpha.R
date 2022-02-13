@@ -13,12 +13,12 @@
 #'
 #' @param x integer co-occurrence count that should properly fall within the closed interval max(0,mA+mB-N), min(mA,mB)
 #' @param marg a 3-entry integer vector (mA,mB,N) consisting of the first row and column totals and the table total for a 2x2 contingency table
-#' @param bound a boolean parameter which when TRUE replaces the MLE of +/- infinity, applicable when x is respectively at the upper extreme  min(mA,mB)
-#' or the lower extreme  max(mA+mB-N,0) of its possible range, by a finite value with absolute value upper-bounding the value of
+#' @param bound a boolean parameter which when TRUE replaces the MLE of "+/-Infinity", applicable when x is respectively at the upper extreme min(mA,mB)
+#' or the lower extreme max(mA+mB-N,0) of its possible range, by a finite value with absolute value upper-bounding the value of
 #' MLEs attainable for values of x not equal to its extremes
 #' @param scal an integer parameter (default 2*N^2, capped at 10 within the function) that should be 2 or greater
 #' @param lev a confidence level, generally somewhere from 0.8 to 0.95  (default 0.95)
-#' @param pval a character string telling what kind of p-value to calculate. ‘Blaker’ or “midP’.
+#' @param pvalType a character string telling what kind of p-value to calculate. ‘Blaker’ or “midP’.
 #' If ‘pval=Blaker” (the default value), the p-value is calculated according to "Acceptability" function of Blaker (2000).
 #' If ‘pval=midP’, the p-value is calculated using the same idea as the midP confidence interval.
 #'
@@ -42,7 +42,7 @@
 
 
 ML.Alpha <-
-  function(x, marg, bound=T, scal=log(2*marg[3]^2), lev=0.95, pval="Blaker") {
+  function( x, marg, bound=T, scal=log(2*marg[3]^2), lev=0.95, pvalType="Blaker") {
     ## output now includes intervals, MLE, Null expectation and p-value
     require(BiasedUrn)
     mA = marg[1]; mB = marg[2]; N = marg[3]
@@ -52,7 +52,7 @@ ML.Alpha <-
     ## cap scal at 10 to avoid pFNCHypergeo error
     scal = min(scal,10)
     upbd = if(bound) log(scal) else Inf
-    ModInts = AlphInts(x, marg, lev=lev, scal=scal, pval=pval)
+    ModInts = AlphInts(x, marg, lev=lev, scal=scal, pvalType=pvalType)
     for(k in 1:3) ModInts[[k]] = pmax(-upbd, pmin(upbd, ModInts[[k]]))
     tmp = optimize( function(t) log(dFNCHypergeo(x,mA,N-mA,mB,exp(t))),
                     ModInts[[1]]+c(-1,1), maximum=T)
@@ -61,7 +61,7 @@ ML.Alpha <-
     ###    and two ConfInts (Int2, Int3 from AlphInts)
     list(est = max(-upbd,min(upbd,tmp$max)), LLK = -tmp$obj,
          Flag = (ModInts[[1]][1] <= tmp$max & ModInts[[1]][2] >= tmp$max),
-         MedianIntrv = ModInts[[1]],
+         MedianIntrvl = ModInts[[1]],
          lev = lev, CI.CP = ModInts[[2]], CI.Blaker = ModInts[[3]],
          CI.midQ = ModInts[[4]], CI.midP = ModInts[[5]],
          Null.Exp = mA*mB/N, pval = ModInts$pval) }
