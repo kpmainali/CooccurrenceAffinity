@@ -33,9 +33,9 @@
 #' @param marg a 3-entry integer vector (mA,mB,N) consisting of the first row and column totals and the table total for a 2x2 contingency table
 #' @param scal an integer parameter (default 2*N^2, capped at 10 within the function) that should be 2 or greater
 #' @param lev a confidence level, generally somewhere from 0.8 to 0.95  (default 0.95)
-#' @param pval a character string telling what kind of p-value to calculate. ‘Blaker’ or “midP’.
-#' If ‘pval=Blaker” (the default value), the p-value is calculated according to "Acceptability" function of Blaker (2000).
-#' If ‘pval=midP’, the p-value is calculated using the same idea as the midP confidence interval.
+#' @param pvalType a character string telling what kind of p-value to calculate. ‘Blaker’ or “midP’.
+#' If ‘pvalType=Blaker” (the default value), the p-value is calculated according to "Acceptability" function of Blaker (2000).
+#' If ‘pvalType=midP’, the p-value is calculated using the same idea as the midP confidence interval.
 #'
 #' @return A list of five components, the median interval MedianIntrvl and the four two-sided Confidence Intervals described above,
 #' two (CI.CP and CI.Blaker) conservative and two (CI.midQ and CI.midP) with coverage probabilities generally closer to the nominal level.
@@ -60,7 +60,7 @@
 #' @export
 
 AlphInts <-
-  function(x, marg, scal=log(2*marg[3]^2), lev=0.95, pval="Blaker") {
+  function(x, marg, scal=log(2*marg[3]^2), lev=0.95, pvalType="Blaker") {
     # function to calculate intervals for alpha = log(odds)  values
     # p-val either from Baker or midP CI
     # Interval 1 = MedianIntrvl =   EHypQuInt interval for q=0.5
@@ -76,16 +76,15 @@ AlphInts <-
       return("Degenerate co-occurrence distribution!")
     scal = min(scal,10)
     alph = 1-lev
-    Int2 = c(EHypQuInt(marg, x, (1+lev)/2)[1],
-             EHypQuInt(marg, x, (1-lev)/2)[2])
-    Int4 = c(mean(EHypQuInt(marg, x, (1+lev)/2)),
-             mean(EHypQuInt(marg, x, (1-lev)/2)))
-    Int5 = EHypMidP(marg,x,lev)
-    list(MedianIntrvl = EHypQuInt(marg, x, 0.5),
+    Int2 = c(EHypQuInt(x, marg, (1+lev)/2)[1],
+             EHypQuInt(x, marg, (1-lev)/2)[2])
+    Int4 = c(mean(EHypQuInt(x, marg, (1+lev)/2)),
+             mean(EHypQuInt(x, marg, (1-lev)/2)))
+    Int5 = EHypMidP(x, marg,lev)
+    list(MedianIntrvl = EHypQuInt(x,marg, 0.5),
          CI.CP = Int2, CI.Blaker = AcceptAffCI(x,marg,lev, Int2),
          CI.midQ = Int4, CI.midP = if(is.na(sum(Int5))) Int4 else Int5,
          Null.Exp = mA*mB/N, pval = if(pval=="Blaker")
            AcceptAffin(x,marg,0) else {
              pr = phyper(x,mA,N-mA,mB)+phyper(x-1,mA,N-mA,mB)
-             min(pr,2-pr) })
-  }
+             min(pr,2-pr) }) }
