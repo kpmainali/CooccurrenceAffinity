@@ -24,7 +24,7 @@ which (as we will see below) has coverage much closer to its nominal level of 90
 
 Two other confidence intervals for alpha are calculated in the package functions AlphaInts() and ML.Alpha(). One is another conservative confidence interval based on theoretical results of Blaker (2000) (that is, an interval whose coverage probability is probably at least as large as the nominal  confidence level) using the so-called "Acceptability Function" in that paper's Theorem 1. This confidence interval also provably lies within the first interval (1) above, so nothing is long in using it in preference to (1) except that it is somewhat less direct to explain. The last confidence interval we calculate is similar in performance to (2) defined above, but is close in spirit to the "mid-P" confidence interval defined in standard references like Agresti (2013) for the unknown probability of success in Binomial triala. This interval expressed for the Extended Hypergeometric distribution is
 
-    ( b(x,mA,mB,N,0.95), b(x,mA,mB,N,0.05) )                               (3)
+    ( b(x,mA,mB,N,0.95), b(x,mA,mB,N,0.05) )                            (3)
    
     where b = b(x,mA,mB,N, gamma)   solves
     (F(x,mA,mB,N,exp(b))+F(x-1,mA,mB,N,exp(b)))/2 = gamma
@@ -102,16 +102,16 @@ To illustrate the relative sizes of the median interval and conﬁdence interval
 CIs = array(0, c(49,5), dimnames=list(NULL,c("MedLo","MedHi","MLE","CIlo","CIhi")))
 
 for(x in 1:49) {
-    tmp = AlphInts(x,c(50,70,150), lev=0.9)
-    CIs[x,] = c(tmp$Int1, ML.Alpha(x,c(50,70,150))$est, tmp$Int3)
+ tmp = AlphInts(x,c(50,70,150), lev=0.9)
+ CIs[x,] = c(tmp$MedianIntrvl, ML.Alpha(x,c(50,70,150))$est, tmp$CI.midP)
 }
 
 plot(1:49,rep(0,49), ylim=c(-5,5), xlab="X value", ylab="alpha",
-     main=paste0("MLE, Median Interval and 90% CI for alpha","\n",
-                 "for all X’s with mA=50, mB=70, N=150"), type="n")
+   main=paste0("MLE, Median Interval and 90% CI for alpha","\n",
+               "for all X’s with mA=50, mB=70, N=150"), type="n")
 for(i in 1:49) {
-    segments(i,CIs[i,4],i,CIs[i,5], col="blue", lwd=2)
-    segments(i,CIs[i,1],i,CIs[i,2], col="red", lwd=4) 
+  segments(i,CIs[i,4],i,CIs[i,5], col="blue", lwd=2)
+  segments(i,CIs[i,1],i,CIs[i,2], col="red", lwd=4) 
 }
 points(1:49,CIs[,3], pch=20) 
 legend(10,3, legend=c("CI interval","med interval","MLE"), pch=c(NA,NA,20), lwd=c(2,4,NA), col=c("blue","red","black"))
