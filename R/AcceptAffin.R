@@ -5,7 +5,7 @@
 #' @details  This function calculates the "Acceptability Function" of Blaker (2000, Thm.1, p.785) for the log-odds parameter alpha
 #' in the Extended Hypergeometric distribution, a function from which the "Acceptability Interval" is calculated by another CooccurrenceAffinity package function AcceptAffCI().
 #'
-#' @param x integer co-occurrence count that should properly fall within the closed interval max(0,mA+mB-N), min(mA,mB)
+#' @param x integer co-occurrence count that should properly fall within the closed interval \[max(0,mA+mB-N), min(mA,mB)\]
 #' @param marg a 3-entry integer vector (mA,mB,N) consisting of the first row and column totals and the table total for a 2x2 contingency table
 #' @param alp a vector of (one or more) real-valued "alpha" values, where alpha  is the log-odds parameter in the Extended Hypergeometric distribution
 #'

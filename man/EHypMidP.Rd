@@ -7,7 +7,7 @@
 EHypMidP(x, marg, lev)
 }
 \arguments{
-\item{x}{integer co-occurrence count that should properly fall within the closed interval from  max(0,mA+mB,N) to  min(mA,mB)}
+\item{x}{integer co-occurrence count that should properly fall within the closed interval [max(0,mA+mB-N), min(mA,mB)]}
 
 \item{marg}{a 3-entry integer vector (mA,mB,N) consisting of the first row and column totals and the table total for a 2x2 contingency table}
 

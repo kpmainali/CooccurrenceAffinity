@@ -12,7 +12,7 @@
 #' The interval of alpha values with these endpoints a1, a2 is viewed as the set of alpha values "compatible" with x being a q'th quantile for the Extended Hypergeometric.
 
 #'
-#' @param x integer co-occurrence count that should properly fall within the closed interval from  max(0,mA+mB-N) to  min(mA,mB)
+#' @param x integer co-occurrence count that should properly fall within the closed interval \[max(0,mA+mB-N), min(mA,mB)\]
 #' @param marg a 3-entry integer vector (mA,mB,N) consisting of the first row and column totals and the table total for a 2x2 contingency table
 #' @param q a quantile falling strictly between 0 and 1
 #' @param scal an integer parameter (default 2*N^2, capped at 10 within the function) that should be 2 or greater

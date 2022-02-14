@@ -6,7 +6,7 @@
 #' @details  This function does the analogous calculation to that of CI.CP, but with the Extended Hypergeometric distribution
 #' function F(z, alpha) = F(z,mA,mB,N, exp(alpha)) replaced by (F(z,alpha) + F(z-1,alpha))/2.
 #'
-#' @param x integer co-occurrence count that should properly fall within the closed interval from  max(0,mA+mB,N) to  min(mA,mB)
+#' @param x integer co-occurrence count that should properly fall within the closed interval \[max(0,mA+mB-N), min(mA,mB)\]
 #' @param marg a 3-entry integer vector (mA,mB,N) consisting of the first row and column totals and the table total for a 2x2 contingency table
 #' @param lev a confidence level, generally somewhere from 0.8 to 0.95  (default 0.95)
 #'

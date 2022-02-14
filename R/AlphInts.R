@@ -29,7 +29,7 @@
 #' according to Blaker's (2000) "Acceptability" function; if the input parameter pval is anything else, the p-value is calculated using the same idea as the midP confidence interval.
 
 #'
-#' @param x integer co-occurrence count that should properly fall within the closed interval  [max(0,mA+mB-N), min(mA,mB)]
+#' @param x integer co-occurrence count that should properly fall within the closed interval \[max(0,mA+mB-N), min(mA,mB)\]
 #' @param marg a 3-entry integer vector (mA,mB,N) consisting of the first row and column totals and the table total for a 2x2 contingency table
 #' @param scal an integer parameter (default 2*N^2, capped at 10 within the function) that should be 2 or greater
 #' @param lev a confidence level, generally somewhere from 0.8 to 0.95  (default 0.95)

@@ -8,7 +8,7 @@
 #' i.e., of having coverage probability under the Extended Hypergeometric (mA,mB,N, alpha) distribution at least as large as the nominal level;
 #' and it is larger when the confidence level is larger.
 #'
-#' @param x integer co-occurrence count that should properly fall within the closed interval from max(0,mA+mB,N) to min(mA,mB)
+#' @param x integer co-occurrence count that should properly fall within the closed interval \[max(0,mA+mB-N), min(mA,mB)\]
 #' @param marg a 3-entry integer vector (mA,mB,N) consisting of the first row and column totals and the table total for a 2x2 contingency table
 #' @param lev a confidence level, generally somewhere from 0.8 to 0.95  (default 0.95)
 #' @param CPint the exact conservative ("Clopper-Pearson-type") interval CI.CP calculated in the function AlphInts()

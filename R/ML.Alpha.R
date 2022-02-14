@@ -11,7 +11,7 @@
 #' based on a Bayesian argument. The bound substituted for the Infinite endpoints is provably larger than the largest value
 #' the MLE can take whenever x avoids the enpoints max(mA+mB-N,0) and min(mA,mB) of its logical range. The recommended confidence interval for alpha is CI2.
 #'
-#' @param x integer co-occurrence count that should properly fall within the closed interval max(0,mA+mB-N), min(mA,mB)
+#' @param x integer co-occurrence count that should properly fall within the closed interval \[max(0,mA+mB-N), min(mA,mB)\]
 #' @param marg a 3-entry integer vector (mA,mB,N) consisting of the first row and column totals and the table total for a 2x2 contingency table
 #' @param bound a boolean parameter which when TRUE replaces the MLE of "+/-Infinity", applicable when x is respectively at the upper extreme min(mA,mB)
 #' or the lower extreme max(mA+mB-N,0) of its possible range, by a finite value with absolute value upper-bounding the value of
