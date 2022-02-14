@@ -20,9 +20,13 @@ If ‘pvalType=Blaker” (the default value), the p-value is calculated accordin
 If ‘pvalType=midP’, the p-value is calculated using the same idea as the midP confidence interval.}
 }
 \value{
-A list of five components, the median interval MedianIntrvl and the four two-sided Confidence Intervals described above,
-two (CI.CP and CI.Blaker) conservative and two (CI.midQ and CI.midP) with coverage probabilities generally closer to the nominal level.
-Of these intervals CI.Blaker is the recommended conservative interval and CI.midQ the interval to use if coverage close to the nominal is desired.
+A list of seven components: the median interval MedianIntrvl; the four two-sided Confidence Intervals described above,
+two (CI.CP and CI.Blaker) conservative and two (CI.midQ and CI.midP) with coverage probabilities generally closer to the nominal level;
+the null expectation Null.Exp of the co-occurrence count associated with alpha=0; and pval, the two-sided p-value for the hypothesis test of alpha=0,
+calculated by the method selectied, which is the Blaker acceptability-function method if pvalType="Blaker" and otherwise
+the "midP" p-value associated with the midP confidence-interval type.
+
+Of the four Confidence intervals produced, CI.Blaker is the recommended conservative interval and CI.midP the interval to use if coverage close to the nominal is desired.
 }
 \description{
 This function calculates

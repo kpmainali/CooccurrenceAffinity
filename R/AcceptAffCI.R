@@ -45,4 +45,4 @@ AcceptAffCI <-
       AcceptAffin(x,marg,alph)-1+lev, c(CPint[1],ini.est))[1]
     if(x < maxx) upper = Bisect(function(alph)
       -AcceptAffin(x,marg,alph)+1-lev, c(ini.est, CPint[2]))[1]
-    c(lower,upper)  }
+    as.numeric(c(lower,upper))  }

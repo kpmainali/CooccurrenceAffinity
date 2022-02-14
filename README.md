@@ -73,27 +73,42 @@ install_github("kpmainali/CooccurrenceAffinity")
 We compute with a running example X = 35, m A = 50, m B = 70, N = 150. The syntax and results of the function calls for ﬁguring the MLE α ˆ , the median interval, and the 90% two-sided equal-tailed conﬁdence intervals for α, are as follows:
 
 ```
-> AlphInts(35,c(50,70,150), lev=0.9) 
+
+> AlphInts(35,c(50,70,150), lev=0.9)    # pvalType="Blaker" by default
 Loading required package: BiasedUrn 
 
-$Int1
-[1] 1.382585 1.520007       ## median interval 
+$MedianIntrvl
+[1] 1.382585 1.520007              ## median interval
 
-$Int2
-[1] 0.7906624 2.1474812     ## conservative interval (4) 
+$CI.CP
+[1] 0.7906624 2.1474812            ## conservative Clopper-Pearson type interval
 
-$Int3
-[1] 0.8557288 2.0733506     ## modified interval (5)
+$CI.Blaker
+[1] 0.8089504 2.1366923            ## conservative Blaker-type interval
 
-> ML.Alpha(35,c(50,70,150), lev=0.9)[1:3] 
-$est 
-[1] 1.455814                ## MLE
+$CI.midQ
+[1] 0.8557288 2.0733506            ## midQ interval
 
-$LLK                        ## logLik
-[1] 1.912295 
+$CI.midP
+[1] 0.8458258 2.0844171            ## minP interval
 
-$Flag                       ## indicator that MLE falls in the median interval
+$Null.Exp
+[1] 23.33333                       ## expected X when alpha=0
+
+$pval                              ## p-value for testing H0: alpha=0
+[1] 6.081296e-05                   ## by Blaker method in this example
+
+
+> ML.Alpha(35, c(50,70,150), lev=0.9)  
+$est                               
+[1] 1.455814                       ## Maximum Likelihood Estimate (MLE) of alpha
+
+$LLK                               ## maximized log-likelihood for data at MLE
+[1] 1.912295
+
+$Flag                              ## indicates MLE  falls in MedianIntrvl
 [1] TRUE
+                                   ## later output arguments same as AlphInts()
 ```
 
 To illustrate the relative sizes of the median interval and conﬁdence interval and their positioning with respect to MLE, we supply code to plot the point and interval estimates for X values from 1 to 49 on a single graph, in Figure 1. The graph is chopped oﬀ at α = ±5 for clarity. The maximum absolute value of log(2N^2) in this instance is 10.7. 

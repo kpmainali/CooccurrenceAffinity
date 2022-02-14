@@ -27,12 +27,12 @@ MLEs attainable for values of x not equal to its extremes}
 \item{lev}{a confidence level, generally somewhere from 0.8 to 0.95  (default 0.95)}
 
 \item{pvalType}{a character string telling what kind of p-value to calculate. ‘Blaker’ or “midP’.
-If ‘pval=Blaker” (the default value), the p-value is calculated according to "Acceptability" function of Blaker (2000).
-If ‘pval=midP’, the p-value is calculated using the same idea as the midP confidence interval.}
+If ‘pvalType=Blaker” (the default value), the p-value is calculated according to "Acceptability" function of Blaker (2000).
+If ‘pvalType=midP’, the p-value is calculated using the same idea as the midP confidence interval.}
 }
 \value{
 This function returns maximum likelihood estimate of alpha, the interval-endpoints of alpha values for which x is a median,
-and four confidence intervals for alpha, described in detail under documentatuion for AlphInts().
+and four confidence intervals for alpha, described in detail under documentation for AlphInts().
 In addition there are two output list-components for the null-distribution expected co-occurrence count and the p-value
 for the test of the null hypothesis alpha=0, calculated as in AlphInts.
 }

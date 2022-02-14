@@ -7,22 +7,23 @@
 Bisect(ffnc, intrv, tol = 1e-08)
 }
 \arguments{
-\item{x}{nteger co-occurrence counts that should properly fall within the closed interval  \link{max(0,mA+mB-N), min(mA,mB)}}
+\item{ffnc}{an increasing function of a single scalar argument}
 
-\item{marg}{a 3-entry integer vector containing (mA,mB,N)}
+\item{intrv}{an interval over which the root of ffnc is sought}
 
-\item{scal}{an integer parameter (default 10) that should fall somewhere between 2 and 10}
-
-\item{lev}{a confidence level, generally somewhere from 0.8 to 0.95  (default 0.95)}
+\item{tol}{a tolerance determining when the successive bisections of the interval within which the root will lie have become small enough to stop}
 }
 \value{
-This function returns
+This function returns a vector consisting of two numbers. The first named root is an estimate of the root x  solving ffnc(x) = 0, valid within an error of tol.
+The second output vector element named fval is the value of the function ffnc at root.
+It should be very close to 0 unless the function happens to jump from a value less than 0 to a value greater than 0 at  root.
 }
 \description{
-This function bisects...
+Find a root of a function by the method of Bisections
 }
 \details{
-This function bisects...
+This function finds the root of the increasing function ffnc over the scalar interval intrv by the Method of Bisections.
+The function must be increasing but need not be smooth, and it must have
 }
 \references{
 to be added
