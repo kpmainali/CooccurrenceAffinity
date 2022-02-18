@@ -2,8 +2,7 @@
 #'
 #' Find a root of a function by the method of Bisections
 #'
-#' @details   This function finds the root of the increasing function ffnc over the scalar interval intrv by the Method of Bisections.
-#' The function must be increasing but need not be smooth, and it must have
+#' @details   This function finds the root of the increasing function ffnc over the scalar interval intrv by the Method of Bisections. The function must be increasing but need not be smooth, and it must have a negative sign (value less than -tol) at the left endpoint of  intrv  and positive sign (value greater than tol) at the right endpoint. The method of Bisection is used in successive iterations to successively halve the width of the interval in which the root lies.
 #'
 #' @param ffnc an increasing function of a single scalar argument
 #' @param intrv an interval over which the root of ffnc is sought
@@ -18,7 +17,7 @@
 #' @references to be added
 #'
 #' @example
-#' to be added
+#' examples/Bisect_example.R
 #'
 #' @export
 
