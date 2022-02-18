@@ -58,6 +58,17 @@ Two other output list components are computed. First is Null.Exp, the expected c
 distribution, and second is the two-sided p-value for the equal-tailed test of the null hypothesis alpha=0. This p-value is calculated when pval="Blaker"
 according to Blaker's (2000) "Acceptability" function; if the input parameter pval is anything else, the p-value is calculated using the same idea as the midP confidence interval.
 }
+\examples{
+unlist(AlphInts(30,c(50,80,120), lev=0.9))
+
+AlphInts(30,c(50,80,120), lev=0.9)$CI.CP
+AlphInts(30,c(50,80,120), lev=0.9)$MedianIntrvl
+
+EHypMidP(30,c(50,80,120), 0.9)
+AlphInts(30,c(50,80,120), lev=0.9)$CI.midP
+# NB the third argument of AlphInts is "scal" if not named,
+#   so must use "lev=0.9" to define the confidence level.
+}
 \references{
 Agresti, A. (2013) Categorical Data Analysis, 3rd edition, Wiley.
 

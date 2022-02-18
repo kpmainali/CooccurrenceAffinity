@@ -28,6 +28,10 @@ to have three essential properties: it falls within the CI.CP confidence interva
 i.e., of having coverage probability under the Extended Hypergeometric (mA,mB,N, alpha) distribution at least as large as the nominal level;
 and it is larger when the confidence level is larger.
 }
+\examples{
+auxCP = AlphInts(30,c(50,80,120), lev=0.9)$CI.CP
+AcceptAffCI(30,c(50,80,120), 0.9, auxCP)
+}
 \references{
 Blaker, H. (2000), “Confidence curves and improved exact confidence intervals for discrete distributions", Canadian Journal of Statistics 28, 783-798.
 }
