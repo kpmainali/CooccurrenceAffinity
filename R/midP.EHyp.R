@@ -13,11 +13,10 @@
 #' @references
 #'
 #' @example
-#'
+#' to be added
 #'
 #' @export
 
 midP.EHyp <-
-  function(alp)  pFNCHypergeo(x,mA,N-mA,mB,exp(alp))-0.5*
-    dFNCHypergeo(x,mA,N-mA,mB,exp(alp))
+  function(alp)  pFNCHypergeo(x,mA,N-mA,mB,exp(alp))-0.5*dFNCHypergeo(x,mA,N-mA,mB,exp(alp))
 
