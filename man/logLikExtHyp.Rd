@@ -2,7 +2,7 @@
 % Please edit documentation in R/logLikExtHyp.R
 \name{logLikExtHyp}
 \alias{logLikExtHyp}
-\title{Repeat as stand-alone calculations of part of ML.Alpha()}
+\title{log of Extended Hypergeometric Likelihiood at (X, mA,mB,N, alpha)}
 \usage{
 logLikExtHyp(x, marg, alpha)
 }
@@ -10,18 +10,26 @@ logLikExtHyp(x, marg, alpha)
 \item{x}{integer co-occurrence count that should properly fall within the closed interval [max(0,mA+mB-N), min(mA,mB)]}
 
 \item{marg}{a 3-entry integer vector (mA,mB,N) consisting of the first row and column totals and the table total for a 2x2 contingency table}
+
+\item{alpha}{a real number, the log odds ratio or affinity parameter for the 2x2 contingency table}
 }
 \value{
-to be added
+scalar loglikelihood value
 }
 \description{
-This function calculates ... to be added
+This function calculates the logarithm of the Extended Hypergeometric likelihood at specified x and alpha, with marginal totals mA, mB, N fixed.
 }
 \details{
-to be added
+This is simply the logarithm of the Extended Hypergeometric (Harkness 1965) or Fisher noncentral Hypergeometric, as calculated by the R package BiasedUrn. The formula is  log(pFNCHypergeo(x,mA,N-mA,mB,exp(alpha))
+}
+\examples{
+require(BiasedUrn)
+c(logLikExtHyp(30,c(50,80,120),1),  log(dFNCHypergeo(30,50,70,80,exp(1))))
 }
 \references{
-to be added
+Fog, A. (2015), BiasedUrn: Biased Urn Model Distributions. R package version 1.07.
+
+Harkness, W. (1965), “Properties of the extended hypergeometric distribution“, Annals of Mathematical Statistics, 36, 938-945.
 }
 \author{
 Eric Slud
