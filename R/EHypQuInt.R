@@ -23,6 +23,9 @@
 #'
 #' @references
 #'
+#' @example
+#' examples/EHypQuInt_example.R
+#'
 #' @export
 
 

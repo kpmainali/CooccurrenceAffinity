@@ -27,6 +27,10 @@ function F(x) = F(x,mA,mB,N, exp(alpha)) replaced by (F(x) + F(x-1))/2.
 This function does the analogous calculation to that of CI.CP, but with the Extended Hypergeometric distribution
 function F(z, alpha) = F(z,mA,mB,N, exp(alpha)) replaced by (F(z,alpha) + F(z-1,alpha))/2.
 }
+\examples{
+EHypMidP(30,c(50,80,120), 0.9)
+AlphInts(30,c(50,80,120), lev=0.9)$CI.midP
+}
 \references{
 Agresti, A. (2013) Categorical Data Analysis, 3rd edition, Wiley.
 }

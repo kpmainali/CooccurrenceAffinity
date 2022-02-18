@@ -21,7 +21,7 @@
 #' Agresti, A. (2013) Categorical Data Analysis, 3rd edition, Wiley.
 #'
 #' @example
-#' to be added
+#' examples/EHypMidP_example.R
 #'
 #' @export
 

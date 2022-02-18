@@ -31,6 +31,13 @@ where  F(z, a) = F(z, mA,mB,N, exp(a)) is the extended Hypergeometric distributi
 
 The interval of alpha values with these endpoints a1, a2 is viewed as the set of alpha values "compatible" with x being a q'th quantile for the Extended Hypergeometric.
 }
+\examples{
+EHypQuInt(30,c(50,80,120), 0.95)
+EHypQuInt(30,c(50,80,120), 0.05)
+
+EHypQuInt(30,c(50,80,120), 0.5)
+AlphInts(30,c(50,80,120), lev=0.9)$MedianIntrvl
+}
 \references{
 
 }
