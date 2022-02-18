@@ -22,8 +22,10 @@ It should be very close to 0 unless the function happens to jump from a value le
 Find a root of a function by the method of Bisections
 }
 \details{
-This function finds the root of the increasing function ffnc over the scalar interval intrv by the Method of Bisections.
-The function must be increasing but need not be smooth, and it must have
+This function finds the root of the increasing function ffnc over the scalar interval intrv by the Method of Bisections. The function must be increasing but need not be smooth, and it must have a negative sign (value less than -tol) at the left endpoint of  intrv  and positive sign (value greater than tol) at the right endpoint. The method of Bisection is used in successive iterations to successively halve the width of the interval in which the root lies.
+}
+\examples{
+Bisect(function(x) x^2-1, c(0,2),1e-8)
 }
 \references{
 to be added
