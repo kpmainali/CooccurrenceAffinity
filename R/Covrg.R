@@ -1,14 +1,15 @@
-#' Repeat as stand-alone calculations of CovrgPlot()
+#' Coverage Probabilities for Confidence Intervals about alpha, for fixed true alpha
 #'
-#' This function calculates ... to be added
+#' This function calculates the coverage probability at the true value alpha of the four types of Cpnfidence Intervals (CI.CP, CI.Blaker, CI.midQ, CI.midP) computed in AlphInts().
 #'
-#' @details   to be added
+#' @details   See AlphInts() documentation for details of computation of the four confidence intervals CI.CP, CI.Blaker, CI.midQ, CI.midP. The confidence intervals are calculated for each x in the allowed range from max(mA+mB-N,0) to min(mA,mB), and the probability that X=x times the indicator of alph falling in each of them is summed.
 #'
 #' @param marg a 3-entry integer vector (mA,mB,N) consisting of the first row and column totals and the table total for a 2x2 contingency table
+#' @param alph True log-odds-ratio value alpha at which coverage probabilities (under Extended Hypergeometric with parameters mA,mB,N, exp(alp)) are to be calculated
 #' @param scal an integer parameter (default 2*N^2, capped at 10 within the function) that should be 2 or greater
-#' @param lev a confidence level, generally somewhere from 0.8 to 0.95  (default 0.95)
+#' @param lev a confidence level, generally somewhere from 0.8 to 0.95 (default 0.95)
 #'
-#' @return to be added
+#' @return A vector covPrb containing the coverage propbabilities for the four Confidence Intervals
 #'
 #' @author Eric Slud
 #'
@@ -16,7 +17,7 @@
 #' to be added
 #'
 #' @example
-#' to be added
+#' examples/Covrg_example.R
 #'
 #' @export
 
