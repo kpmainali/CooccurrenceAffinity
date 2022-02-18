@@ -21,7 +21,7 @@
 #' Blaker, H. (2000), “Confidence curves and improved exact confidence intervals for discrete distributions", Canadian Journal of Statistics 28, 783-798.
 #'
 #' @example
-#' to be added
+#' examples/AcceptAffCI_example.R
 #'
 #' @export
 
