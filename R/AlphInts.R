@@ -61,7 +61,7 @@
 #' Harkness, W. (1965), “Properties of the extended hypergeometric distribution“, Annals of Mathematical Statistics, 36, 938-945.
 #'
 #' @example
-#' to be added
+#' examples/AlphInts_example.R
 #'
 #' @export
 
