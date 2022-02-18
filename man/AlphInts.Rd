@@ -67,6 +67,8 @@ Brown, L., T. Cai, and A. DasGupta (2001), “Interval Estimation for a Binomial
 
 Clopper, C., and E. Pearson (1934), “The Use of Confidence or Fiducial Limits Illustrated in the Case of the Binomial,” Biometrika, 26, 404–413.
 
+Fog, A. (2015), BiasedUrn: Biased Urn Model Distributions. R package version 1.07.
+
 Harkness, W. (1965), “Properties of the extended hypergeometric distribution“, Annals of Mathematical Statistics, 36, 938-945.
 }
 \author{

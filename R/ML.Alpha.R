@@ -4,12 +4,7 @@
 #' for the log-odds parameter alpha in the Extended Hypergeometric distribution with fixed margins (mA,mB) and
 #' table-total N, which is the "log-affinity" index of co-occurrence championed in a paper by Mainali et al. (2022) as an index of co-occurrence-based similarity.
 #'
-#' @details   This function calculates the maximum likelihood estimate of the log-odds paramater alpha within the Extended Hypergeometric distribition (Harkness 1965)
-#' based on the count x and fixed table margins (mA,mB) and total N, which is the "affinity" index of co-occurrence championed in the paper of Mainali et al. (2022)
-#' as an index of cooccurrence-based similarity, along with the intervals computed in AlphInts, now called CI2 through CI5.
-#' The boolean "bound" parameter is an option to prevent the intervals containing alpha-estimates to extend to plus or minus infinity,
-#' based on a Bayesian argument. The bound substituted for the Infinite endpoints is provably larger than the largest value
-#' the MLE can take whenever x avoids the enpoints max(mA+mB-N,0) and min(mA,mB) of its logical range. The recommended confidence interval for alpha is CI2.
+#' @details   This function calculates the maximum likelihood estimate of the log-odds paramater alpha within the Extended Hypergeometric distribition (Harkness 1965) based on the count x and fixed table margins (mA,mB) and total N, which is the "affinity" index of co-occurrence championed in the paper of Mainali et al. (2022) as an index of cooccurrence-based similarity, along with the intervals computed in AlphInts, now called CI.CP, CI.Balker, CI.midQ and CI5.midP. The boolean "bound" parameter is an option to prevent the intervals containing alpha-estimates to extend to plus or minus infinity, based on a Bayesian argument. The bound substituted for the Infinite endpoints is provably larger than the largest value the MLE can take whenever x avoids the enpoints max(mA+mB-N,0) and min(mA,mB) of its logical range. The recommended confidence interval for alpha is CI.Blaker if a reliably conservative (over-large) coverage probability is desired, and CI.midP otherwise.
 #'
 #' @param x integer co-occurrence count that should properly fall within the closed interval \[max(0,mA+mB-N), min(mA,mB)\]
 #' @param marg a 3-entry integer vector (mA,mB,N) consisting of the first row and column totals and the table total for a 2x2 contingency table
@@ -30,13 +25,15 @@
 #' @author Eric Slud
 #'
 #' @references
+#' Fog, A. (2015), BiasedUrn: Biased Urn Model Distributions. R package version 1.07.
+#'
 #' Harkness, W. (1965), “Properties of the extended hypergeometric distribution“, Annals of Mathematical Statistics, 36, 938-945.
 #'
 #' Mainali, K., Slud, E., Singer, M. and Fagan, W. (2022), "A better index for analysis of co-occurrence and similarity", Science Advances, to appear.
 
 #'
 #' @example
-#' to be added
+#' examples/ML.Alpha_example.R
 #'
 #' @export
 
