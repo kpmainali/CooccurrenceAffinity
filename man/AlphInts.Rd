@@ -32,7 +32,7 @@ Of the four Confidence intervals produced, CI.Blaker is the recommended conserva
 This function calculates
 (i) MedianIntrvl, the interval of alpha values for which the co-occurrence count is a median,
 (ii) four Confidence Intervals, two using EHypQuInt(), one using EHypMidP(), and one using AcceptAffCI(),
-(iii) the Expected Co-occurrence count under the Null distibution, and
+(iii) the Expected Co-occurrence count under the Null distribution, and
 (iv) the p-value for the observed co-occurrence count.
 }
 \details{

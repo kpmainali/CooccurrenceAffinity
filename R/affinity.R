@@ -4,7 +4,6 @@
 #' using other functions of this package and returns several quantities in one main dataframe and (optionally) up to 11 square matrices.
 #' This function processes data using dataprep() function and then feeds the data to analytical pipeline which includes ML.Alpha() and AlphInts().
 #' The outputs of the function in the $all dataframe include the following:
-#'
 #' alpha_mle: maximum likelihood estimate of the log-odds parameter alpha in the Extended Hypergeometric distribution with fixed margins (mA,mB) and
 #' table-total N, which is the "log-affinity" index of co-occurrence championed in a paper by Mainali et al. (2022) as an index of co-occurrence-based similarity; computed in ML.Alpha()
 #'
@@ -65,27 +64,36 @@
 #' according to Blaker's (2000) "Acceptability" function; if the input parameter pvalType of AlphInts() is anything else,
 #' the p-value is calculated using the same idea as the midP confidence interval.
 #'
+#' ADDITIONAL ARGUMENTS can be supplied from ML.Alpha() and AlphInts().
 #'
 #'
-#' @param x integer co-occurrence count that should properly fall within the closed interval \[max(0,mA+mB-N), min(mA,mB)\]
-#' @param marg a 3-entry integer vector (mA,mB,N) consisting of the first row and column totals and the table total for a 2x2 contingency table
-#' @param bound a boolean parameter which when TRUE replaces the MLE of "+/-Infinity", applicable when x is respectively at the upper extreme min(mA,mB)
-#' or the lower extreme max(mA+mB-N,0) of its possible range, by a finite value with absolute value upper-bounding the value of
-#' MLEs attainable for values of x not equal to its extremes
-#' @param scal an integer parameter (default 2*N^2, capped at 10 within the function) that should be 2 or greater
-#' @param lev a confidence level, generally somewhere from 0.8 to 0.95  (default 0.95)
-#' @param pvalType a character string telling what kind of p-value to calculate. ‘Blaker’ or “midP’.
-#' If ‘pvalType=Blaker” (the default value), the p-value is calculated according to "Acceptability" function of Blaker (2000).
-#' If ‘pvalType=midP’, the p-value is calculated using the same idea as the midP confidence interval.
 #'
-#' @return This function returns maximum likelihood estimate of alpha, the interval-endpoints of alpha values for which x is a median,
-#' and four confidence intervals for alpha, described in detail under documentation for AlphInts().
-#' In addition there are two output list-components for the null-distribution expected co-occurrence count and the p-value
-#' for the test of the null hypothesis alpha=0, calculated as in AlphInts.
+#' @param data occurrence matrix (binary or abundance) in matrix or dataframe format
+#' @param row.or.col specify if the pairs of rows or columns are analyzed for affinity. 'row' or 'column'.
+#' @param which.row.or.col a vector of name or the number of row/column if a subset of the data is intended to be analyzed; optional argument with default of all rows/columns.
+#' @param datatype specify if the datatype is 'abundance' or 'binary'; optional argument with default 'binary'.
+#' @param threshold cutoff for converting an abundance data to binary; needed if datatype is 'abundance'
+#' @param class0.rule 'less.or.equal' or 'less'. 'less.or.equal' converts a threshold or lower values to zero and all the others to 1. 'less' converts a threshold and higher values to 1.
+#' @param sigPval acceptable rate of false positives or probability of rejecting the null hypothesis when it is true, commonly known as alpha in hypothesis testing
+#' @param sigdigit the number of decimals for rouding alpha mle, its intervals, expected cooccurence under the null, jaccard, sorensen and simpson indices
+#' @param squarematrix a vector of quantities so that a square matrix for each of them is generated on the top of the main long matrix of all outputs
 #'
-#' @author Eric Slud
+#'
+#' @return This function returns one main long dataframe ($all) with various outputs in columns (a list given under "details") for each of the pairs of the entities in row.
+#' This function also outputs optionally upto 11 square matrices of NxN entities.
+#'
+#' @author Kumar Mainali
 #'
 #' @references
+#'
+#' Agresti, A. (2013) Categorical Data Analysis, 3rd edition, Wiley.
+#'
+#' Blaker, H. (2000), “Confidence curves and improved exact confidence intervals for discrete distributions", Canadian Journal of Statistics 28, 783-798.
+#'
+#' Brown, L., T. Cai, and A. DasGupta (2001), “Interval Estimation for a Binomial Proportion,” Statistical Science, 16, 101–117.
+#'
+#' Clopper, C., and E. Pearson (1934), “The Use of Confidence or Fiducial Limits Illustrated in the Case of the Binomial,” Biometrika, 26, 404–413.
+#'
 #' Fog, A. (2015), BiasedUrn: Biased Urn Model Distributions. R package version 1.07.
 #'
 #' Harkness, W. (1965), “Properties of the extended hypergeometric distribution“, Annals of Mathematical Statistics, 36, 938-945.
@@ -94,17 +102,17 @@
 
 #'
 #' @example
-#' examples/ML.Alpha_example.R
+#' examples/affinity_example.R
 #'
 #' @export
 
 
 affinity <-
 
-  function(data, row.or.col, which.row.or.col=NULL, datatype=NULL, threshold=NULL, class0.rule=NULL, sigPval=NULL, sigdigit=NULL, squarematrix=NULL) {
+  function(data, row.or.col, which.row.or.col=NULL, datatype=NULL, threshold=NULL, class0.rule=NULL, sigPval=NULL, sigdigit=NULL, squarematrix=NULL, ...) {
 
     # use another function dataprep() to process data and throw errors if needed
-    occur.mat <- dataprep(data = data, row.or.col = "col")
+    occur.mat <- dataprep(data = data, row.or.col = row.or.col)
 
 
     # if a user asks for a squarematrix that does not exists in the list, throw an error and stop
@@ -292,7 +300,10 @@ affinity <-
       }
     }
 
+    message("~~~~~~~~~~ printing head of the data ~~~~~~~~~~")
     print(head(finalout))
-    finalout
+
+    message("*************** the returned output has NOT been printed; please assign this to a variable and inspect the variable ***************")
+    return(invisible(finalout))
 
   }
