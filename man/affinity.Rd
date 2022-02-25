@@ -2,7 +2,7 @@
 % Please edit documentation in R/affinity.R
 \name{affinity}
 \alias{affinity}
-\title{Computes alpha, probability, expected co-occurence, median interval, various confidence intervals, other indices of affinity, etc}
+\title{Computes alpha, probability, expected co-occurence, median interval, various confidence intervals, other indices of affinity, etc.}
 \usage{
 affinity(
   data,
@@ -139,7 +139,7 @@ myout <- affinity(data = finches, row.or.col = "col", squarematrix = c("all"))
 length(myout)
 myout
 
-help(affinity)
+help(AlphInts)
 dataprep(data = finches, row.or.col = "row")
 }
 \references{
