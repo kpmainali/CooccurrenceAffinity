@@ -45,28 +45,19 @@ This is the principal function of "CooccurrenceAffinity" package that analyzes o
 using other functions of this package and returns several quantities in one main dataframe and (optionally) up to 11 square matrices.
 This function processes data using dataprep() function and then feeds the data to analytical pipeline which includes ML.Alpha() and AlphInts().
 The outputs of the function in the $all dataframe include the following:
-}
-\details{
 alpha_mle: maximum likelihood estimate of the log-odds parameter alpha in the Extended Hypergeometric distribution with fixed margins (mA,mB) and
 table-total N, which is the "log-affinity" index of co-occurrence championed in a paper by Mainali et al. (2022) as an index of co-occurrence-based similarity; computed in ML.Alpha()
-
 exp_cooccur: expected co-occurrence count under the null (hypergeometric, corresponding to alpha=0) distribution; computed as ML.Alpha()$Null.Exp
-
 p_value: the commonly reported P-value of the observed co-occurrences; computed by AlphInts()$pval
-
 alpha_medianInt: the interval of alpha values compatible with x as median for the Extended Hypergeometric distribution (Harkness 1965)
 with fixed margins and alpha; computed in AlphInts() as $MedianIntrvl
-
 conf_level: confidence level for estimating the various types of confidence intervals
-
 ci_*: fout types of confidence intervals (see details below)
-
 jaccard: Jaccard index
-
 sorensen: Sørensen-Dice index
-
 simpson: Simpson index
-
+}
+\details{
 This function calculates "alpha_mle", which is the maximum likelihood estimate of the log-odds paramater alpha within the Extended Hypergeometric distribition (Harkness 1965)
 based on the count x and fixed table margins (mA,mB) and total N, which is the "affinity" index of co-occurrence championed in the paper of Mainali et al. (2022)
 as an index of cooccurrence-based similarity.
@@ -139,7 +130,7 @@ myout <- affinity(data = finches, row.or.col = "col", squarematrix = c("all"))
 length(myout)
 myout
 
-help(AlphInts)
+help(affinity)
 dataprep(data = finches, row.or.col = "row")
 }
 \references{

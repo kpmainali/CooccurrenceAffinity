@@ -14,6 +14,7 @@
 #' ci_*: fout types of confidence intervals (see details below)
 #' jaccard: Jaccard index
 #' sorensen: Sørensen-Dice index
+#'
 #' simpson: Simpson index
 #'
 #' @details   This function calculates "alpha_mle", which is the maximum likelihood estimate of the log-odds paramater alpha within the Extended Hypergeometric distribition (Harkness 1965)

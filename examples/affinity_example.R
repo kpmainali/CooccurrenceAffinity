@@ -29,5 +29,5 @@ myout <- affinity(data = finches, row.or.col = "col", squarematrix = c("all"))
 length(myout)
 myout
 
-help(AlphInts)
+help(affinity)
 dataprep(data = finches, row.or.col = "row")
