@@ -44,18 +44,21 @@ This function also outputs optionally upto 11 square matrices of NxN entities.
 This is the principal function of "CooccurrenceAffinity" package that analyzes occurrence or abundance data (e.g., species by site)
 using other functions of this package and returns several quantities in one main dataframe and (optionally) up to 11 square matrices.
 This function processes data using dataprep() function and then feeds the data to analytical pipeline which includes ML.Alpha() and AlphInts().
-The outputs of the function in the $all dataframe include the following:
-alpha_mle: maximum likelihood estimate of the log-odds parameter alpha in the Extended Hypergeometric distribution with fixed margins (mA,mB) and
-table-total N, which is the "log-affinity" index of co-occurrence championed in a paper by Mainali et al. (2022) as an index of co-occurrence-based similarity; computed in ML.Alpha()
-exp_cooccur: expected co-occurrence count under the null (hypergeometric, corresponding to alpha=0) distribution; computed as ML.Alpha()$Null.Exp
-p_value: the commonly reported P-value of the observed co-occurrences; computed by AlphInts()$pval
-alpha_medianInt: the interval of alpha values compatible with x as median for the Extended Hypergeometric distribution (Harkness 1965)
-with fixed margins and alpha; computed in AlphInts() as $MedianIntrvl
-conf_level: confidence level for estimating the various types of confidence intervals
-ci_*: fout types of confidence intervals (see details below)
-jaccard: Jaccard index
-sorensen: Sørensen-Dice index
-simpson: Simpson index
+The outputs of the function in the $all dataframe include the following: \cr
+\itemize{
+\item alpha_mle: maximum likelihood estimate of the log-odds parameter alpha in the Extended Hypergeometric distribution with fixed margins (mA,mB) and
+table-total N, which is the "log-affinity" index of co-occurrence championed in a paper by
+Mainali et al. (2022) as an index of co-occurrence-based similarity; computed in ML.Alpha() \cr
+\item exp_cooccur: expected co-occurrence count under the null (hypergeometric, corresponding to alpha=0) distribution; computed as ML.Alpha()$Null.Exp \cr
+\item p_value: the commonly reported P-value of the observed co-occurrences; computed by AlphInts()$pval \cr
+\item alpha_medianInt: the interval of alpha values compatible with x as median for the Extended Hypergeometric distribution (Harkness 1965) \cr
+with fixed margins and alpha; computed in AlphInts() as $MedianIntrvl \cr
+\item conf_level: confidence level for estimating the various types of confidence intervals \cr
+\item ci_: fout types of confidence intervals (see details below) \cr
+\item jaccard: Jaccard index \cr
+\item sorensen: Sørensen-Dice index \cr
+\item simpson: Simpson index \cr
+}
 }
 \details{
 This function calculates "alpha_mle", which is the maximum likelihood estimate of the log-odds paramater alpha within the Extended Hypergeometric distribition (Harkness 1965)
@@ -100,6 +103,7 @@ ADDITIONAL ARGUMENTS can be supplied from ML.Alpha() and AlphInts().
 }
 \examples{
 # when you have a binary presence absence occurrence data
+# -------------------------------------------------------
 require(cooccur)
 data(finches)
 
@@ -118,11 +122,11 @@ myout
 # the rows of the outputs above include every single pair of the entities, producing many columns for various quantities.
 # for several of these columns, the function allows outputing the square NxN matrix of the entities
 # an example is here
-
 myout <- affinity(data = finches, row.or.col = "col", squarematrix = c("alpha_mle", "jaccard"))
 # it is a list of three elements: one main dataframe and two square matrices
 length(myout)
 myout
+head(myout)
 
 # you can also compute all the square matrices with an "all"
 myout <- affinity(data = finches, row.or.col = "col", squarematrix = c("all"))
@@ -130,8 +134,46 @@ myout <- affinity(data = finches, row.or.col = "col", squarematrix = c("all"))
 length(myout)
 myout
 
-help(affinity)
-dataprep(data = finches, row.or.col = "row")
+# when you want to compute for only certain pairs
+myout <- affinity(data = finches, row.or.col = "col", which.row.or.col = 4:6, squarematrix = c("alpha_mle"))
+myout
+
+myout <- affinity(data = finches, row.or.col = "col", which.row.or.col = c("Isabella", "Espanola"), squarematrix = c("alpha_mle"))
+myout
+
+# if you select only one column, the computation stops
+myout <- affinity(data = finches, row.or.col = "col", which.row.or.col = c("Darwin"), squarematrix = c("alpha_mle"))
+
+
+myout <- affinity(data = finches, row.or.col = "col", which.row.or.col = c("Isabella", "Espanola"), squarematrix = c("alpha_mle"))
+
+
+
+# when you have abundance data requiring conversion to binary
+# -----------------------------------------------------------
+# abundance data is converted to binary based on a threshold supplied.
+# it might be a good idea to explore dataprep() function and its examples first before workign on affinity() for abundance data.
+matrix.data <- matrix(runif(400, 0, 10), nrow = 100, ncol = 4)
+row.names(matrix.data) <- paste0("id_", 1:nrow(matrix.data))
+colnames(matrix.data) <- paste0("variable_", 1:ncol(matrix.data))
+
+# add some missing data and zero abundance
+matrix.data[1,1] <- matrix.data[2,3] <- matrix.data[1,4] <- matrix.data[1,2] <- NA
+matrix.data[10,4] <- 0
+head(matrix.data)
+# now this is an abundance data with some missing and some zero occurrences
+
+# inspecting how the abundance is converted to binary first
+dataprep(data = matrix.data, row.or.col = "col", datatype = "abundance", threshold = 5, class0.rule = "less")
+myout10 <- affinity(data = matrix.data, row.or.col = "col", datatype = "abundance", threshold = 5, class0.rule = "less")
+myout10
+
+# you can also feed the output of dataprep() to affinity()
+myinput <- dataprep(data = matrix.data, row.or.col = "col", datatype = "abundance", threshold = 5, class0.rule = "less")
+myout11 <- affinity(data = myinput, row.or.col = "col", datatype = "binary")
+myout11
+# myout 10 and myout11 are identical
+identical(myout10, myout11)
 }
 \references{
 Agresti, A. (2013) Categorical Data Analysis, 3rd edition, Wiley.

@@ -3,18 +3,21 @@
 #' This is the principal function of "CooccurrenceAffinity" package that analyzes occurrence or abundance data (e.g., species by site)
 #' using other functions of this package and returns several quantities in one main dataframe and (optionally) up to 11 square matrices.
 #' This function processes data using dataprep() function and then feeds the data to analytical pipeline which includes ML.Alpha() and AlphInts().
-#' The outputs of the function in the $all dataframe include the following:
-#' alpha_mle: maximum likelihood estimate of the log-odds parameter alpha in the Extended Hypergeometric distribution with fixed margins (mA,mB) and
-#' table-total N, which is the "log-affinity" index of co-occurrence championed in a paper by Mainali et al. (2022) as an index of co-occurrence-based similarity; computed in ML.Alpha()
-#' exp_cooccur: expected co-occurrence count under the null (hypergeometric, corresponding to alpha=0) distribution; computed as ML.Alpha()$Null.Exp
-#' p_value: the commonly reported P-value of the observed co-occurrences; computed by AlphInts()$pval
-#' alpha_medianInt: the interval of alpha values compatible with x as median for the Extended Hypergeometric distribution (Harkness 1965)
-#' with fixed margins and alpha; computed in AlphInts() as $MedianIntrvl
-#' conf_level: confidence level for estimating the various types of confidence intervals
-#' ci_*: fout types of confidence intervals (see details below)
-#' jaccard: Jaccard index
-#' sorensen: Sørensen-Dice index
-#' simpson: Simpson index
+#' The outputs of the function in the $all dataframe include the following: \cr
+#' * alpha_mle: maximum likelihood estimate of the log-odds parameter alpha in the Extended Hypergeometric distribution with fixed margins (mA,mB) and
+#' table-total N, which is the "log-affinity" index of co-occurrence championed in a paper by
+#' Mainali et al. (2022) as an index of co-occurrence-based similarity; computed in ML.Alpha() \cr
+#' * exp_cooccur: expected co-occurrence count under the null (hypergeometric, corresponding to alpha=0) distribution; computed as ML.Alpha()$Null.Exp \cr
+#' * p_value: the commonly reported P-value of the observed co-occurrences; computed by AlphInts()$pval \cr
+#' * alpha_medianInt: the interval of alpha values compatible with x as median for the Extended Hypergeometric distribution (Harkness 1965) \cr
+#' with fixed margins and alpha; computed in AlphInts() as $MedianIntrvl \cr
+#' * conf_level: confidence level for estimating the various types of confidence intervals \cr
+#' * ci_: fout types of confidence intervals (see details below) \cr
+#' * jaccard: Jaccard index \cr
+#' * sorensen: Sørensen-Dice index \cr
+#' * simpson: Simpson index \cr
+#'
+#'
 #'
 #'
 #'
@@ -105,7 +108,7 @@ affinity <-
   function(data, row.or.col, which.row.or.col=NULL, datatype=NULL, threshold=NULL, class0.rule=NULL, sigPval=NULL, sigdigit=NULL, squarematrix=NULL, ...) {
 
     # use another function dataprep() to process data and throw errors if needed
-    occur.mat <- dataprep(data = data, row.or.col = row.or.col)
+    occur.mat <- dataprep(data = data, row.or.col = row.or.col, which.row.or.col=which.row.or.col, datatype=datatype, threshold=threshold, class0.rule=class0.rule)
 
 
     # if a user asks for a squarematrix that does not exists in the list, throw an error and stop
@@ -217,12 +220,12 @@ affinity <-
         # ---------- Additional Inputs only if Distribution is NOT Degenerate -------------
 
         # condition to bypass a failed alpha
-        if(ML.Alpha(x = X, marg = c(sum(mA), sum(mB), nrow(sub))) == "Degenerate co-occurrence distribution!") {
+        if(ML.Alpha(x = X, marg = c(sum(mA), sum(mB), nrow(sub)))[1] == "Degenerate co-occurrence distribution!") {
           output.long$errornote[serialnum] <- "Degenerate co-occurrence distribution!"
           next
         } else {
 
-          mle <- ML.Alpha(x = X, marg = c(sum(mA), sum(mB), nrow(sub)))
+          mle <- ML.Alpha(x = X, marg = c(sum(mA), sum(mB), nrow(sub)), ...)
 
 
           # ----------- CONTINUE LONG DATAFRAME OUTPUT --------------
@@ -297,6 +300,6 @@ affinity <-
     print(head(finalout))
 
     message("*************** the returned output has NOT been printed; please assign this to a variable and inspect the variable ***************")
-    return(invisible(finalout))
+    invisible(return(finalout))
 
   }
