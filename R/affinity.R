@@ -4,6 +4,7 @@
 #' using other functions of this package and returns several quantities in one main dataframe and (optionally) up to 11 square matrices.
 #' This function processes data using dataprep() function and then feeds the data to analytical pipeline which includes ML.Alpha() and AlphInts().
 #' The outputs of the function in the $all dataframe include the following:
+#'
 #' alpha_mle: maximum likelihood estimate of the log-odds parameter alpha in the Extended Hypergeometric distribution with fixed margins (mA,mB) and
 #' table-total N, which is the "log-affinity" index of co-occurrence championed in a paper by Mainali et al. (2022) as an index of co-occurrence-based similarity; computed in ML.Alpha()
 #'

@@ -44,10 +44,12 @@ This function also outputs optionally upto 11 square matrices of NxN entities.
 This is the principal function of "CooccurrenceAffinity" package that analyzes occurrence or abundance data (e.g., species by site)
 using other functions of this package and returns several quantities in one main dataframe and (optionally) up to 11 square matrices.
 This function processes data using dataprep() function and then feeds the data to analytical pipeline which includes ML.Alpha() and AlphInts().
-The outputs of the function in the $all dataframe include the following: alpha_mle: maximum likelihood estimate of the log-odds parameter alpha in the Extended Hypergeometric distribution with fixed margins (mA,mB) and
-table-total N, which is the "log-affinity" index of co-occurrence championed in a paper by Mainali et al. (2022) as an index of co-occurrence-based similarity; computed in ML.Alpha()
+The outputs of the function in the $all dataframe include the following:
 }
 \details{
+alpha_mle: maximum likelihood estimate of the log-odds parameter alpha in the Extended Hypergeometric distribution with fixed margins (mA,mB) and
+table-total N, which is the "log-affinity" index of co-occurrence championed in a paper by Mainali et al. (2022) as an index of co-occurrence-based similarity; computed in ML.Alpha()
+
 exp_cooccur: expected co-occurrence count under the null (hypergeometric, corresponding to alpha=0) distribution; computed as ML.Alpha()$Null.Exp
 
 p_value: the commonly reported P-value of the observed co-occurrences; computed by AlphInts()$pval
