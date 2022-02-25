@@ -1,4 +1,4 @@
-#' Computes alpha, probability, expected co-occurence, median interval, various confidence intervals, other indices of affinity, etc
+#' Computes alpha, probability, expected co-occurence, median interval, various confidence intervals, other indices of affinity, etc.
 #'
 #' This is the principal function of "CooccurrenceAffinity" package that analyzes occurrence or abundance data (e.g., species by site)
 #' using other functions of this package and returns several quantities in one main dataframe and (optionally) up to 11 square matrices.
