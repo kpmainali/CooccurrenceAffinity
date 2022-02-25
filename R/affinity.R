@@ -14,8 +14,9 @@
 #' ci_*: fout types of confidence intervals (see details below)
 #' jaccard: Jaccard index
 #' sorensen: Sørensen-Dice index
-#'
 #' simpson: Simpson index
+#'
+#'
 #'
 #' @details   This function calculates "alpha_mle", which is the maximum likelihood estimate of the log-odds paramater alpha within the Extended Hypergeometric distribition (Harkness 1965)
 #' based on the count x and fixed table margins (mA,mB) and total N, which is the "affinity" index of co-occurrence championed in the paper of Mainali et al. (2022)
