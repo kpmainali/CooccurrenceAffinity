@@ -286,7 +286,8 @@ affinity <-
 
     # main single output of everything
     finalout <- list(
-      all = output.long
+      all = output.long,
+      occur_mat = occur.mat
     )
 
     # optional square matrices

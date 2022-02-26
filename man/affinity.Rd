@@ -144,10 +144,21 @@ myout
 # if you select only one column, the computation stops
 myout <- affinity(data = finches, row.or.col = "col", which.row.or.col = c("Darwin"), squarematrix = c("alpha_mle"))
 
+# you can also add additional arguments bringing them from ML.Alpha() or AlphInts()
+myout1 <- affinity(data = finches, row.or.col = "col", which.row.or.col = c("Isabella", "Espanola"), lev=0.95, pvalType="Blaker")
+myout1
+myout2 <- affinity(data = finches, row.or.col = "col", which.row.or.col = c("Isabella", "Espanola"), lev=0.90, pvalType="Blaker")
+myout2
+identical(myout1, myout2)
+# myout1 and myout2 were generated with identical arguments except a difference in "lev", which gave different confidence intervals
 
-myout <- affinity(data = finches, row.or.col = "col", which.row.or.col = c("Isabella", "Espanola"), squarematrix = c("alpha_mle"))
-
-
+myout3 <- affinity(data = finches, row.or.col = "col", which.row.or.col = 4:6, lev=0.95, pvalType="Blaker")
+myout3
+myout4 <- affinity(data = finches, row.or.col = "col", which.row.or.col = 4:6, lev=0.95, pvalType="midP")
+myout4
+myout3$all$p_value
+myout4$all$p_value
+# the p values are (or, can be) different
 
 # when you have abundance data requiring conversion to binary
 # -----------------------------------------------------------
