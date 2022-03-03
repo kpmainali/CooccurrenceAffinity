@@ -297,10 +297,12 @@ affinity <-
       }
     }
 
-    message("~~~~~~~~~~ printing head of the data ~~~~~~~~~~")
-    print(head(finalout))
+    message("~~~~~~~~~~ printing head of all elements of the output list ~~~~~~~~~~")
+    print(sapply(finalout, head))
 
-    message("*************** the returned output has NOT been printed; please assign this to a variable and inspect the variable ***************")
+    # to do - the complete data is not printed if the output is assigned to a variable. If not assigned, it still prints the complete output.
+    # for now, turn off the message and explore later.
+    # message("*************** the returned output has NOT been printed completely; if you have not already done so, please assign the return output of affinity() to a variable and inspect the variable ***************")
     invisible(return(finalout))
 
   }
