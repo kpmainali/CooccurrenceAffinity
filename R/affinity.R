@@ -197,7 +197,7 @@ affinity <-
         output.long$sites_total_N[serialnum] <- nrow(sub)
 
         myjaccard <- round( X/(sum(mA)+sum(mB)-X), sigdigit )
-        mysorensen <- round( 2*X/(sum(mB)+sum(mB)), sigdigit )
+        mysorensen <- round( 2*X/(sum(mA)+sum(mB)), sigdigit )
         mysimpson <- round( X/min(sum(mA), sum(mB)), sigdigit )
 
         output.long$jaccard[serialnum] <- myjaccard
