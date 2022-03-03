@@ -43,7 +43,7 @@ these colors are applied with ggplot::scale_fill_gradient2()}
 This function returns a heatmap plot generated with ggplot() behind the scene.
 }
 \description{
-This function works on the output of affinity() and gives a heatmap plot for the numeric columns of $all dataframe except
+This function works on the output of affinity() and uses ggplot2::ggplot() to plot a heatmap plot for the numeric columns of $all dataframe except
 the interval columns (median interval and confidence intervals) and confidence level (which is a constant for all pairs in one run of the code)
 }
 \details{
