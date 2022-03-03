@@ -17,47 +17,176 @@
 )
 }
 \arguments{
-\item{x}{integer co-occurrence count that should properly fall within the closed interval [max(0,mA+mB-N), min(mA,mB)]}
+\item{data}{the output of affinity()}
 
-\item{marg}{a 3-entry integer vector (mA,mB,N) consisting of the first row and column totals and the table total for a 2x2 contingency table}
+\item{variable}{a column name in $all dataframe in affinity() output; should be a quantitative column;
+can be one of the following: "entity_1_count_mA", "entity_2_count_mB", "obs_cooccur_X", "sites_total_N",
+"p_value", "exp_cooccur", "alpha_mle", "jaccard", "sorensen", "simpson"}
 
-\item{bound}{a boolean parameter which when TRUE replaces the MLE of "+/-Infinity", applicable when x is respectively at the upper extreme min(mA,mB)
-or the lower extreme max(mA+mB-N,0) of its possible range, by a finite value with absolute value upper-bounding the value of
-MLEs attainable for values of x not equal to its extremes}
+\item{legendlimit}{"datarange" or "balanced"; if "datarange", the legend spans to the range of data,
+if "balanced, the legend spans in equal magnitude from the center (= white by default) in both directions;
+note that, irrespective of the value-span in legend, the color spectrum of the plot and legend always goes from the center (=white by default)
+to two directions in equal magnitude. See details for more information.}
 
-\item{scal}{an integer parameter (default 2*N^2, capped at 10 within the function) that should be 2 or greater}
+\item{col}{a set of three colors c("#87beff", "white", "#fd6a6c") by default to represent low, mid and high values in the plot;
+these colors are applied with ggplot::scale_fill_gradient2()}
 
-\item{lev}{a confidence level, generally somewhere from 0.8 to 0.95  (default 0.95)}
+\item{show.value}{a boolean to show ("TRUE") or hide ("FALSE") values in the plot; "TRUE" by default if <=20 entities to compare, otherwise "FALSE" by default}
 
-\item{pvalType}{a character string telling what kind of p-value to calculate. ‘Blaker’ or “midP’.
-If ‘pvalType=Blaker” (the default value), the p-value is calculated according to "Acceptability" function of Blaker (2000).
-If ‘pvalType=midP’, the p-value is calculated using the same idea as the midP confidence interval.}
+\item{value.digit}{the number of digits in values if they are printed; default 2}
+
+\item{text.size}{the size of values if they are printed; default 2.5}
+
+\item{plot.margin}{same as ggplot's plot.margin which includes top, right, bottom and left margins as "margin(1,1,5,2, "cm")"}
 }
 \value{
-This function returns maximum likelihood estimate of alpha, the interval-endpoints of alpha values for which x is a median,
-and four confidence intervals for alpha, described in detail under documentation for AlphInts().
-In addition there are two output list-components for the null-distribution expected co-occurrence count and the p-value
-for the test of the null hypothesis alpha=0, calculated as in AlphInts.
+This function returns a heatmap plot generated with ggplot() behind the scene.
 }
 \description{
 This function works on the output of affinity() and gives a heatmap plot for the numeric columns of $all dataframe except
 the interval columns (median interval and confidence intervals) and confidence level (which is a constant for all pairs in one run of the code)
 }
 \details{
-This function is really a ggplot behind the scene where I have taken care of many arguments for generating a useful plot.
+This function is really a ggplot behind the scene where I have taken care of the default value of many arguments for generating a useful plot.
 It generates a plot for the lower triangle of an NxN square matrix where both row and columns carry the same set of entities,
-such that all pairwise analyses are shown in the plot. The plots can be requested using the column names of $all of the main output of affinity().
-of affinity.
+such that all pairwise analyses are shown in the plot (upper triangle is the mirror image of the lower triange
+and diagonals are the relation to the self which are excluded).
+
+The plots can be requested using the column names of $all of the main output of affinity(). The function can include additional arguments
+either inside plot.gg() or by appending to it with a "+" that is characteristic of ggplot().
+
+"legendlimit" centers the legend color to white by default at null expectation in the case of alpha_mle,
+and negative and positive values stretch between pastel blue and pastel red colors, respectively
+such that the color spectrum is applied NOT to the range of data but to the same extent of values
+on both sides of zero, which is max(abs(valrange)) and -(max(abs(valrange))). For example, if alpha_mle
+ranges between -1.25 to 2.0, then the color spectrum always ranges between -2.0 and 2.0 but the legend can be printed
+to span between -1.25 and 2.0 with "dataframe" and -2.0 and 2.0 with "balanced".
+
+For "entity_1_count_mA", "entity_2_count_mB", and "sites_total_N", there is no natural midpoint.
+So, "balanced" and "datarange" both use the natural behavior of ggplot in creating the color spectrum that spans between the extremes of the data.
+
+For "obs_cooccur_X", and "exp_cooccur" also, there is no natural midpoint.
+To make the two plots of observed and expected cooccurrence counts comparable visually, one color scale has been applied in these two plots
+such that the spectrum ranges between the extremes of "obs_cooccur_X", and "exp_cooccur" collectively.
 }
 \examples{
-unlist(ML.Alpha(30,c(50,80,120), lev=0.9))
+require(cooccur)
+data(finches)
+head(finches)
+
+
+# plotting various variables
+# ---------------------------------------------
+# compute alpha and other quantities for island-pair affinity (beta diversity)
+# the square matrices are not used for plotting
+myout <- affinity(data = finches, row.or.col = "col")
+myout
+
+
+plot.gg(data = myout, variable = "alpha_mle", legendlimit = "datarange")
+# in the example above, null expectation of the alpha_mle (=0) has white color,
+# and negative and positive values stretch between "#87beff" and "#fd6a6c", respectively
+# so that the color spectrum is applied NOT to the range of data but to the same extent of values
+# on both sides of zero, which is max(abs(valrange)) and -(max(abs(valrange))).
+# however, the legend can be printed to show the extent of data with "datarange"
+# or the entire spectrum where the color is applied with "balanced".
+plot.gg(data = myout, variable = "alpha_mle", legendlimit = "balanced")
+# notice that the two plots above are identical but the legend has different range with the same color scale.
+
+plot.gg(data = myout, variable = "sorensen", legendlimit = "balanced")
+plot.gg(data = myout, variable = "jaccard", legendlimit = "balanced")
+
+# in the case of observed and expected cooccurrences, one color scale is applied for both plots
+# so that the shades of color across plots can be visually compared
+plot.gg(data = myout, variable = "exp_cooccur", legendlimit = "datarange")
+plot.gg(data = myout, variable = "exp_cooccur", legendlimit = "balanced")
+plot.gg(data = myout, variable = "obs_cooccur_X", legendlimit = "balanced")
+
+plot.gg(data = myout, variable = "entity_1_count_mA", legendlimit = "datarange")
+plot.gg(data = myout, variable = "entity_2_count_mB", legendlimit = "datarange")
+plot.gg(data = myout, variable = "sites_total_N", legendlimit = "datarange")
+# for "entity_1_count_mA", "entity_2_count_mB", "sites_total_N", if legendlimit is set to "balanced", it will be changed to "datarange"
+plot.gg(data = myout, variable = "entity_2_count_mB", legendlimit = "balanced")
+
+
+# change color of the plot
+# ---------------------------------------------
+myout <- affinity(data = finches, row.or.col = "col")
+myout
+
+plot.gg(data = myout, variable = "alpha_mle", legendlimit = "balanced")
+plot.gg(data = myout, variable = "alpha_mle", legendlimit = "balanced", col = c('#99cc33', 'white', '#ff9933'))
+
+plot.gg(data = myout, variable = "obs_cooccur_X", legendlimit = "balanced")
+plot.gg(data = myout, variable = "obs_cooccur_X", legendlimit = "balanced", col = c('#99cc33', 'white', '#ff9933'))
+
+
+# change the characteristics of text printed in the plot
+# ------------------------------------------------------
+myout <- affinity(data = finches, row.or.col = "col")
+myout
+
+plot.gg(data = myout, variable = "alpha_mle", legendlimit = "balanced")
+
+# change the number of digits; the default is 2
+plot.gg(data = myout, variable = "alpha_mle", legendlimit = "balanced", value.digit = 3)
+
+# make the fonts bigger; the default is 2.5
+plot.gg(data = myout, variable = "alpha_mle", legendlimit = "balanced", text.size = 3.5)
+
+# hide values from the plot
+plot.gg(data = myout, variable = "alpha_mle", legendlimit = "balanced", show.value = F)
+
+
+# increase or decrease margin
+# ---------------------------------------------
+myout <- affinity(data = finches, row.or.col = "row")
+myout
+
+plot.gg(data = myout, variable = "alpha_mle", legendlimit = "balanced")
+plot.gg(data = myout, variable = "alpha_mle", legendlimit = "balanced", plot.margin = margin(1,1,5,2, "cm"))
+
+
+# change angle of x-axis tick label; the default is 35 degrees
+# ------------------------------------------------------------
+myout <- affinity(data = finches, row.or.col = "col")
+myout
+
+plot.gg(data = myout, variable = "alpha_mle", legendlimit = "balanced")
+plot.gg(data = myout, variable = "alpha_mle", legendlimit = "balanced") +
+  theme(axis.text.x = element_text(angle = 45))
+
+# to change to 90 degrees, adjust vjust
+plot.gg(data = myout, variable = "alpha_mle", legendlimit = "balanced") +
+  theme(axis.text.x = element_text(angle = 90))
+plot.gg(data = myout, variable = "alpha_mle", legendlimit = "balanced") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
+
+
+# additional elements in the plot
+# ----------------------------------
+# because it is ggplot output, you can use the arguments of ggplot() to make changes
+
+# add plot title and change legend title
+plot.gg(data = myout, variable = "alpha_mle", legendlimit = "balanced") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
+  ggtitle("Affinity of island pairs measured with Alpha MLE") +
+  labs(fill = 'Alpha MLE')
+
+
+# an example of much bigger dataset
+# -------------------------------------
+data("beetles")
+dim(beetles)
+myout <- affinity(data = beetles, row.or.col = "row")
+
+plot.gg(data = myout, variable = "alpha_mle", legendlimit = "balanced") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
+plot.gg(data = myout, variable = "alpha_mle", legendlimit = "balanced", show.value = T, text.size = 1.5, value.digit = 1) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 }
 \references{
-Fog, A. (2015), BiasedUrn: Biased Urn Model Distributions. R package version 1.07.
 
-Harkness, W. (1965), “Properties of the extended hypergeometric distribution“, Annals of Mathematical Statistics, 36, 938-945.
-
-Mainali, K., Slud, E., Singer, M. and Fagan, W. (2022), "A better index for analysis of co-occurrence and similarity", Science Advances, to appear.
 }
 \author{
 Kumar Mainali
