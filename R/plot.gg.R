@@ -65,6 +65,7 @@ plot.gg <-
       stop("honestly, we do not like to plot intervals and confidence level... at least for now")
     }
 
+    require(ggplot2)
 
     gp <- ggplot(data$all, aes(x = entity_1, y = entity_2, fill = get(variable))) +
       geom_tile(color = "gray") + coord_fixed() + labs(fill = variable) +
