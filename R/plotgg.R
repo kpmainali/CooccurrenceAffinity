@@ -1,6 +1,6 @@
 #' Heatmap plot of affinity() output
 #'
-#' This function works on the output of affinity() and gives a heatmap plot for the numeric columns of $all dataframe except
+#' This function works on the output of affinity() and uses ggplot2::ggplot() to plot a heatmap plot for the numeric columns of $all dataframe except
 #' the interval columns (median interval and confidence intervals) and confidence level (which is a constant for all pairs in one run of the code)
 #'
 #' @details   This function is really a ggplot behind the scene where I have taken care of the default value of many arguments for generating a useful plot.
