@@ -66,4 +66,4 @@ ML.Alpha <-
          MedianIntrvl = ModInts[[1]],
          lev = lev, CI.CP = ModInts[[2]], CI.Blaker = ModInts[[3]],
          CI.midQ = ModInts[[4]], CI.midP = ModInts[[5]],
-         Null.Exp = mA*mB/N, pval = ModInts$pval) }
+         Null.Exp = as.numeric(mA*mB/N), pval = ModInts$pval) }
