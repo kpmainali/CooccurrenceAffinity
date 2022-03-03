@@ -49,7 +49,7 @@
 #' @references
 #'
 #' @example
-#' examples/plot.gg_example.R
+#' examples/plotgg_example.R
 #'
 #' @export
 
