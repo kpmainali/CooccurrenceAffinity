@@ -299,6 +299,7 @@ affinity <-
 
     message("~~~~~~~~~~ printing head of all elements of the output list ~~~~~~~~~~")
     print(sapply(finalout, head))
+    message("~~~~~~~~~~ COMPLETED: printing head of all elements of the output list ~~~~~~~~~~")
 
     # to do - the complete data is not printed if the output is assigned to a variable. If not assigned, it still prints the complete output.
     # for now, turn off the message and explore later.
