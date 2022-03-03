@@ -54,7 +54,7 @@
 #' @export
 
 
-plot.gg <-
+plotgg <-
   function(data, variable, legendlimit, col=NULL, show.value=NULL, value.digit=NULL, text.size=NULL, plot.margin=NULL, ...) {
 
     if(!variable %in% colnames(data$all)) {
