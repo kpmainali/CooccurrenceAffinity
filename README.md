@@ -164,6 +164,7 @@ Geospiza conirostris         0     0      0    0
 
 
 ```
+
 # median interval vs conﬁdence interval
 
 To illustrate the relative sizes of the median interval and conﬁdence interval and their positioning with respect to MLE, we supply code to plot the point and interval estimates for X values from 1 to 49 on a single graph, in Figure 1. The graph is chopped oﬀ at α = ±5 for clarity. The maximum absolute value of log(2N^2) in this instance is 10.7. 
