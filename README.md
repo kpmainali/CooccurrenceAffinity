@@ -70,16 +70,12 @@ install_github("kpmainali/CooccurrenceAffinity")
 # Some examples of the usage of the functions and illustrations
 
 ## 2x2 contingency table of counts
-If you have cooccurrence data that is already processed and you have a table of counts like in the 2x2 contingency table below:
+
 <img width="400" alt="2x2 contingency table of counts" src="https://user-images.githubusercontent.com/14167540/156708618-3a2bdee4-f437-4a01-8743-6e2479c8b035.png">
 
-then, begin with ML.Alpha() for the affinity analysis.
+If you have a co-occurrence data that is already processed and you have a table of counts like in the 2x2 contingency table above, you should begin with AlphInts() and/or ML.Alpha() for the affinity analysis. 
 
-
-<img width="400" alt="species by sites table" src="https://user-images.githubusercontent.com/14167540/156708652-5dea30e1-7522-4bc7-a597-49f3542ced63.png">
-
-
-We compute with a running example X = 35, m A = 50, m B = 70, N = 150. The syntax and results of the function calls for ﬁguring the MLE α ˆ , the median interval, and the 90% two-sided equal-tailed conﬁdence intervals for α, are as follows:
+We compute with an example X = 35, m A = 50, m B = 70, N = 150. The syntax and results of the function calls for ﬁguring the MLE α ˆ , the median interval, and the 90% two-sided equal-tailed conﬁdence intervals for α, are as follows:
 
 ```
 
@@ -119,6 +115,14 @@ $Flag                              ## indicates MLE  falls in MedianIntrvl
 [1] TRUE
                                    ## later output arguments same as AlphInts()
 ```
+
+## species/entity by site occupancy table
+
+<img width="400" alt="species by sites table" src="https://user-images.githubusercontent.com/14167540/156708652-5dea30e1-7522-4bc7-a597-49f3542ced63.png">
+
+If you have an actual occurrence dataset where your entity of interest (e.g., species) are marked as present (1) or absent (0) in sites, then you can begin with affinity(). Note that this function utilizes the outputs of AlphInts() and ML.Alpha(), and so it is important to understand the output of all three functions. 
+
+
 
 To illustrate the relative sizes of the median interval and conﬁdence interval and their positioning with respect to MLE, we supply code to plot the point and interval estimates for X values from 1 to 49 on a single graph, in Figure 1. The graph is chopped oﬀ at α = ±5 for clarity. The maximum absolute value of log(2N^2) in this instance is 10.7. 
 
