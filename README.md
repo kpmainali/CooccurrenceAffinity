@@ -4,7 +4,7 @@
 
 This package was released with a basic set of functions in Dec 2021. In Feb 2022 (until March 4), the existing functions were substantially revised for their description, examples and sometimes even for their arguments. Now, we have also added several new functions to analyze binary presence/absence matrix as well as to make plots. This page gives some examples of data analysis. More examplese can be found at the function documentation page. A detailed Vignette is forthcoming.
 
-
+--------------------------------------
 
 This package computes affinity between two entities based on their co-occurrence (using binary presence/absence data). 
 
