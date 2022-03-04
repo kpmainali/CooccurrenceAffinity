@@ -69,6 +69,11 @@ install_github("kpmainali/CooccurrenceAffinity")
 
 # Some examples of the usage of the functions and illustrations
 
+<img width="574" alt="Screen Shot 2022-03-04 at 12 29 55 AM" src="https://user-images.githubusercontent.com/14167540/156708618-3a2bdee4-f437-4a01-8743-6e2479c8b035.png">
+
+<img width="337" alt="Screen Shot 2022-03-04 at 12 28 16 AM" src="https://user-images.githubusercontent.com/14167540/156708652-5dea30e1-7522-4bc7-a597-49f3542ced63.png">
+
+
 We compute with a running example X = 35, m A = 50, m B = 70, N = 150. The syntax and results of the function calls for ﬁguring the MLE α ˆ , the median interval, and the 90% two-sided equal-tailed conﬁdence intervals for α, are as follows:
 
 ```
