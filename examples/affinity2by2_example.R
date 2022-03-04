@@ -1,0 +1,6 @@
+ML.Alpha(x=35, c(mA=50, mB=70, N=150), lev=0.95)
+affinity2by2(x=35, c(mA=50, mB=70, N=150), lev=0.95)
+# ML.Alpha() is a subset of affinity2by2()
+a <- ML.Alpha(x=35, c(mA=50, mB=70, N=150), lev=0.95)
+b <- affinity2by2(x=35, c(mA=50, mB=70, N=150), lev=0.95)
+identical(a, b[1:11])
