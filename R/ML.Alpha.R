@@ -1,4 +1,4 @@
-#' Maximum likelihood estimate and intervals of alpha, null expectation and p-value
+#' Maximum likelihood estimate and intervals of alpha, null expectation and p-value of a 2x2 table
 #'
 #' This function calculates the maximum likelihood estimate and other quantities computed in AlphInts(),
 #' for the log-odds parameter alpha in the Extended Hypergeometric distribution with fixed margins (mA,mB) and
