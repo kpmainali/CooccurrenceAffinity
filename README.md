@@ -153,14 +153,14 @@ Geospiza conirostris         0     0      0    0
 > myout <- affinity(data = finches, row.or.col = "row", squarematrix = c("all"))
 > plotgg(data = myout, variable = "alpha_mle", legendlimit = "datarange")
 
-<img width="835" alt="alpha of species" src="https://user-images.githubusercontent.com/14167540/156713014-42a0d01f-7c33-4e28-bcc4-4ec2ed657357.png">
+<img width="800" alt="alpha of species" src="https://user-images.githubusercontent.com/14167540/156713014-42a0d01f-7c33-4e28-bcc4-4ec2ed657357.png">
 
 
 > # this matrix can be flipped to compute the affinity between islands in cols based on presence/absence of species 
 > myout <- affinity(data = finches, row.or.col = "col", squarematrix = c("all"))
 > plotgg(data = myout, variable = "alpha_mle", legendlimit = "datarange")
 
-<img width="835" alt="alpha of sites" src="https://user-images.githubusercontent.com/14167540/156713062-40d6e767-3589-474b-88b4-1fcba09d46c2.png">
+<img width="800" alt="alpha of sites" src="https://user-images.githubusercontent.com/14167540/156713062-40d6e767-3589-474b-88b4-1fcba09d46c2.png">
 
 
 ```
