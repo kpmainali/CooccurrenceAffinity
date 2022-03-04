@@ -122,7 +122,46 @@ $Flag                              ## indicates MLE  falls in MedianIntrvl
 
 If you have an actual occurrence dataset where your entity of interest (e.g., species) are marked as present (1) or absent (0) in sites, then you can begin with affinity(). Note that this function utilizes the outputs of AlphInts() and ML.Alpha(), and so it is important to understand the output of all three functions. 
 
+```
+> # load the binary presence/absence or abundance data
+> require(cooccur)
+> data(finches)
+> head(finches)
+                      Seymour Baltra Isabella Fernandina Santiago Rabida Pinzon
+Geospiza magnirostris       0      0        1          1        1      1      1
+Geospiza fortis             1      1        1          1        1      1      1
+Geospiza fuliginosa         1      1        1          1        1      1      1
+Geospiza difficilis         0      0        1          1        1      0      0
+Geospiza scandens           1      1        1          0        1      1      1
+Geospiza conirostris        0      0        0          0        0      0      0
+                      Santa.Cruz Santa.Fe San.Cristobal Espanola Floreana Genovesa
+Geospiza magnirostris          1        1             1        0        1        1
+Geospiza fortis                1        1             1        0        1        0
+Geospiza fuliginosa            1        1             1        1        1        0
+Geospiza difficilis            1        0             1        0        1        1
+Geospiza scandens              1        1             1        0        1        0
+Geospiza conirostris           0        0             0        1        0        1
+                      Marchena Pinta Darwin Wolf
+Geospiza magnirostris        1     1      1    1
+Geospiza fortis              1     1      0    0
+Geospiza fuliginosa          1     1      0    0
+Geospiza difficilis          0     1      1    1
+Geospiza scandens            1     1      0    0
+Geospiza conirostris         0     0      0    0
 
+> # compute the affinity between elements in rows (= species)
+> myout <- affinity(data = finches, row.or.col = "row", squarematrix = c("all"))
+> plotgg(data = myout, variable = "alpha_mle", legendlimit = "datarange")
+
+
+> # this matrix can be flipped to compute the affinity between islands in cols based on presence/absence of species 
+> myout <- affinity(data = finches, row.or.col = "col", squarematrix = c("all"))
+> plotgg(data = myout, variable = "alpha_mle", legendlimit = "datarange")
+
+
+
+```
+# median interval vs conﬁdence interval
 
 To illustrate the relative sizes of the median interval and conﬁdence interval and their positioning with respect to MLE, we supply code to plot the point and interval estimates for X values from 1 to 49 on a single graph, in Figure 1. The graph is chopped oﬀ at α = ±5 for clarity. The maximum absolute value of log(2N^2) in this instance is 10.7. 
 
