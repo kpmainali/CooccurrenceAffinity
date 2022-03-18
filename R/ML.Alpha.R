@@ -53,7 +53,7 @@ ML.Alpha <-
       return("Degenerate co-occurrence distribution!")
     ## cap scal at 10 to avoid pFNCHypergeo error
     scal = min(scal,10)
-    upbd = if(bound) log(scal) else Inf
+    upbd = if(bound) scal else Inf
     ModInts = AlphInts(x, marg, lev=lev, scal=scal, pvalType=pvalType)
     for(k in 1:3) ModInts[[k]] = pmax(-upbd, pmin(upbd, ModInts[[k]]))
     tmp = optimize( function(t) log(dFNCHypergeo(x,mA,N-mA,mB,exp(t))),
