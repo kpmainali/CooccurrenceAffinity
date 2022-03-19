@@ -2,7 +2,15 @@
 
 ***** NOTICE ABOUT MAJOR UPDATE ******
 
-This package was released with a basic set of functions in Dec 2021. In Feb 2022 (until March 4), the existing functions were substantially revised for their description, examples and sometimes even for their arguments. Now, we have also added several new functions to analyze binary presence/absence matrix as well as to make plots. This page gives some examples of data analysis. More examplese can be found at the function documentation page. A detailed Vignette is forthcoming.
+TIMELINE:
+
+Dec 2021: This package was released with a basic set of functions in Dec 2021. 
+
+Feb-Mar 2022: In Feb and early March (until March 4) of 2022, the existing functions were substantially revised for their description, examples and sometimes even for their arguments. Now, we have also added several new functions to analyze binary presence/absence matrix as well as to make plots. This page gives some examples of data analysis. More examples can be found at the function documentation page. 
+
+Mar 18, 2022: An error was inadvertently introduced in ML.Alpha() in early March that affected computation of upper bound of Alpha MLE. It is important the package is revised on or after March 18, 2022 for it to function properly.
+
+Near future: A detailed Vignette is forthcoming.
 
 --------------------------------------
 
