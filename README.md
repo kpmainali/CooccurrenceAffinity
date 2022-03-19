@@ -1,6 +1,6 @@
 # CooccurrenceAffinity
 
-***** NOTICE ABOUT MAJOR UPDATE ******
+***** NOTICE ABOUT MAJOR UPDATES ******
 
 TIMELINE:
 
