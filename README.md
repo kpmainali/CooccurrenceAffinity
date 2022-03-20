@@ -2,8 +2,6 @@
 
 ***** NOTICE ABOUT MAJOR UPDATES ******
 
-TIMELINE:
-
 Dec 2021: This package was released with a basic set of functions in Dec 2021. 
 
 Feb-Mar 2022: In Feb and early March (until March 4) of 2022, the existing functions were substantially revised for their description, examples and sometimes even for their arguments. Now, we have also added several new functions to analyze binary presence/absence matrix as well as to make plots. This page gives some examples of data analysis. More examples can be found at the function documentation page. 
