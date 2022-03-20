@@ -165,7 +165,8 @@ Geospiza conirostris         0     0      0    0
 > plotgg(data = myout, variable = "alpha_mle", legendlimit = "datarange")
 ```
 
-<img width="800" alt="alpha of species" src="https://user-images.githubusercontent.com/14167540/156713014-42a0d01f-7c33-4e28-bcc4-4ec2ed657357.png">
+<img width="800" alt="alpha of species" src="https://user-images.githubusercontent.com/14167540/159144826-e249a4f8-b3fb-4ab6-8c64-4305214512a4.png">
+
 
 ```
 > # this matrix can be flipped to compute the affinity between islands in cols based on presence/absence of species 
@@ -173,7 +174,8 @@ Geospiza conirostris         0     0      0    0
 > plotgg(data = myout, variable = "alpha_mle", legendlimit = "datarange")
 ```
 
-<img width="800" alt="alpha of sites" src="https://user-images.githubusercontent.com/14167540/156713062-40d6e767-3589-474b-88b4-1fcba09d46c2.png">
+<img width="800" alt="alpha of sites" src="https://user-images.githubusercontent.com/14167540/159144833-ea048371-1659-49a9-9141-0b6f9f599fe5.png">
+
 
 
 # median interval vs conﬁdence interval
