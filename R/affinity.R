@@ -147,7 +147,7 @@ affinity <-
     # this output dataframe will have rows = number of cells in top right half of square matrix of columns that are being compared
     sum(1:(ncol(occur.mat)-1))   # the number of cells in the upper or lower half of triangle in NxN square matrix, excluding the diagonal
     output.long <- data.frame(matrix(ncol = 19, nrow = sum(1:(ncol(occur.mat)-1))))
-    colnames(output.long) <- c("entity_1", "entity_2", "entity_1_count_mA", "entity_2_count_mB", "obs_cooccur_X", "sites_total_N",
+    colnames(output.long) <- c("entity_1", "entity_2", "entity_1_count_mA", "entity_2_count_mB", "obs_cooccur_X", "total_N",
                                "p_value", "exp_cooccur", "alpha_mle", "alpha_medianInt",
                                "conf_level", "ci_blaker", "ci_cp", "ci_midQ", "ci_midP",
                                "jaccard", "sorensen", "simpson", "errornote")
@@ -194,7 +194,7 @@ affinity <-
         output.long$entity_1_count_mA[serialnum] <- sum(mA)
         output.long$entity_2_count_mB[serialnum] <- sum(mB)
         output.long$obs_cooccur_X[serialnum] <- X
-        output.long$sites_total_N[serialnum] <- nrow(sub)
+        output.long$total_N[serialnum] <- nrow(sub)
 
         myjaccard <- round( X/(sum(mA)+sum(mB)-X), sigdigit )
         mysorensen <- round( 2*X/(sum(mA)+sum(mB)), sigdigit )
