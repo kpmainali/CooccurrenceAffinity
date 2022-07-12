@@ -14,6 +14,7 @@ Q3-Q4 of 2022: A detailed Vignette is forthcoming.
 
 --------------------------------------
 
+
 This package computes affinity between two entities based on their co-occurrence (using binary presence/absence data). 
 
 The package refers to and requires an existing package called BiasedUrn, the primary functions in which calculate distributional characteristics of the Fisher Noncentral Hypergeometric distribution (pFNCHypergeo) otherwise known as Extended Hypergeometric (Harkness 1965), which is the way we refer to it in these notes.
