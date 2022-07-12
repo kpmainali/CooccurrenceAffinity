@@ -30,6 +30,8 @@ function F(z, alpha) = F(z,mA,mB,N, exp(alpha)) replaced by (F(z,alpha) + F(z-1,
 \examples{
 EHypMidP(30,c(50,80,120), 0.9)
 AlphInts(30,c(50,80,120), lev=0.9)$CI.midP
+
+EHypMidP(20, c(204,269,2016), 0.9)
 }
 \references{
 Agresti, A. (2013) Categorical Data Analysis, 3rd edition, Wiley.

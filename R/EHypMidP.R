@@ -31,18 +31,20 @@ EHypMidP <-
     if(length(intersect(c(mA,mB), c(0,N))))
       return("Degenerate co-occurrence distribution!")
     ## cap absmax at 10 to avoid error in pFNCHypergeo
-    absmax = min(log(2*N^2),10)
+    alprng = minmaxAlpha.pFNCH(x,marg)
+    alpmax = min(log(2*N^2),alprng[2])
+    alpmin = max(-log(2*N^2),alprng[1])
     ## NB. This function can fail to find interval when the
     #   marg  numbers are very large and the x value too extreme.
     #   In that case, the midQ interval is used in place of midP.
     midP.EHyp = function(alp)  pFNCHypergeo(x,mA,N-mA,mB,exp(alp))-0.5*
       dFNCHypergeo(x,mA,N-mA,mB,exp(alp))
-    lower = if(x==max(mA+mB-N,0)) absmax else  {
+    lower = if(x==max(mA+mB-N,0)) alpmin else  {
       tmp = try(uniroot(function(alp) midP.EHyp(alp) - (1+lev)/2,
-                        c(-absmax,absmax)), silent=T)
+                        c(alpmin,alpmax)), silent=T)
       if(class(tmp)!="try-error") tmp$root else NA}
-    upper = if(x==min(mA,mB)) absmax else   {
+    upper = if(x==min(mA,mB)) alpmax else   {
       tmp = try(uniroot(function(alp) midP.EHyp(alp) - (1-lev)/2,
-                        c(-absmax,absmax)), silent=T)
+                        c(alpmin,alpmax)), silent=T)
       if(class(tmp)!="try-error") tmp$root else NA}
     if(is.na(lower+upper)) NA else c(lower,upper) }

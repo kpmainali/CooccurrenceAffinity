@@ -38,11 +38,13 @@ EHypQuInt <-
     scal = min(scal,10)
     mA=marg[1]; mB=marg[2]; N=marg[3]
     xmin = max(mA+mB-N,0);  xmax = min(mA,mB)
-    maxabs = log(2*N^2)
+    alprng = minmaxAlpha.pFNCH(x,marg)
+    alpmax = min(scal,alprng[2])
+    alpmin = max(-scal,alprng[1])
     if(length(intersect(c(mA,mB), c(0,N))))
       return("Degenerate co-occurrence distribution!")
     null.mean = mA*mB/N
-    newint = if(x >= null.mean) c(-1,scal) else c(-scal,1)
+    newint = if(x >= null.mean) c(-1,alpmax) else c(alpmin,1)
 
     #--------------
     # The function EHypCent() is a utility forming part of the EHypQuInt function, and would not be called as a stand-alone.
@@ -57,12 +59,12 @@ EHypQuInt <-
       for(i in 1:L) out[i]= pFNCHypergeo(t,mA,N-mA,mB,exp(alp[i]))-q
       out }
     #-------------
-
     if(x < xmin) c(-Inf,-Inf) else {
-      if(x == xmin) c(-maxabs,
+      if(x == xmin) c(alpmin,
                       uniroot(EHypCent, newint, t=x, extendInt="y")$root) else {
                         if(x > xmax) c(Inf,Inf) else {
                           if(x == xmax) c(uniroot(EHypCent,
-                                                  newint, t=x-1, extendInt="yes")$root,maxabs) else
+                                                  newint, t=x-1, extendInt="yes")$root,alpmax) else
                                                     c(uniroot(EHypCent, newint, extendInt="y", t=x-1)$root,
                                                       uniroot(EHypCent, newint, extendInt="y", t=x)$root) }}}}
+
