@@ -8,7 +8,7 @@ Feb-Mar 2022: In Feb and early March (until March 4) of 2022, the existing funct
 
 Mar 18, 2022: An error was inadvertently introduced in ML.Alpha() in early March that affected computation of upper bound of Alpha MLE. The error was fixed on March 18, 2022. CooccurrenceAffinity package installed prior to March 18, 2022 should be removed and a new version currently available should be reinstalled for it to function properly.
 
-Jul 12, 2022: We added a function minmaxAlpha.pFNCH(). Without this function, BiasedUrn::pFNCHHypergeo() returns inconsistency message for extreme examples like: AlphInts(20,c(204,269,2016), lev=0.9, scal=10). This problem is solved within our package by restricting the range of allowed alpha to the computed (alphmin, alphmax) range.
+Jul 12, 2022: We added a new function minmaxAlpha.pFNCH(). Without this function, BiasedUrn::pFNCHHypergeo() returns inconsistency message for extreme examples like: AlphInts(20,c(204,269,2016), lev=0.9, scal=10). This problem is solved within our package by restricting the range of allowed alpha to the computed (alphmin, alphmax) range.
 
 Q3-Q4 of 2022: A detailed Vignette is forthcoming.
 
