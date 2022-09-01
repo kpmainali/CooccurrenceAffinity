@@ -2,7 +2,7 @@
 % Please edit documentation in R/minmaxAlpha.pFNCH.R
 \name{minmaxAlpha.pFNCH}
 \alias{minmaxAlpha.pFNCH}
-\title{restrict the range of BiasedUrn::pFNCHHypergeo() values within (-scal,scal)}
+\title{integer-endpoint of range for which BiasedUrn::pFNCHHypergeo() works without error}
 \usage{
 minmaxAlpha.pFNCH(x, marg)
 }
@@ -15,12 +15,11 @@ minmaxAlpha.pFNCH(x, marg)
 minimum and maximum of Alpha
 }
 \description{
-This function restricts the range of BiasedUrn::pFNCHHypergeo() values within (-scal,scal).
+This function calculates an integer-endpoint of range for which BiasedUrn::pFNCHHypergeo() works without error.
 }
 \details{
 Without this function, BiasedUrn::pFNCHHypergeo() returns inconsistency message for extreme examples like: AlphInts(20,c(204,269,2016), lev=0.9, scal=10).
-In examples like AlphInts(20,c(204,269,1000), lev=0.9, scal=10), it returns a very large null expectation.
-These problems are solved within our package by restricting the range of values within (-scal,scal).
+This problem is solved within our package by restricting the range of allowed alpha to the computed (alphmin, alphmax) range.
 }
 \examples{
 minmaxAlpha.pFNCH(10,c(100,200,300))
