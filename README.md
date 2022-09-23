@@ -10,6 +10,8 @@ Mar 18, 2022: An error was inadvertently introduced in ML.Alpha() in early March
 
 Jul 12, 2022: We added a new function minmaxAlpha.pFNCH(). Without this function, BiasedUrn::pFNCHHypergeo() returns inconsistency message for extreme examples like: AlphInts(20,c(204,269,2016), lev=0.9, scal=10). This problem is solved within our package by restricting the range of allowed alpha to the computed (alphmin, alphmax) range.
 
+Sept 23, 2022: CovrgPlot() has been revised to generate multipanel plot.
+
 Q3-Q4 of 2022: A detailed Vignette is forthcoming.
 
 --------------------------------------

@@ -9,7 +9,6 @@ CovrgPlot(
   scal = log(2 * marg[3]^2),
   lev = 0.95,
   alim = 4,
-  minp = 0.7,
   intpts = 1,
   plotCI = 1:4
 )
@@ -22,8 +21,6 @@ CovrgPlot(
 \item{lev}{a confidence level, generally somewhere from 0.8 to 0.95 (default 0.95)}
 
 \item{alim}{the absolute value of alpha at which the plotted figure is cutoff; so the x-axis limits are (-alim, alim)}
-
-\item{minp}{the least coverage probability showing in the plotted figure; so the y-axis limits are (minp, 1)}
 
 \item{intpts}{an integer controlling how many points are used to interpolate between values alpha for which
 the Extended Hypergeometric distribution function is equal exactly to (1+lev)/2 or (1-lev)/2 at some integer co-occurrence value x}
@@ -50,9 +47,24 @@ The outputted vector "avec" of alpha values is the set of all discontinuities in
 "intpts: equally spaced values between them. The plotted coverage probabilities are the corresponding exact (not simulated) coverage probabilities
 of each of the selected (up to 4) confidence intervals at the alphvec points in the four-column array "covPrb".
 }
+\examples{
+# True coverage probability by the 95\% Confidence Interval
+CovrgPlot(marg = c(50,70,150), lev = 0.95)
+
+# If confidence level is not specified, it shows results for 95\% CI
+CovrgPlot(marg = c(50,70,150))
+
+# True coverage probability by the 90\% Confidence Interval
+CovrgPlot(marg = c(50,70,150), lev = 0.90)
+
+# Select some of the confidence intervals to plot
+CovrgPlot(marg = c(50,70,150), lev = 0.95, plotCI=1:3)
+CovrgPlot(marg = c(50,70,150), lev = 0.95, plotCI=c(1,3,4))
+CovrgPlot(marg = c(50,70,150), lev = 0.95, plotCI=1)
+}
 \references{
 to be added
 }
 \author{
-Eric Slud
+Eric Slud and Kumar Mainali
 }

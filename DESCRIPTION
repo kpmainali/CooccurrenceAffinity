@@ -12,5 +12,5 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 Depends: R (>= 4.0.5)
 Imports:
-    BiasedUrn, cooccur, ggplot2
+    BiasedUrn, cooccur, ggplot2, reshape, cowplot, plyr
 RoxygenNote: 7.1.2
