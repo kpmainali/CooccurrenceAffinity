@@ -12,7 +12,7 @@ Jul 12, 2022: We added a new function minmaxAlpha.pFNCH(). Without this function
 
 Sept 23, 2022: CovrgPlot() has been revised to generate multipanel plot.
 
-Q3-Q4 of 2022: A detailed Vignette is forthcoming.
+Nov 4, 2022: We have now completed writing the package manuscript which also serves as the vignette. A preprint version of the package manuscript is available here: https://www.biorxiv.org/content/10.1101/2022.11.01.514801v1
 
 --------------------------------------
 
