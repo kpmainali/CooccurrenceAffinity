@@ -2,17 +2,19 @@
 
 ***** NOTICE ABOUT MAJOR UPDATES ******
 
-Dec 2021: This package was released with a basic set of functions in Dec 2021. 
+Jan 27, 2023: After inspecting this issue, we have discovered that the recent revision of our dependency package Biased-Urn is causing R to crash occasionally while running CooccurrenceAffinity. We are actively working to resolve this issue from within our package. In the meantime, we strongly advise against updating BiasedUrn to version 2.0.8. If you have already upgraded, we recommend removing this version and installing the prior version 1.07 as a temporary solution. We will provide updates as soon as the issue is resolved.
 
-Feb-Mar 2022: In Feb and early March (until March 4) of 2022, the existing functions were substantially revised for their description, examples and sometimes even for their arguments. Now, we have also added several new functions to analyze binary presence/absence matrix as well as to make plots. This page gives some examples of data analysis. More examples can be found at the function documentation page. 
-
-Mar 18, 2022: An error was inadvertently introduced in ML.Alpha() in early March that affected computation of upper bound of Alpha MLE. The error was fixed on March 18, 2022. CooccurrenceAffinity package installed prior to March 18, 2022 should be removed and a new version currently available should be reinstalled for it to function properly.
-
-Jul 12, 2022: We added a new function minmaxAlpha.pFNCH(). Without this function, BiasedUrn::pFNCHHypergeo() returns inconsistency message for extreme examples like: AlphInts(20,c(204,269,2016), lev=0.9, scal=10). This problem is solved within our package by restricting the range of allowed alpha to the computed (alphmin, alphmax) range.
+Nov 4, 2022: We have now completed writing the package manuscript which also serves as the vignette. A preprint version of the package manuscript is available here: https://www.biorxiv.org/content/10.1101/2022.11.01.514801v1
 
 Sept 23, 2022: CovrgPlot() has been revised to generate multipanel plot.
 
-Nov 4, 2022: We have now completed writing the package manuscript which also serves as the vignette. A preprint version of the package manuscript is available here: https://www.biorxiv.org/content/10.1101/2022.11.01.514801v1
+Jul 12, 2022: We added a new function minmaxAlpha.pFNCH(). Without this function, BiasedUrn::pFNCHHypergeo() returns inconsistency message for extreme examples like: AlphInts(20,c(204,269,2016), lev=0.9, scal=10). This problem is solved within our package by restricting the range of allowed alpha to the computed (alphmin, alphmax) range.
+
+Mar 18, 2022: An error was inadvertently introduced in ML.Alpha() in early March that affected computation of upper bound of Alpha MLE. The error was fixed on March 18, 2022. CooccurrenceAffinity package installed prior to March 18, 2022 should be removed and a new version currently available should be reinstalled for it to function properly.
+
+Feb-Mar 2022: In Feb and early March (until March 4) of 2022, the existing functions were substantially revised for their description, examples and sometimes even for their arguments. Now, we have also added several new functions to analyze binary presence/absence matrix as well as to make plots. This page gives some examples of data analysis. More examples can be found at the function documentation page. 
+
+Dec 2021: This package was released with a basic set of functions in Dec 2021. 
 
 --------------------------------------
 
