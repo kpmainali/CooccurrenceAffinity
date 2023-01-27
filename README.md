@@ -2,7 +2,7 @@
 
 ***** NOTICE ABOUT MAJOR UPDATES ******
 
-Jan 27, 2023: After inspecting this issue, we have discovered that the recent revision of our dependency package Biased-Urn is causing R to crash occasionally while running CooccurrenceAffinity. We are actively working to resolve this issue from within our package. In the meantime, we strongly advise against updating BiasedUrn to version 2.0.8. If you have already upgraded, we recommend removing this version and installing the prior version 1.07 as a temporary solution. We will provide updates as soon as the issue is resolved.
+Jan 27, 2023: After inspecting this issue <https://github.com/kpmainali/CooccurrenceAffinity/issues/6>, we have discovered that the recent revision of our dependency package Biased-Urn is causing R to crash occasionally while running CooccurrenceAffinity. We are actively working to resolve this issue from within our package. In the meantime, we strongly advise against updating BiasedUrn to version 2.0.8. If you have already upgraded, we recommend removing this version and installing the prior version 1.07 as a temporary solution. We will provide updates as soon as the issue is resolved.
 
 Nov 4, 2022: We have now completed writing the package manuscript which also serves as the vignette. A preprint version of the package manuscript is available here: https://www.biorxiv.org/content/10.1101/2022.11.01.514801v1
 
