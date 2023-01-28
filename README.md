@@ -62,7 +62,7 @@ Four confidence intervals for alpha are calculated in AlphInts() and ML.Alpha().
 
 Agresti, A. (2013) Categorical Data Analysis, 3rd edition, Wiley.
 
-Blaker, H. (2000), “Confidence curves and im[proved exact confudence intervals for discrete distributions, Canadian Journal of Statistics 28, 783-798.
+Blaker, H. (2000), “Confidence curves and improved exact confidence intervals for discrete distributions”, Canadian Journal of Statistics 28, 783-798.
 
 Brown, L., T. Cai, and A. DasGupta (2001), “Interval Estimation for a Binomial Proportion,” Statistical Science, 16, 101–117.
 
