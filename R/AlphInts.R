@@ -78,8 +78,15 @@ AlphInts <-
     require(BiasedUrn)
     # to avoid errors in pFNCHypergeo, cap  scal  at 10
     mA=marg[1]; mB=marg[2]; N=marg[3]
-    if(length(intersect(c(mA,mB), c(0,N))))
-      return("Degenerate co-occurrence distribution!")
+    if(x<0 | x< mA+mB-N | x > min(mA,mB)) return("Impossible x!")
+    if(length(intersect(c(mA,mB), c(0,N)))){
+      warning("If the mA or mB value is equal to 0 or N, then the corresponding co-occurrence distribution is degenerate at min(mA,mB). This means that the co-occurrence count X will always be min(mA,mB) regardless of alpha. In this case alpha is undefined, and no computations are done.", call. = TRUE, immediate.=TRUE)
+      return("Degenerate co-occurrence distribution!")}
+    if(x==max(mA+mB-N,0))
+      warning(paste("MLE = -Infty is capped, along with lower confidence limits","\n"), call. = TRUE, immediate.=TRUE)
+    if(x==min(mA,mB))
+      warning(paste("MLE = Infty is capped, along with upper confidence limits","\n"), call. = TRUE, immediate.=TRUE)
+
     scal = min(scal,10)
     alph = 1-lev
     Int2 = c(EHypQuInt(x, marg, (1+lev)/2)[1],

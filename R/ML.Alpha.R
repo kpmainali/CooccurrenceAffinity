@@ -44,13 +44,14 @@
 
 
 ML.Alpha <-
-  function( x, marg, bound=T, scal=log(2*marg[3]^2), lev=0.95, pvalType="Blaker") {
+  function(x, marg, bound=T, scal=log(2*marg[3]^2), lev=0.95, pvalType="Blaker") {
     ## output now includes intervals, MLE, Null expectation and p-value
     require(BiasedUrn)
     mA = marg[1]; mB = marg[2]; N = marg[3]
     if(x<0 | x< mA+mB-N | x > min(mA,mB)) return("Impossible x!")
-    if(length(intersect(c(mA,mB), c(0,N))))
-      return("Degenerate co-occurrence distribution!")
+    if(length(intersect(c(mA,mB), c(0,N)))){
+      warning("If the mA or mB value is equal to 0 or N, then the corresponding co-occurrence distribution is degenerate at min(mA,mB). This means that the co-occurrence count X will always be min(mA,mB) regardless of alpha. In this case alpha is undefined, and no computations are done.", call. = TRUE, immediate.=TRUE)
+      return("Degenerate co-occurrence distribution!")}
     ## cap scal at 10 to avoid pFNCHypergeo error
     scal = min(scal,10)
     upbd = if(bound) scal else Inf

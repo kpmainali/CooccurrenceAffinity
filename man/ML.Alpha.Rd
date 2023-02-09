@@ -51,6 +51,25 @@ of its logical range. The recommended confidence interval for alpha is CI.Blaker
 }
 \examples{
 unlist(ML.Alpha(30,c(50,80,120), lev=0.9))
+AlphInts(30,c(50,80,120), lev=0.9)
+
+AlphInts(61,c(80,80,100), lev=0.9)
+ML.Alpha(61,c(80,80,100), lev=0.9)
+
+# Alpha capped warning examples
+AlphInts(60,c(80,80,100), lev=0.9)
+ML.Alpha(60,c(80,80,100), lev=0.9)
+
+AlphInts(80,c(80,80,100), lev=0.9)
+ML.Alpha(80,c(80,80,100), lev=0.9)
+
+# impossible x warning examples
+AlphInts(81,c(80,80,100), lev=0.9)
+ML.Alpha(81,c(80,80,100), lev=0.9)
+
+# Degenerate distribution warning example
+AlphInts(80,c(80,100,100), lev=0.9)
+ML.Alpha(80,c(80,100,100), lev=0.9)
 }
 \references{
 Fog, A. (2015), BiasedUrn: Biased Urn Model Distributions. R package version 1.07.
