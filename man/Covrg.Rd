@@ -25,9 +25,11 @@ This function calculates the coverage probability at the true value alpha of the
 See AlphInts() documentation for details of computation of the four confidence intervals CI.CP, CI.Blaker, CI.midQ, CI.midP. The confidence intervals are calculated for each x in the allowed range from max(mA+mB-N,0) to min(mA,mB), and the probability that X=x times the indicator of alph falling in each of them is summed.
 }
 \examples{
-Covrg(c(50,80,120), 1.2, lev=0.9)
+Covrg(c(50,70,150), 1.2, lev=0.95)
+Covrg(c(50,70,150), 0, lev=0.95)
 
 Covrg(c(50,80,120), 1.5, lev=0.9)
+
 }
 \references{
 to be added
