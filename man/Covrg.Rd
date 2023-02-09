@@ -27,9 +27,7 @@ See AlphInts() documentation for details of computation of the four confidence i
 \examples{
 Covrg(c(50,70,150), 1.2, lev=0.95)
 Covrg(c(50,70,150), 0, lev=0.95)
-
 Covrg(c(50,80,120), 1.5, lev=0.9)
-
 }
 \references{
 to be added
