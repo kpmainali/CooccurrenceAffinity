@@ -80,7 +80,12 @@ AlphInts <-
     mA=marg[1]; mB=marg[2]; N=marg[3]
     if(x<0 | x< mA+mB-N | x > min(mA,mB)) return("Impossible x!")
     if(length(intersect(c(mA,mB), c(0,N)))){
-      warning("If the mA or mB value is equal to 0 or N, then the corresponding co-occurrence distribution is degenerate at min(mA,mB). This means that the co-occurrence count X will always be min(mA,mB) regardless of alpha. In this case alpha is undefined, and no computations are done.", call. = TRUE, immediate.=TRUE)
+      warning(paste0("If the mA or mB value is equal to 0 or N,","\n",
+                "then the corresponding co-occurrence distribution is degenerate at min(mA,mB).", "\n",
+                "This means that the co-occurrence count X will always be min(mA,mB) regardless of alpha.", "\n",
+                "In this case alpha is undefined, and no computations are done."),
+            call. = TRUE, immediate. = TRUE)
+      # warning("If the mA or mB value is equal to 0 or N, then the corresponding co-occurrence distribution is degenerate at min(mA,mB). This means that the co-occurrence count X will always be min(mA,mB) regardless of alpha. In this case alpha is undefined, and no computations are done.", call. = TRUE, immediate.=TRUE)
       return("Degenerate co-occurrence distribution!")}
     if(x==max(mA+mB-N,0))
       warning(paste("MLE = -Infty is capped, along with lower confidence limits","\n"), call. = TRUE, immediate.=TRUE)
