@@ -43,6 +43,11 @@ CovrgPlot <-
     #    to plot curves (more, for larger intpts)
     ## step 0 the vector of alpha values to use as evaluation points
     require(BiasedUrn)
+    require(reshape)
+    require(ggplot2)
+    require(plyr)
+    require(cowplot)
+
     mA=marg[1]; mB=marg[2]; N=marg[3]
     if(length(intersect(c(mA,mB), c(0,N))))
       return("Degenerate co-occurrence distribution!")
@@ -96,7 +101,7 @@ CovrgPlot <-
 
     # prepare line plot
     # ----------------------
-    lp <- ggplot(covPrbmelt, aes(x=avec, y=value, group=variable)) +
+    lp <- ggplot2::ggplot(covPrbmelt, aes(x=avec, y=value, group=variable)) +
       geom_line(aes(color=variable)) +
       geom_point(aes(color=variable)) +
       geom_hline(yintercept = lev, color="black", linetype="dashed") +
@@ -121,7 +126,7 @@ CovrgPlot <-
     count$aboveperc <- count$above/count$all*100
     count$belowperc <- count$below/count$all*100
 
-    hp <- ggplot(covPrbmelt, aes(x=value))+
+    hp <- ggplot2::ggplot(covPrbmelt, aes(x=value))+
       geom_histogram(aes(fill=variable), color="white")+
       facet_grid(variable ~ .) +
       geom_vline(xintercept = lev, color="black", linetype="dashed") +
@@ -153,7 +158,7 @@ CovrgPlot <-
     list(covPrbDF, covPrbmelt, lev)
 
     # plot grid of both line plot and histogram
-    finalplot <- plot_grid(lp, hp, align = "h", ncol = 2, rel_widths = c(2/3, 1/3))
+    finalplot <- cowplot::plot_grid(lp, hp, align = "h", ncol = 2, rel_widths = c(2/3, 1/3))
     print(finalplot)
 
   }

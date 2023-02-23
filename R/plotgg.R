@@ -67,7 +67,7 @@ plotgg <-
 
     require(ggplot2)
 
-    gp <- ggplot(data$all, aes(x = entity_1, y = entity_2, fill = get(variable))) +
+    gp <- ggplot2::ggplot(data$all, aes(x = entity_1, y = entity_2, fill = get(variable))) +
       geom_tile(color = "gray") + coord_fixed() + labs(fill = variable) +
       ylim(rev(colnames(data$occur_mat)[-1])) + xlim(colnames(data$occur_mat)[-length(colnames(data$occur_mat))]) +
       theme(panel.background = element_blank(), axis.title = element_blank(),
