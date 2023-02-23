@@ -104,7 +104,7 @@ plotgg(data = myout, variable = "obs_cooccur_X", legendlimit = "balanced")
 
 plotgg(data = myout, variable = "entity_1_count_mA", legendlimit = "datarange")
 plotgg(data = myout, variable = "entity_2_count_mB", legendlimit = "datarange")
-plotgg(data = myout, variable = "sites_total_N", legendlimit = "datarange")
+plotgg(data = myout, variable = "total_N", legendlimit = "datarange")
 # for "entity_1_count_mA", "entity_2_count_mB", "sites_total_N", if legendlimit is set to "balanced", it will be changed to "datarange"
 plotgg(data = myout, variable = "entity_2_count_mB", legendlimit = "balanced")
 
@@ -135,7 +135,9 @@ plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", value.dig
 plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", text.size = 3.5)
 
 # hide values from the plot
-plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", show.value = F)
+\dontrun{
+  plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", show.value = F)
+}
 
 
 # increase or decrease margin
@@ -176,14 +178,16 @@ plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced") +
 
 # an example of much bigger dataset
 # -------------------------------------
-data("beetles")
-dim(beetles)
-myout <- affinity(data = beetles, row.or.col = "row")
+\dontrun{
+  data("beetles")
+  dim(beetles)
+  myout <- affinity(data = beetles, row.or.col = "row")
 
-plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced") +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
-plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", show.value = T, text.size = 1.5, value.digit = 1) +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
+  plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced") +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
+  plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", show.value = T, text.size = 1.5, value.digit = 1) +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
+}
 }
 \references{
 

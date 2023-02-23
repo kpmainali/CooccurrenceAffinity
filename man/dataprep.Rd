@@ -66,21 +66,30 @@ dataprep(data = matrix.data, row.or.col = "row", datatype = "abundance", thresho
 dataprep(data = matrix.data, row.or.col = "col", datatype = "abundance", threshold = 10, class0.rule = "less")
 
 # bad examples of specifying the rows or cols that are not in the data
-dataprep(data = matrix.data, row.or.col = "row", which.row.or.col = c("id_1", "id_4", "id_11", "id_39"), datatype = "abundance", threshold = 10, class0.rule = "less")
-dataprep(data = matrix.data, row.or.col = "row", which.row.or.col = c(4,7,17), datatype = "abundance", threshold = 10, class0.rule = "less")
-dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = 2:12, datatype = "abundance", threshold = 10, class0.rule = "less")
-dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = c("variable_1", "variable_9", "variable_6"), datatype = "abundance", threshold = 10, class0.rule = "less")
+\dontrun{
+  dataprep(data = matrix.data, row.or.col = "row", which.row.or.col = c("id_1", "id_4", "id_11", "id_39"), datatype = "abundance", threshold = 10, class0.rule = "less")
+  dataprep(data = matrix.data, row.or.col = "row", which.row.or.col = c(4,7,17), datatype = "abundance", threshold = 10, class0.rule = "less")
+  dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = 2:12, datatype = "abundance", threshold = 10, class0.rule = "less")
+  dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = c("variable_1", "variable_9", "variable_6"), datatype = "abundance", threshold = 10, class0.rule = "less")
+}
+
 
 # what if you pick just one column or row
-dataprep(data = matrix.data, row.or.col = "row", which.row.or.col = c("id_4"), datatype = "abundance", threshold = 10, class0.rule = "less")
+\dontrun{
+  dataprep(data = matrix.data, row.or.col = "row", which.row.or.col = c("id_4"), datatype = "abundance", threshold = 10, class0.rule = "less")
+}
 
 # the function fails when a required argument is missing
-dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = c("variable_1", "variable_4"), datatype = "abundance", threshold = 10)
-dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = c("variable_1", "variable_4"), datatype = "abundance", class0.rule = "less.or.equal")
-dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = c("variable_1", "variable_4"), datatype = "abundance")
+\dontrun{
+  dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = c("variable_1", "variable_4"), datatype = "abundance", threshold = 10)
+  dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = c("variable_1", "variable_4"), datatype = "abundance", class0.rule = "less.or.equal")
+  dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = c("variable_1", "variable_4"), datatype = "abundance")
+}
 
 # what if you have abundance data but do not specify the datatype
-dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = c("variable_1", "variable_4"))
+\dontrun{
+  dataprep(data = matrix.data, row.or.col = "col", which.row.or.col = c("variable_1", "variable_4"))
+}
 
 # however, if it is a binary data, it's okay to not specify the datatype althought specifying is a good practice
 matrix.bindata <- dataprep(data = matrix.data, row.or.col = "col", datatype = "abundance", threshold = 9, class0.rule = "less")
