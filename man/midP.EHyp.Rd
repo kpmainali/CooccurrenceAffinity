@@ -2,7 +2,7 @@
 % Please edit documentation in R/midP.EHyp.R
 \name{midP.EHyp}
 \alias{midP.EHyp}
-\title{midP.EHyp}
+\title{midP.EHyp computation}
 \usage{
 midP.EHyp(alp)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/MaxX.Int.R
 \name{MaxX.Int}
 \alias{MaxX.Int}
-\title{MaxX.Int}
+\title{MaxX.Int computation}
 \usage{
 MaxX.Int(marg, scal = log(2 * marg[3]^2), lev = 0.95)
 }

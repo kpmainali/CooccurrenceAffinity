@@ -2,7 +2,7 @@
 % Please edit documentation in R/Bisect.R
 \name{Bisect}
 \alias{Bisect}
-\title{Bisect}
+\title{Bisections for finding a root of a function}
 \usage{
 Bisect(ffnc, intrv, tol = 1e-08)
 }

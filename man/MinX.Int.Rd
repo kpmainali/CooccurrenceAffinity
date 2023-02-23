@@ -2,7 +2,7 @@
 % Please edit documentation in R/MinX.Int.R
 \name{MinX.Int}
 \alias{MinX.Int}
-\title{MinX.Int}
+\title{MinX.Int computation}
 \usage{
 MinX.Int(marg, scal = log(2 * marg[3]^2), lev = 0.95)
 }
