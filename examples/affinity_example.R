@@ -38,7 +38,9 @@ myout <- affinity(data = finches, row.or.col = "col", which.row.or.col = c("Isab
 myout
 
 # if you select only one column, the computation stops
-myout <- affinity(data = finches, row.or.col = "col", which.row.or.col = c("Darwin"), squarematrix = c("alpha_mle"))
+\dontrun{
+  myout <- affinity(data = finches, row.or.col = "col", which.row.or.col = c("Darwin"), squarematrix = c("alpha_mle"))
+}
 
 # you can also add additional arguments bringing them from ML.Alpha() or AlphInts()
 myout1 <- affinity(data = finches, row.or.col = "col", which.row.or.col = c("Isabella", "Espanola"), lev=0.95, pvalType="Blaker")
