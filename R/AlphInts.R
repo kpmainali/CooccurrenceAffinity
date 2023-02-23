@@ -75,7 +75,7 @@ AlphInts <-
     # Interval 3 = CI.Blaker = Conservative Blaker (2000) style (better than Intrv.2)
     # Interval 4 = CI.midQ = (Avg of q=(1+lev)/2 val's, Avg of q=(1-lev)/2  val's)
     # Interval 5 = CI.midP =  midP style interval
-    require(BiasedUrn)
+    # require(BiasedUrn)
     # to avoid errors in pFNCHypergeo, cap  scal  at 10
     mA=marg[1]; mB=marg[2]; N=marg[3]
     if(x<0 | x< mA+mB-N | x > min(mA,mB)) return("Impossible x!")

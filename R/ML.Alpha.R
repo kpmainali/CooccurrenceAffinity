@@ -46,7 +46,7 @@
 ML.Alpha <-
   function(x, marg, bound=T, scal=log(2*marg[3]^2), lev=0.95, pvalType="Blaker") {
     ## output now includes intervals, MLE, Null expectation and p-value
-    require(BiasedUrn)
+    # require(BiasedUrn)
     mA = marg[1]; mB = marg[2]; N = marg[3]
     if(x<0 | x< mA+mB-N | x > min(mA,mB)) return("Impossible x!")
     if(length(intersect(c(mA,mB), c(0,N)))){
