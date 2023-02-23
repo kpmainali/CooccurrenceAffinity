@@ -1,4 +1,4 @@
-#' midP.EHyp
+#' midP.EHyp computation
 #'
 #' Helper function
 #'

@@ -1,4 +1,4 @@
-#' Bisect
+#' Bisections for finding a root of a function
 #'
 #' Find a root of a function by the method of Bisections
 #'

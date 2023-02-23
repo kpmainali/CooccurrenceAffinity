@@ -1,4 +1,4 @@
-#' MaxX.Int
+#' MaxX.Int computation
 #'
 #' Helper function
 #'

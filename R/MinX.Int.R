@@ -1,4 +1,4 @@
-#' MinX.Int
+#' MinX.Int computation
 #'
 #' Helper function
 #'
