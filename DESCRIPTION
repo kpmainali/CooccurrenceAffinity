@@ -10,7 +10,13 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-Depends: R (>= 4.0.5)
+Depends: 
+    R (>= 4.0.5),
+    BiasedUrn (>= 2.0.9) 
 Imports:
-    BiasedUrn, cooccur, ggplot2, reshape, cowplot, plyr
+    cooccur, 
+    ggplot2, 
+    reshape, 
+    cowplot, 
+    plyr
 RoxygenNote: 7.1.2
