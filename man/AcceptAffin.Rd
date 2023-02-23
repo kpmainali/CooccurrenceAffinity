@@ -11,7 +11,7 @@ AcceptAffin(x, marg, alph)
 
 \item{marg}{a 3-entry integer vector (mA,mB,N) consisting of the first row and column totals and the table total for a 2x2 contingency table}
 
-\item{alp}{a vector of (one or more) real-valued "alpha" values, where alpha  is the log-odds parameter in the Extended Hypergeometric distribution}
+\item{alph}{a vector of (one or more) real-valued "alpha" values, where alpha  is the log-odds parameter in the Extended Hypergeometric distribution}
 }
 \value{
 This function returns the "Acceptability Function" that is later used by another function AcceptAffCI() to compute "Acceptability Interval".
