@@ -38,13 +38,13 @@
 
 #'
 #' @example
-#' examples/ML.Alpha_example.R
+#' inst/examples/ML.Alpha_example.R
 #'
 #' @export
 
 
 ML.Alpha <-
-  function(x, marg, bound=T, scal=log(2*marg[3]^2), lev=0.95, pvalType="Blaker") {
+  function(x, marg, bound=TRUE, scal=log(2*marg[3]^2), lev=0.95, pvalType="Blaker") {
     ## output now includes intervals, MLE, Null expectation and p-value
     # require(BiasedUrn)
     mA = marg[1]; mB = marg[2]; N = marg[3]
@@ -61,7 +61,7 @@ ML.Alpha <-
     upbd = if(bound) scal else Inf
     ModInts = AlphInts(x, marg, lev=lev, scal=scal, pvalType=pvalType)
     for(k in 1:3) ModInts[[k]] = pmax(-upbd, pmin(upbd, ModInts[[k]]))
-    tmp = optimize( function(t) log(dFNCHypergeo(x,mA,N-mA,mB,exp(t))),
+    tmp = optimize( function(t) log(BiasedUrn::dFNCHypergeo(x,mA,N-mA,mB,exp(t))),
                     ModInts[[1]]+c(-1,1), maximum=T)
     ### Outputs are: likelihood maximizing alpha, maximized logLik, and
     ###    flag=T if MLE falls within interval AlphInt Int1,

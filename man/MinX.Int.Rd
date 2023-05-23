@@ -14,16 +14,13 @@ MinX.Int(marg, scal = log(2 * marg[3]^2), lev = 0.95)
 \item{lev}{a confidence level, generally somewhere from 0.8 to 0.95  (default 0.95)}
 }
 \value{
-
+helper function
 }
 \description{
 Helper function
 }
 \details{
 This is a helper function.
-}
-\references{
-
 }
 \author{
 Eric Slud

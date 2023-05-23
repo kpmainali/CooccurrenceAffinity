@@ -17,7 +17,7 @@
 #' @references to be added
 #'
 #' @example
-#' examples/Bisect_example.R
+#' inst/examples/Bisect_example.R
 #'
 #' @export
 

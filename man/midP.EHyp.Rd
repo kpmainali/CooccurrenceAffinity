@@ -7,19 +7,18 @@
 midP.EHyp(alp)
 }
 \arguments{
-\item{x}{integer co-occurrence count that should properly fall within the closed interval [max(0,mA+mB-N), min(mA,mB)]}
+\item{alp}{"alpha" parameter, the log-odds parameter in the Extended Hypergeometric distribution}
 }
 \value{
-
+helper function for midP CI computation with EHypMidP
 }
 \description{
 Helper function
 }
 \details{
 This is a helper function.
-}
-\references{
 
+param x integer co-occurrence count that should properly fall within the closed interval [max(0,mA+mB-N), min(mA,mB)]
 }
 \author{
 Eric Slud

@@ -38,6 +38,8 @@ these colors are applied with ggplot::scale_fill_gradient2()}
 \item{text.size}{the size of values if they are printed; default 2.5}
 
 \item{plot.margin}{same as ggplot's plot.margin which includes top, right, bottom and left margins as "margin(1,1,5,2, "cm")"}
+
+\item{...}{Additional arguments to control behavior of the function.}
 }
 \value{
 This function returns a heatmap plot generated with ggplot() behind the scene.
@@ -70,18 +72,33 @@ To make the two plots of observed and expected cooccurrence counts comparable vi
 such that the spectrum ranges between the extremes of "obs_cooccur_X", and "exp_cooccur" collectively.
 }
 \examples{
-require(cooccur)
-data(finches)
-head(finches)
+if(requireNamespace("cooccur", quietly = TRUE)) {
+  data(finches, package = "cooccur")
+} else {
+  message("The cooccur package is not installed.
+          You can install it with install.packages('cooccur').")
+}
 
+# require(cooccur)
+# data(finches)
+data(finches, package = "cooccur")
+head(finches)
+require(ggplot2)
+
+
+
+# the remainder of the script has been enclosed under \donttest{}
+# to bypass the CRAN's 5 second limit on example files
+# --------------------------------------------------------------
+
+\donttest{
 
 # plotting various variables
 # ---------------------------------------------
 # compute alpha and other quantities for island-pair affinity (beta diversity)
 # the square matrices are not used for plotting
 myout <- affinity(data = finches, row.or.col = "col")
-myout
-
+# myout
 
 plotgg(data = myout, variable = "alpha_mle", legendlimit = "datarange")
 # in the example above, null expectation of the alpha_mle (=0) has white color,
@@ -91,7 +108,9 @@ plotgg(data = myout, variable = "alpha_mle", legendlimit = "datarange")
 # however, the legend can be printed to show the extent of data with "datarange"
 # or the entire spectrum where the color is applied with "balanced".
 plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced")
-# notice that the two plots above are identical but the legend has different range with the same color scale.
+# notice that the two plots above are identical but the legend has
+# different range with the same color scale.
+
 
 plotgg(data = myout, variable = "sorensen", legendlimit = "balanced")
 plotgg(data = myout, variable = "jaccard", legendlimit = "balanced")
@@ -105,27 +124,24 @@ plotgg(data = myout, variable = "obs_cooccur_X", legendlimit = "balanced")
 plotgg(data = myout, variable = "entity_1_count_mA", legendlimit = "datarange")
 plotgg(data = myout, variable = "entity_2_count_mB", legendlimit = "datarange")
 plotgg(data = myout, variable = "total_N", legendlimit = "datarange")
-# for "entity_1_count_mA", "entity_2_count_mB", "sites_total_N", if legendlimit is set to "balanced", it will be changed to "datarange"
+# for "entity_1_count_mA", "entity_2_count_mB", "sites_total_N",
+# if legendlimit is set to "balanced", it will be changed to "datarange"
 plotgg(data = myout, variable = "entity_2_count_mB", legendlimit = "balanced")
 
 
 # change color of the plot
 # ---------------------------------------------
-myout <- affinity(data = finches, row.or.col = "col")
-myout
-
 plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced")
-plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", col = c('#99cc33', 'white', '#ff9933'))
+plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced",
+       col = c('#99cc33', 'white', '#ff9933'))
 
 plotgg(data = myout, variable = "obs_cooccur_X", legendlimit = "balanced")
-plotgg(data = myout, variable = "obs_cooccur_X", legendlimit = "balanced", col = c('#99cc33', 'white', '#ff9933'))
+plotgg(data = myout, variable = "obs_cooccur_X", legendlimit = "balanced",
+       col = c('#99cc33', 'white', '#ff9933'))
 
 
 # change the characteristics of text printed in the plot
 # ------------------------------------------------------
-myout <- affinity(data = finches, row.or.col = "col")
-myout
-
 plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced")
 
 # change the number of digits; the default is 2
@@ -134,35 +150,34 @@ plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", value.dig
 # make the fonts bigger; the default is 2.5
 plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", text.size = 3.5)
 
+
+
 # hide values from the plot
-\dontrun{
-  plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", show.value = F)
-}
+plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", show.value = FALSE)
 
 
 # increase or decrease margin
 # ---------------------------------------------
+
 myout <- affinity(data = finches, row.or.col = "row")
-myout
+# myout
 
 plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced")
-plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", plot.margin = margin(1,1,5,2, "cm"))
+plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced",
+       plot.margin = ggplot2::margin(1,1,5,2, "cm"))
 
 
 # change angle of x-axis tick label; the default is 35 degrees
 # ------------------------------------------------------------
-myout <- affinity(data = finches, row.or.col = "col")
-myout
-
 plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced")
 plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced") +
-  theme(axis.text.x = element_text(angle = 45))
+  ggplot2::theme(axis.text.x = element_text(angle = 45))
 
 # to change to 90 degrees, adjust vjust
 plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced") +
-  theme(axis.text.x = element_text(angle = 90))
+  ggplot2::theme(axis.text.x = element_text(angle = 90))
 plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced") +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
+  ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 
 
 # additional elements in the plot
@@ -171,25 +186,26 @@ plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced") +
 
 # add plot title and change legend title
 plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced") +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
-  ggtitle("Affinity of island pairs measured with Alpha MLE") +
-  labs(fill = 'Alpha MLE')
+  ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
+  ggplot2::ggtitle("Affinity of island pairs measured with Alpha MLE") +
+  ggplot2::labs(fill = 'Alpha MLE')
 
 
 # an example of much bigger dataset
 # -------------------------------------
-\dontrun{
-  data("beetles")
-  dim(beetles)
-  myout <- affinity(data = beetles, row.or.col = "row")
+data("beetles", package = "cooccur")
+dim(beetles)
+myout <- affinity(data = beetles, row.or.col = "row")
 
-  plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced") +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
-  plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", show.value = T, text.size = 1.5, value.digit = 1) +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
-}
-}
-\references{
+plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
+plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced",
+       show.value = TRUE, text.size = 1.5, value.digit = 1) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
+
+} #end of \donttest{}
+
+
 
 }
 \author{

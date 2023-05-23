@@ -34,7 +34,10 @@ affinity(
 
 \item{sigdigit}{the number of decimals for rouding alpha mle, its intervals, expected cooccurence under the null, jaccard, sorensen and simpson indices}
 
-\item{squarematrix}{a vector of quantities so that a square matrix for each of them is generated on the top of the main long matrix of all outputs}
+\item{squarematrix}{a vector of quantities so that a square matrix for each of them is generated on the top of the main long matrix of all outputs.
+"alpha_mle", "alpha_mle_sig", "p_value", "cooccur.null", "cooccur.obs", "jaccard", "jaccard_sig", "sorensen", "sorensen_sig", "simpson", "simpson_sig", "all".}
+
+\item{...}{Additional arguments to control behavior of the function.}
 }
 \value{
 This function returns one main long dataframe ($all) with various outputs in columns (a list given under "details") for each of the pairs of the entities in row.
@@ -104,8 +107,24 @@ ADDITIONAL ARGUMENTS can be supplied from ML.Alpha() and AlphInts().
 \examples{
 # when you have a binary presence absence occurrence data
 # -------------------------------------------------------
-require(cooccur)
-data(finches)
+
+if(requireNamespace("cooccur", quietly = TRUE)) {
+  data(finches, package = "cooccur")
+} else {
+  message("The cooccur package is not installed.
+          You can install it with install.packages('cooccur').")
+}
+
+data(finches, package = "cooccur")
+
+
+
+# the remainder of the script has been enclosed under \donttest{}
+# to bypass the CRAN's 5 second limit on example files
+# --------------------------------------------------------------
+
+\donttest{
+
 
 head(finches)
 # this dataset carries the occurrence records of 13 species in row in 17 islands in columns
@@ -119,7 +138,10 @@ myout
 myout <- affinity(data = finches, row.or.col = "row")
 myout
 
-# the rows of the outputs above include every single pair of the entities, producing many columns for various quantities.
+
+
+# the rows of the outputs above include every single pair of the entities,
+# producing many columns for various quantities.
 # for several of these columns, the function allows outputing the square NxN matrix of the entities
 # an example is here
 myout <- affinity(data = finches, row.or.col = "col", squarematrix = c("alpha_mle", "jaccard"))
@@ -135,28 +157,44 @@ length(myout)
 myout
 
 # when you want to compute for only certain pairs
-myout <- affinity(data = finches, row.or.col = "col", which.row.or.col = 4:6, squarematrix = c("alpha_mle"))
+myout <- affinity(data = finches, row.or.col = "col", which.row.or.col = 4:6,
+                  squarematrix = c("alpha_mle"))
 myout
 
-myout <- affinity(data = finches, row.or.col = "col", which.row.or.col = c("Isabella", "Espanola"), squarematrix = c("alpha_mle"))
+myout <- affinity(data = finches, row.or.col = "col",
+                  which.row.or.col = c("Isabella", "Espanola"), squarematrix = c("alpha_mle"))
 myout
+
+} #end of \donttest{}
+
+
 
 # if you select only one column, the computation stops
 \dontrun{
-  myout <- affinity(data = finches, row.or.col = "col", which.row.or.col = c("Darwin"), squarematrix = c("alpha_mle"))
+  myout <- affinity(data = finches, row.or.col = "col",
+                    which.row.or.col = c("Darwin"), squarematrix = c("alpha_mle"))
 }
 
+
+
+\donttest{
+
 # you can also add additional arguments bringing them from ML.Alpha() or AlphInts()
-myout1 <- affinity(data = finches, row.or.col = "col", which.row.or.col = c("Isabella", "Espanola"), lev=0.95, pvalType="Blaker")
+myout1 <- affinity(data = finches, row.or.col = "col",
+                   which.row.or.col = c("Isabella", "Espanola"), lev=0.95, pvalType="Blaker")
 myout1
-myout2 <- affinity(data = finches, row.or.col = "col", which.row.or.col = c("Isabella", "Espanola"), lev=0.90, pvalType="Blaker")
+myout2 <- affinity(data = finches, row.or.col = "col",
+                   which.row.or.col = c("Isabella", "Espanola"), lev=0.90, pvalType="Blaker")
 myout2
 identical(myout1, myout2)
-# myout1 and myout2 were generated with identical arguments except a difference in "lev", which gave different confidence intervals
+# myout1 and myout2 were generated with identical arguments except a difference in "lev",
+# which gave different confidence intervals
 
-myout3 <- affinity(data = finches, row.or.col = "col", which.row.or.col = 4:6, lev=0.95, pvalType="Blaker")
+myout3 <- affinity(data = finches, row.or.col = "col",
+                   which.row.or.col = 4:6, lev=0.95, pvalType="Blaker")
 myout3
-myout4 <- affinity(data = finches, row.or.col = "col", which.row.or.col = 4:6, lev=0.95, pvalType="midP")
+myout4 <- affinity(data = finches, row.or.col = "col",
+                   which.row.or.col = 4:6, lev=0.95, pvalType="midP")
 myout4
 myout3$all$p_value
 myout4$all$p_value
@@ -165,7 +203,8 @@ myout4$all$p_value
 # when you have abundance data requiring conversion to binary
 # -----------------------------------------------------------
 # abundance data is converted to binary based on a threshold supplied.
-# it might be a good idea to explore dataprep() function and its examples first before workign on affinity() for abundance data.
+# it might be a good idea to explore dataprep() function and its examples
+# first before workign on affinity() for abundance data.
 matrix.data <- matrix(runif(400, 0, 10), nrow = 100, ncol = 4)
 row.names(matrix.data) <- paste0("id_", 1:nrow(matrix.data))
 colnames(matrix.data) <- paste0("variable_", 1:ncol(matrix.data))
@@ -177,16 +216,21 @@ head(matrix.data)
 # now this is an abundance data with some missing and some zero occurrences
 
 # inspecting how the abundance is converted to binary first
-dataprep(data = matrix.data, row.or.col = "col", datatype = "abundance", threshold = 5, class0.rule = "less")
-myout10 <- affinity(data = matrix.data, row.or.col = "col", datatype = "abundance", threshold = 5, class0.rule = "less")
+dataprep(data = matrix.data, row.or.col = "col", datatype = "abundance",
+         threshold = 5, class0.rule = "less")
+myout10 <- affinity(data = matrix.data, row.or.col = "col",
+                    datatype = "abundance", threshold = 5, class0.rule = "less")
 myout10
 
 # you can also feed the output of dataprep() to affinity()
-myinput <- dataprep(data = matrix.data, row.or.col = "col", datatype = "abundance", threshold = 5, class0.rule = "less")
+myinput <- dataprep(data = matrix.data, row.or.col = "col",
+                    datatype = "abundance", threshold = 5, class0.rule = "less")
 myout11 <- affinity(data = myinput, row.or.col = "col", datatype = "binary")
 myout11
 # myout 10 and myout11 are identical
 identical(myout10, myout11)
+
+} # end of \donttest{}
 }
 \references{
 Agresti, A. (2013) Categorical Data Analysis, 3rd edition, Wiley.

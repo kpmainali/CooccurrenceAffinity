@@ -24,10 +24,8 @@
 #'
 #' @author Kumar Mainali
 #'
-#' @references
-#'
 #' @example
-#' examples/dataprep_example.R
+#' inst/examples/dataprep_example.R
 #'
 #' @export
 
@@ -113,7 +111,8 @@ dataprep <- function(data, row.or.col, which.row.or.col=NULL, datatype=NULL, thr
       msg.c <- paste(" --- ***the data should include 1 and 0 only; if you have abundance data, add the arguments datatype, threshold and class0.rule***")
       stop(paste0(msg.a, msg.b, msg.c))
     } else {
-      print("------------ as expected, the data ready for analysis has only 1 and 0... 1 = present, 0 = absent used for the interpretation")
+      message("\n")
+      message("------ as expected, the data ready for analysis has only 1 and 0... 1 = present, 0 = absent used for the interpretation ------\n")
     }
 
   }
@@ -174,7 +173,8 @@ dataprep <- function(data, row.or.col, which.row.or.col=NULL, datatype=NULL, thr
   # as missing data can be species-specific, such records are removed on species-pairwise basis.
   # that means, if a site has missing data for at least one of the pair of species being analyzed for co-occurrence, the site is eliminated from analysis.
   if(sum(is.na(data) >0)) {
-    print("***** Missing data detected and will be eliminated on a pairwise basis; please read the details section of function help for an explanation *****")
+    message("\n")
+    message("***** Missing data detected and will be eliminated on a pairwise basis; please read the details section of function help for an explanation *****\n")
   }
 
   # check if the input data is only numeric or integer only

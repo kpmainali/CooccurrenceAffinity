@@ -72,7 +72,9 @@
 #' @param class0.rule 'less.or.equal' or 'less'. 'less.or.equal' converts a threshold or lower values to zero and all the others to 1. 'less' converts a threshold and higher values to 1.
 #' @param sigPval acceptable rate of false positives or probability of rejecting the null hypothesis when it is true, commonly known as alpha in hypothesis testing
 #' @param sigdigit the number of decimals for rouding alpha mle, its intervals, expected cooccurence under the null, jaccard, sorensen and simpson indices
-#' @param squarematrix a vector of quantities so that a square matrix for each of them is generated on the top of the main long matrix of all outputs
+#' @param squarematrix a vector of quantities so that a square matrix for each of them is generated on the top of the main long matrix of all outputs.
+#' "alpha_mle", "alpha_mle_sig", "p_value", "cooccur.null", "cooccur.obs", "jaccard", "jaccard_sig", "sorensen", "sorensen_sig", "simpson", "simpson_sig", "all".
+#' @param ... Additional arguments to control behavior of the function.
 #'
 #'
 #' @return This function returns one main long dataframe ($all) with various outputs in columns (a list given under "details") for each of the pairs of the entities in row.
@@ -98,7 +100,7 @@
 
 #'
 #' @example
-#' examples/affinity_example.R
+#' inst/examples/affinity_example.R
 #'
 #' @export
 

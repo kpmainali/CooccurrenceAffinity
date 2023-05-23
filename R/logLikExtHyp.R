@@ -18,7 +18,7 @@
 #' Harkness, W. (1965), “Properties of the extended hypergeometric distribution“, Annals of Mathematical Statistics, 36, 938-945.
 #'
 #' @example
-#' examples/logLikExtHyp_example.R
+#' inst/examples/logLikExtHyp_example.R
 #'
 #' @export
 
@@ -27,7 +27,7 @@ logLikExtHyp <-
   function(x,marg,alpha)  {
     mA=marg[1]; mB=marg[2]; N=marg[3]
     out = numeric(length(alpha))
-    require(BiasedUrn)
+    # require(BiasedUrn)
     for(i in 1:length(alpha))   out[i] =
-      log(dFNCHypergeo(x,mA,N-mA,mB,exp(alpha[i])))
+      log(BiasedUrn::dFNCHypergeo(x,mA,N-mA,mB,exp(alpha[i])))
     out }

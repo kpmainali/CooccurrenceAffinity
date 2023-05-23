@@ -16,8 +16,6 @@
 #' @references
 #' Blaker, H. (2000), “Confidence curves and improved exact confidence intervals for discrete distributions", Canadian Journal of Statistics 28, 783-798.
 #'
-#' @example
-#' to be added
 #'
 #' @export
 
@@ -31,11 +29,11 @@ AcceptAffin <-
     out=numeric(K)
     for(i in 1:K) {
       ealp = exp(alph[i])
-      p1 = 1 - pFNCHypergeo(x - 1, mA,N-mA,mB,ealp)
-      p2 = pFNCHypergeo(x, mA,N-mA,mB,ealp)
-      a1 = p1 + pFNCHypergeo(qFNCHypergeo(p1,mA,N-mA,mB,ealp) - 1,
+      p1 = 1 - BiasedUrn::pFNCHypergeo(x - 1, mA,N-mA,mB,ealp)
+      p2 = BiasedUrn::pFNCHypergeo(x, mA,N-mA,mB,ealp)
+      a1 = p1 + BiasedUrn::pFNCHypergeo(BiasedUrn::qFNCHypergeo(p1,mA,N-mA,mB,ealp) - 1,
                              mA,N-mA,mB,ealp)
-      a2 = p2+1 - pFNCHypergeo(qFNCHypergeo(1-p2, mA,N-mA,mB,ealp),
+      a2 = p2+1 - BiasedUrn::pFNCHypergeo(BiasedUrn::qFNCHypergeo(1-p2, mA,N-mA,mB,ealp),
                                mA,N-mA,mB,ealp)
       out[i] = pmin(a1,a2) }
     out   }

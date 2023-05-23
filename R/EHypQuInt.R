@@ -21,10 +21,8 @@
 #'
 #' @author Eric Slud
 #'
-#' @references
-#'
 #' @example
-#' examples/EHypQuInt_example.R
+#' inst/examples/EHypQuInt_example.R
 #'
 #' @export
 
@@ -33,7 +31,7 @@ EHypQuInt <-
   function(x, marg, q, scal=log(2*marg[3]^2)) {
     #  marg = c(mA, mB, N),
     # x an observed co-occurrence count, q the desired quantile
-    require(BiasedUrn)
+    # require(BiasedUrn)
     # cap scal at 10 to avoid error in pFNCHypergeo
     scal = min(scal,10)
     mA=marg[1]; mB=marg[2]; N=marg[3]
@@ -56,7 +54,7 @@ EHypQuInt <-
       # t an observed co-occurrence count, alp a sequence of alphas
       L = length(alp)
       out = numeric(L)
-      for(i in 1:L) out[i]= pFNCHypergeo(t,mA,N-mA,mB,exp(alp[i]))-q
+      for(i in 1:L) out[i] = BiasedUrn::pFNCHypergeo(t,mA,N-mA,mB,exp(alp[i]))-q
       out }
     #-------------
     if(x < xmin) c(-Inf,-Inf) else {

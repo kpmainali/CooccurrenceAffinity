@@ -34,15 +34,15 @@
 
 #'
 #' @example
-#' examples/affinity2by2_example.R
+#' inst/examples/affinity2by2_example.R
 #'
 #' @export
 
 
 affinity2by2 <-
-  function( x, marg, bound=T, scal=log(2*marg[3]^2), lev=0.95, pvalType="Blaker") {
+  function(x, marg, bound=TRUE, scal=log(2*marg[3]^2), lev=0.95, pvalType="Blaker") {
 
-    mlout <- ML.Alpha( x=x, marg=marg, bound=bound, scal=scal, lev=lev, pvalType=pvalType)
+    mlout <- ML.Alpha(x=x, marg=marg, bound=bound, scal=scal, lev=lev, pvalType=pvalType)
 
     newlist <- list(
          jaccard = as.numeric(x/(marg[1]+marg[2]-x)),

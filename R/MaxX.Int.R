@@ -8,14 +8,10 @@
 #' @param scal an integer parameter (default 2*N^2, capped at 10 within the function) that should be 2 or greater
 #' @param lev a confidence level, generally somewhere from 0.8 to 0.95  (default 0.95)
 #'
-#' @return
+#' @return helper function
 #'
 #' @author Eric Slud
 #'
-#' @references
-#'
-#' @example
-#' to be added
 #'
 #' @export
 
@@ -29,7 +25,7 @@ MaxX.Int <-
     maxx = min(marg[1:2])
     Upper = scal
     Lower = uniroot( function(xa)
-      dFNCHypergeo(maxx,marg[1],marg[3]-marg[1],marg[2],
+      BiasedUrn::dFNCHypergeo(maxx,marg[1],marg[3]-marg[1],marg[2],
                    exp(xa)) - (1-lev), c(-1,scal), extendInt="yes")$root
     c(Lower,Upper)  }
 

@@ -21,7 +21,7 @@
 #' Agresti, A. (2013) Categorical Data Analysis, 3rd edition, Wiley.
 #'
 #' @example
-#' examples/EHypMidP_example.R
+#' inst/examples/EHypMidP_example.R
 #'
 #' @export
 
@@ -37,14 +37,16 @@ EHypMidP <-
     ## NB. This function can fail to find interval when the
     #   marg  numbers are very large and the x value too extreme.
     #   In that case, the midQ interval is used in place of midP.
-    midP.EHyp = function(alp)  pFNCHypergeo(x,mA,N-mA,mB,exp(alp))-0.5*
-      dFNCHypergeo(x,mA,N-mA,mB,exp(alp))
+    midP.EHyp = function(alp)  BiasedUrn::pFNCHypergeo(x,mA,N-mA,mB,exp(alp))-0.5*
+      BiasedUrn::dFNCHypergeo(x,mA,N-mA,mB,exp(alp))
     lower = if(x==max(mA+mB-N,0)) alpmin else  {
       tmp = try(uniroot(function(alp) midP.EHyp(alp) - (1+lev)/2,
                         c(alpmin,alpmax)), silent=T)
-      if(class(tmp)!="try-error") tmp$root else NA}
+      # if(class(tmp)!="try-error") tmp$root else NA}
+      if(!inherits(tmp, "try-error")) tmp$root else NA}
     upper = if(x==min(mA,mB)) alpmax else   {
       tmp = try(uniroot(function(alp) midP.EHyp(alp) - (1-lev)/2,
                         c(alpmin,alpmax)), silent=T)
-      if(class(tmp)!="try-error") tmp$root else NA}
+      # if(class(tmp)!="try-error") tmp$root else NA}
+      if(!inherits(tmp, "try-error")) tmp$root else NA}
     if(is.na(lower+upper)) NA else c(lower,upper) }

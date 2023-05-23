@@ -31,8 +31,18 @@ Confidence Intervals (1=CP, 2=Blaker, 3=midQ, 4=midP) should have their coverage
 \value{
 This function plots a figure of overlaid coverage probabilities with differently colored lines, explained in the figure legend.
 In addition, it returns "avec", a vector of alpha values at which coverage probabilities are calculated,
-an xn x 4 x 2 array "arrCI" where xn is the length of "avec" and for each index i in 1:xn the array arrCI\link{i,,} is the 4x2 matrix of 4 Confidence Interval
-lower and upper alpha-value endpoints; and "covPrb", the xn x 4 matrix of coverage probabilities for the four CI's at each of the alpha values avec\link{i} for i =1,...,xn.
+an xn x 4 x 2 array "arrCI" where xn is the length of "avec" and for each index i in 1:xn the array arrCI[i,,] is the 4x2 matrix of 4 Confidence Interval
+lower and upper alpha-value endpoints; and "covPrb", the xn x 4 matrix of coverage probabilities for the four CI's at each of the alpha values avec[i] for i =1,...,xn.
+
+\describe{
+\item{variable}{Column name of the dataframe produced by reshape::melt}
+\item{value}{Column name of the dataframe produced by reshape::melt}
+\item{abovethr}{Column name of the dataframe produced by reshape::melt}
+\item{belowthr}{Column name of the dataframe produced by reshape::melt}
+\item{aboveperc}{Column name of the dataframe produced by plyr::ddply}
+\item{belowperc}{Column name of the dataframe produced by plyr::ddply}
+\item{legendtext}{Column name of the dataframe}
+}
 }
 \description{
 This function calculates and plots the coverage probabilities of the four confidence intervals CI.CP, CI.Blaker, CI.midQ and CI.midP
@@ -51,6 +61,12 @@ of each of the selected (up to 4) confidence intervals at the alphvec points in 
 # True coverage probability by the 95\% Confidence Interval
 CovrgPlot(marg = c(50,70,150), lev = 0.95)
 
+# the remainder of the script has been enclosed under \donttest{}
+# to bypass the CRAN's 5 second limit on example files
+# --------------------------------------------------------------
+
+\donttest{
+
 # If confidence level is not specified, it shows results for 95\% CI
 CovrgPlot(marg = c(50,70,150))
 
@@ -61,6 +77,8 @@ CovrgPlot(marg = c(50,70,150), lev = 0.90)
 CovrgPlot(marg = c(50,70,150), lev = 0.95, plotCI=1:3)
 CovrgPlot(marg = c(50,70,150), lev = 0.95, plotCI=c(1,3,4))
 CovrgPlot(marg = c(50,70,150), lev = 0.95, plotCI=1)
+
+} #end of \donttest{}
 }
 \references{
 to be added
@@ -68,3 +86,4 @@ to be added
 \author{
 Eric Slud and Kumar Mainali
 }
+\keyword{internal}

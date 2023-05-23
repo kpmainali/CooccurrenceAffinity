@@ -20,17 +20,36 @@
 #' @param plotCI a vector of up to 4 numbers out of the set {1,2,3,4}, corresponding to which
 #' Confidence Intervals (1=CP, 2=Blaker, 3=midQ, 4=midP) should have their coverage probability values plotted simultaneously (with different colors) in the figure
 #'
+#' @importFrom BiasedUrn pFNCHypergeo qFNCHypergeo dFNCHypergeo
+#' @importFrom reshape melt
+#' @importFrom ggplot2 ggplot aes geom_histogram geom_line geom_hline geom_vline geom_point facet_grid theme xlab ylab xlim ggplot_build geom_text coord_fixed element_blank element_text geom_tile scale_fill_gradient2
+#' @importFrom plyr ddply summarize
+#' @importFrom cowplot plot_grid
+#' @importFrom stats na.omit optimize phyper uniroot
+#' @importFrom utils head
+#'
 #' @return This function plots a figure of overlaid coverage probabilities with differently colored lines, explained in the figure legend.
 #' In addition, it returns "avec", a vector of alpha values at which coverage probabilities are calculated,
-#' an xn x 4 x 2 array "arrCI" where xn is the length of "avec" and for each index i in 1:xn the array arrCI[i,,] is the 4x2 matrix of 4 Confidence Interval
-#' lower and upper alpha-value endpoints; and "covPrb", the xn x 4 matrix of coverage probabilities for the four CI's at each of the alpha values avec[i] for i =1,...,xn.
+#' an xn x 4 x 2 array "arrCI" where xn is the length of "avec" and for each index i in 1:xn the array arrCI\[i,,\] is the 4x2 matrix of 4 Confidence Interval
+#' lower and upper alpha-value endpoints; and "covPrb", the xn x 4 matrix of coverage probabilities for the four CI's at each of the alpha values avec\[i\] for i =1,...,xn.
+#'
+#' \describe{
+#'   \item{variable}{Column name of the dataframe produced by reshape::melt}
+#'   \item{value}{Column name of the dataframe produced by reshape::melt}
+#'   \item{abovethr}{Column name of the dataframe produced by reshape::melt}
+#'   \item{belowthr}{Column name of the dataframe produced by reshape::melt}
+#'   \item{aboveperc}{Column name of the dataframe produced by plyr::ddply}
+#'   \item{belowperc}{Column name of the dataframe produced by plyr::ddply}
+#'   \item{legendtext}{Column name of the dataframe}
+#' }
+#' @keywords internal
 #'
 #' @author Eric Slud and Kumar Mainali
 #'
 #' @references to be added
 #'
 #' @example
-#' examples/CovrgPlot_example.R
+#' inst/examples/CovrgPlot_example.R
 #'
 #' @export
 
@@ -42,11 +61,13 @@ CovrgPlot <-
     #  parameter intpts controls the number of points used
     #    to plot curves (more, for larger intpts)
     ## step 0 the vector of alpha values to use as evaluation points
-    require(BiasedUrn)
-    require(reshape)
-    require(ggplot2)
-    require(plyr)
-    require(cowplot)
+
+    # no need to call these packages here as they are included under Import of Description file
+    # require(BiasedUrn)
+    # require(reshape)
+    # require(ggplot2)
+    # require(plyr)
+    # require(cowplot)
 
     mA=marg[1]; mB=marg[2]; N=marg[3]
     if(length(intersect(c(mA,mB), c(0,N))))
@@ -81,7 +102,7 @@ CovrgPlot <-
     covCI = array(0, c(an, xn,4))
     for(j in 1:4) for(k in 1:an) for(b in 1:xn) covCI[k,b,j] =
       (avec[k] >= arrCI[b,j,1] & avec[k] <= arrCI[b,j,2])*
-      dFNCHypergeo(minx+b,mA,N-mA,mB,exp(avec[k]))
+      BiasedUrn::dFNCHypergeo(minx+b,mA,N-mA,mB,exp(avec[k]))
     ## step 3 coverage prob's
     covPrb = array(0, c(an,4))
     for(j in 1:4) covPrb[,j] = c(covCI[,,j] %*% rep(1,xn))
@@ -101,13 +122,14 @@ CovrgPlot <-
 
     # prepare line plot
     # ----------------------
+    value <- variable <- NULL #added to prevent no visible binding note
     lp <- ggplot2::ggplot(covPrbmelt, aes(x=avec, y=value, group=variable)) +
-      geom_line(aes(color=variable)) +
-      geom_point(aes(color=variable)) +
-      geom_hline(yintercept = lev, color="black", linetype="dashed") +
-      facet_grid(variable ~ ., switch = "y") +
-      theme(legend.position = "none") +
-      xlab("Alpha MLE") + ylab(paste0("True coverage probability by the ", lev*100, "% confidence interval"))
+      ggplot2::geom_line(aes(color=variable)) +
+      ggplot2::geom_point(aes(color=variable)) +
+      ggplot2::geom_hline(yintercept = lev, color="black", linetype="dashed") +
+      ggplot2::facet_grid(variable ~ ., switch = "y") +
+      ggplot2::theme(legend.position = "none") +
+      ggplot2::xlab("Alpha MLE") + ggplot2::ylab(paste0("True coverage probability by the ", lev*100, "% confidence interval"))
 
 
 
@@ -118,7 +140,9 @@ CovrgPlot <-
     tmp$abovethr[tmp$value >= lev] <- "yes"
     tmp$belowthr[tmp$value < lev] <- "yes"
 
-    count <- plyr::ddply(tmp, .(variable), summarize,
+    abovethr <- belowthr <- aboveperc <- belowperc <- legendtext <- NULL #added to prevent no visible binding note
+    # count <- plyr::ddply(tmp, .(variable), summarize,
+    count <- plyr::ddply(tmp, "variable", plyr::summarize,
                          above = length(abovethr[!is.na(abovethr)]),
                          below = length(belowthr[!is.na(belowthr)]))
 
@@ -127,32 +151,32 @@ CovrgPlot <-
     count$belowperc <- count$below/count$all*100
 
     hp <- ggplot2::ggplot(covPrbmelt, aes(x=value))+
-      geom_histogram(aes(fill=variable), color="white")+
-      facet_grid(variable ~ .) +
-      geom_vline(xintercept = lev, color="black", linetype="dashed") +
-      theme(legend.position = "none") +
-      xlab("Alpha MLE") + ylab("Count")
+      ggplot2::geom_histogram(aes(fill=variable), color="white")+
+      ggplot2::facet_grid(variable ~ .) +
+      ggplot2::geom_vline(xintercept = lev, color="black", linetype="dashed") +
+      ggplot2::theme(legend.position = "none") +
+      ggplot2::xlab("Alpha MLE") + ggplot2::ylab("Count")
 
     # sometimes, e.g., when requesting just Blaker, all histogram mass can fall above threshold (lev) and histogram print of 0% for less than lev
     # is cut off. for that situation, extend the xlim by a bit to show the printing of 0%
     if(min(covPrbmelt$value) >= lev) {
-      hp <- hp + xlim((lev-0.005), max(ggplot_build(hp)$data[[1]]$xmax))
+      hp <- hp + ggplot2::xlim((lev-0.005), max(ggplot2::ggplot_build(hp)$data[[1]]$xmax))
     }
 
 
 
     # find the maximum of the count values plotted on y axis of histogram, to find location to print percentage
-    maxcount <- max(ggplot_build(hp)$data[[1]]$count)
+    maxcount <- max(ggplot2::ggplot_build(hp)$data[[1]]$count)
     hp <- hp +
-      geom_text(data = count, aes(x = lev,  y = maxcount*0.95, label = paste0(round(aboveperc, 1), "%")), vjust = 0.5, hjust = -0.25, size=3) +
-      geom_text(data = count, aes(x = lev,  y = maxcount*0.95, label = paste0(round(belowperc, 1), "%")), vjust = 0.5, hjust = 1.25, size=3)
+      ggplot2::geom_text(data = count, aes(x = lev,  y = maxcount*0.95, label = paste0(round(aboveperc, 1), "%")), vjust = 0.5, hjust = -0.25, size=3) +
+      ggplot2::geom_text(data = count, aes(x = lev,  y = maxcount*0.95, label = paste0(round(belowperc, 1), "%")), vjust = 0.5, hjust = 1.25, size=3)
 
     # add threshold in the first lineplot
     thresholdlegend <- data.frame(cbind(count[,1, drop=FALSE], legendtext=NA))
     thresholdlegend$legendtext[1] <- paste0("true coverage probability of ", round(lev*100, 2), "% threshold")
 
     lp <- lp +
-      geom_text(data = thresholdlegend, aes(x = 0,  y = lev, label = legendtext), hjust = 0.5, vjust = 1.5, size=3)
+      ggplot2::geom_text(data = thresholdlegend, aes(x = 0,  y = lev, label = legendtext), hjust = 0.5, vjust = 1.5, size=3)
 
 
     list(covPrbDF, covPrbmelt, lev)

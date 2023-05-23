@@ -41,15 +41,14 @@
 #' @param value.digit the number of digits in values if they are printed; default 2
 #' @param text.size the size of values if they are printed; default 2.5
 #' @param plot.margin same as ggplot's plot.margin which includes top, right, bottom and left margins as "margin(1,1,5,2, "cm")"
+#' @param ... Additional arguments to control behavior of the function.
 #'
 #' @return This function returns a heatmap plot generated with ggplot() behind the scene.
 #'
 #' @author Kumar Mainali
 #'
-#' @references
-#'
 #' @example
-#' examples/plotgg_example.R
+#' inst/examples/plotgg_example.R
 #'
 #' @export
 
@@ -65,18 +64,19 @@ plotgg <-
       stop("honestly, we do not like to plot intervals and confidence level... at least for now")
     }
 
-    require(ggplot2)
+    # require(ggplot2)
 
+    entity_1 <- entity_2 <- labs <- ylim <- unit <- NULL
     gp <- ggplot2::ggplot(data$all, aes(x = entity_1, y = entity_2, fill = get(variable))) +
-      geom_tile(color = "gray") + coord_fixed() + labs(fill = variable) +
-      ylim(rev(colnames(data$occur_mat)[-1])) + xlim(colnames(data$occur_mat)[-length(colnames(data$occur_mat))]) +
-      theme(panel.background = element_blank(), axis.title = element_blank(),
+      ggplot2::geom_tile(color = "gray") + ggplot2::coord_fixed() + ggplot2::labs(fill = variable) +
+      ggplot2::ylim(rev(colnames(data$occur_mat)[-1])) + ggplot2::xlim(colnames(data$occur_mat)[-length(colnames(data$occur_mat))]) +
+      ggplot2::theme(panel.background = element_blank(), axis.title = element_blank(),
             axis.text.x = element_text(angle = 35, vjust = 0.85, hjust=1), axis.text.y = element_text(vjust = 0.5, hjust = 0.1),
-            axis.ticks.length=unit(.25, "cm"))
+            axis.ticks.length=ggplot2::unit(.25, "cm"))
 
     # plot with specified margin if supplied
     if(!is.null(plot.margin)) {
-      gp <- gp + theme(plot.margin = plot.margin)
+      gp <- gp + ggplot2::theme(plot.margin = plot.margin)
     }
 
     if(is.null(col)) col <- c("#87beff", "white", "#fd6a6c")
@@ -100,9 +100,13 @@ plotgg <-
     # plot with legend midpoint and limits calculated above
     if(variable %in% c("p_value", "jaccard", "sorensen", "simpson", "alpha_mle")) {
       if(legendlimit == "datarange") {
-        gp <- gp + scale_fill_gradient2(midpoint = midpoint, low = col[1], mid = col[2], high = col[3], space ="Lab", na.value = "grey50")
+        gp <- gp + ggplot2::scale_fill_gradient2(midpoint = midpoint, low = col[1],
+                                                 mid = col[2], high = col[3], space ="Lab",
+                                                 na.value = "grey50")
       } else if(legendlimit == "balanced") {
-        gp <- gp + scale_fill_gradient2(midpoint = midpoint, low = col[1], mid = col[2], high = col[3], space ="Lab", na.value = "grey50", limits = c(lowerlimit, upperlimit))
+        gp <- gp + ggplot2::scale_fill_gradient2(midpoint = midpoint, low = col[1],
+                                                 mid = col[2], high = col[3], space ="Lab",
+                                                 na.value = "grey50", limits = c(lowerlimit, upperlimit))
       } else {
         stop("legendlimit should be either datarange or balanced")
       }
@@ -126,9 +130,9 @@ plotgg <-
 
 
       if(legendlimit == "datarange") {
-        gp <- gp + scale_fill_gradient2(midpoint = midpoint, low = col[1], mid = col[2], high = col[3], space ="Lab", na.value = "grey50")
+        gp <- gp + ggplot2::scale_fill_gradient2(midpoint = midpoint, low = col[1], mid = col[2], high = col[3], space ="Lab", na.value = "grey50")
       } else if(legendlimit == "balanced") {
-        gp <- gp + scale_fill_gradient2(midpoint = midpoint, low = col[1], mid = col[2], high = col[3], space ="Lab", na.value = "grey50", limits = c(lowerlimit, upperlimit))
+        gp <- gp + ggplot2::scale_fill_gradient2(midpoint = midpoint, low = col[1], mid = col[2], high = col[3], space ="Lab", na.value = "grey50", limits = c(lowerlimit, upperlimit))
         message("there is no natural balanced range of values on the two sides of midpoint for the selected variable")
         if(variable %in% c("obs_cooccur_X", "exp_cooccur")) {
           message("however, one color scale has been applied in the plots of obseved and expected cooccurrences so that the colors across the plots can be compared")
@@ -150,7 +154,7 @@ plotgg <-
 
     # print the value by default if total elements to compare are <=20 OR if show.value=T
     if(is.null(show.value) & ncol(data$occur_mat) <= 20 | isTRUE(show.value)) {
-      gp <- gp + geom_text(aes(label = round(get(variable), value.digit)), size = text.size)
+      gp <- gp + ggplot2::geom_text(aes(label = round(get(variable), value.digit)), size = text.size)
       message("you can hide the printed values with show.value=F")
       message("use the argument value.digit to change number of digits and text.size to adjust the text size")
     }

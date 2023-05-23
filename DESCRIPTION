@@ -1,22 +1,30 @@
 Package: CooccurrenceAffinity
 Type: Package
-Title: Affinity in co-occurrence data
+Title: Affinity in Co-Occurrence Data
 Version: 1.0
-Date: 2023-02-23
-Author: Kumar Mainali, Eric Slud
-Maintainer: Who to complain to <kpmainali@gmail.com>
-Description: This package computes affinity between two entities based on their co-occurrence (using binary presence/absence data).
+Date: 2023-05-02
+Authors@R: c(
+    person("Kumar", "Mainali", role = c("aut", "cre"), email = "kpmainali@gmail.com"),
+    person("Eric", "Slud", role = c("aut"))
+    )
+Description: Computes a novel metric of affinity between two entities based on their co-occurrence 
+  (using binary presence/absence data). The metric and its MLE, alpha hat, were advanced in 
+  Mainali, Slud, et al, 2021 <doi:10.1126/sciadv.abj9204>. Various types of confidence intervals and median interval
+  were developed in Mainali and Slud, 2022 <doi:10.1101/2022.11.01.514801>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 Depends: 
-    R (>= 4.0.5),
+    R (>= 4.1),
     BiasedUrn (>= 2.0.9) 
 Imports:
-    cooccur, 
-    ggplot2, 
-    reshape, 
     cowplot, 
-    plyr
+    ggplot2, 
+    plyr,    
+    reshape
+Suggests: 
+    cooccur
+URL: https://github.com/kpmainali/CooccurrenceAffinity
+BugReports: https://github.com/kpmainali/CooccurrenceAffinity/issues
 RoxygenNote: 7.1.2

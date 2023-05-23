@@ -18,23 +18,25 @@
 #' Harkness, W. (1965), “Properties of the extended hypergeometric distribution“, Annals of Mathematical Statistics, 36, 938-945.
 #'
 #' @example
-#' examples/minmaxAlpha.pFNCH_example.R
+#' inst/examples/minmaxAlpha.pFNCH_example.R
 #'
 #' @export
 
 
 minmaxAlpha.pFNCH <- function(x, marg) {
-  require(BiasedUrn)
+  # require(BiasedUrn)
   ## use pFNCHyper in BiasedUrn to establish range of alphas
   ## within (-10,10) over which that function works properly.
   mA=marg[1]; mB=marg[2]; N=marg[3]
   if(length(intersect(c(mA,mB), c(0,N))))
     return("Degenerate co-occurrence distribution!")
-  pFNCH = function(alp) pFNCHypergeo(x,mA,N-mA,mB,exp(alp))
+  pFNCH = function(alp) BiasedUrn::pFNCHypergeo(x,mA,N-mA,mB,exp(alp))
   tmp = try(pFNCH(10), silent=T)
-  alphmax = if(class(tmp)!="try-error") 10 else NULL
+  # alphmax = if(class(tmp)!="try-error") 10 else NULL
+  alphmax = if(!inherits(tmp, "try-error")) 10 else NULL
   tmp = try(pFNCH(-10), silent=T)
-  alphmin = if(class(tmp)!="try-error") -10 else NULL
+  # alphmin = if(class(tmp)!="try-error") -10 else NULL
+  alphmin = if(!inherits(tmp, "try-error")) -10 else NULL
   if(is.null(alphmax)) {
     tmp=NULL
     a0 = 0

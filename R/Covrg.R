@@ -17,14 +17,14 @@
 #' to be added
 #'
 #' @example
-#' examples/Covrg_example.R
+#' inst/examples/Covrg_example.R
 #'
 #' @export
 
 
 Covrg <-
   function(marg, alph, scal=log(2*marg[3]^2), lev=0.95) {
-    require(BiasedUrn)
+    # require(BiasedUrn)
     mA=marg[1]; mB=marg[2]; N=marg[3]
     if(length(intersect(c(mA,mB), c(0,N))))
       return("Degenerate co-occurrence distribution!")
@@ -44,6 +44,6 @@ Covrg <-
     covCI = array(0, c(xn,4))
     for(j in 1:4) for(b in 1:xn) covCI[b,j] =
       (alph >= arrCI[b,j,1] & alph <= arrCI[b,j,2])*
-      dFNCHypergeo(minx+b,mA,N-mA,mB,exp(alph))
+      BiasedUrn::dFNCHypergeo(minx+b,mA,N-mA,mB,exp(alph))
     ## step 3 coverage prob's
     c(covPrb = t(covCI) %*% rep(1,xn))   }

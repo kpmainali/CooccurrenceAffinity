@@ -7,7 +7,7 @@
 affinity2by2(
   x,
   marg,
-  bound = T,
+  bound = TRUE,
   scal = log(2 * marg[3]^2),
   lev = 0.95,
   pvalType = "Blaker"
