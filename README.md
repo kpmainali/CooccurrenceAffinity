@@ -2,7 +2,7 @@
 
 ***** NOTICE ABOUT MAJOR UPDATES ******
 
-May 3, 2023: Package published on CRAN at https://cran.r-project.org/web/packages/CooccurrenceAffinity/index.html.
+May 3, 2023: Package published on CRAN; available at https://cran.r-project.org/web/packages/CooccurrenceAffinity/index.html.
 
 Feb 6, 2023: We are pleased to inform you that the interaction issue between our package and BiasedUrn v2.0.8 has been resolved in the latest version, BiasedUrn v2.0.9. We kindly request that you remove any previous versions of BiasedUrn and install v2.0.9 to ensure proper operation of the CooccurrenceAffinity package. We extend our heartfelt thanks to Agner Fox for promptly updating BiasedUrn and addressing these important issues.
 
