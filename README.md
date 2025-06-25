@@ -1,7 +1,5 @@
 # CooccurrenceAffinity
 
-````markdown
-# CooccurrenceAffinity
 
 **Short summary**
 
@@ -15,7 +13,7 @@ An R package for computing affinity metrics between co-occurring entities using 
 
 **Quick install & start**
 
-```r
+```
 # CRAN version
 install.packages("CooccurrenceAffinity")
 library(CooccurrenceAffinity)
@@ -25,7 +23,7 @@ data(finches, package = "cooccur")
 res <- affinity(data = finches, row.or.col = "col")
 CovrgPlot(marg = c(50,70,150), lev = 0.95)
 plotgg(data = res, variable = "alpha_mle", legendlimit = "balanced")
-````
+```
 
 
 
