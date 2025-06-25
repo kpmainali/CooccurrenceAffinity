@@ -13,6 +13,8 @@ An R package for computing affinity metrics between co-occurring entities using 
 
 **Quick install & start**
 
+The library can be installed from CRAN or GitHub.
+
 ```
 # CRAN version
 install.packages("CooccurrenceAffinity")
@@ -31,7 +33,7 @@ plotgg(data = res, variable = "alpha_mle", legendlimit = "balanced")
 
 
 <details>
-<summary>🔍 Extended package description</summary>
+<summary>🔍 ##Extended package description</summary>
 
 
 This package computes affinity between two entities based on their co-occurrence (using binary presence/absence data). 
@@ -89,19 +91,11 @@ Mainali, K., Slud, E., Singer, M. and Fagan, B. (2021), “A better index for an
 
 Mainali, K. P., & Slud, E. (2022). CooccurrenceAffinity: An R package for computing a novel metric of affinity in co-occurrence data that corrects for pervasive errors in traditional indices. BioRxiv, 2022.11.01.514801. https://doi.org/10.1101/2022.11.01.514801
 
-# Installation
-
-The library can be installed from GitHub with devtools:
-
-```
-require(devtools)
-install_github("kpmainali/CooccurrenceAffinity")
-```
 
 
 # Some examples of the usage of the functions and illustrations
 
-## 2x2 contingency table of counts
+## 2x2 Contingency Table of Counts
 
 <img width="400" alt="2x2 contingency table of counts" src="https://user-images.githubusercontent.com/14167540/156708618-3a2bdee4-f437-4a01-8743-6e2479c8b035.png">
 
@@ -148,7 +142,7 @@ $Flag                              ## indicates MLE  falls in MedianIntrvl
                                    ## later output arguments same as AlphInts()
 ```
 
-## species/entity by site occupancy table
+## Species/Entity by Site Occupancy Table
 
 <img width="400" alt="species by sites table" src="https://user-images.githubusercontent.com/14167540/156708652-5dea30e1-7522-4bc7-a597-49f3542ced63.png">
 
@@ -199,7 +193,7 @@ Geospiza conirostris         0     0      0    0
 
 
 
-# median interval vs conﬁdence interval
+# Median Interval vs Conﬁdence Interval
 
 To illustrate the relative sizes of the median interval and conﬁdence interval and their positioning with respect to MLE, we supply code to plot the point and interval estimates for X values from 1 to 49 on a single graph, in Figure 1. The graph is chopped oﬀ at α = ±5 for clarity. The maximum absolute value of log(2N^2) in this instance is 10.7. 
 
