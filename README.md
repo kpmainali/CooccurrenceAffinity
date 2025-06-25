@@ -75,7 +75,7 @@ If the mA or mB value is equal to 0 or N in the inputs to the package functions,
 ## Recommendation on CI
 Four confidence intervals for alpha are calculated in AlphInts() and ML.Alpha(); see Mainali and Slud (2022) for additional details. Two are conservative (CI.CP and CI.Blaker) and two (CI.midP and CI.midQ) are designed to have coverage probability generally closer to the nominal confidence level at the cost of occasional undercoverage. The CI.Blaker interval is highly recommended when a conservative interval is desired, and the CI.midP interval otherwise. However, only one p-value is computed: when pval="Blaker", the p-value is calculated according to the Blaker "Acceptability" function to be compatible with the CI.Blaker confidence interval; and otherwise the p-value is calculated to correspond to the CI.midP confidence interval. Just as it would be a statistical error to choose among the confidence intervals after calculating all of them, so it would also be an error to decide a method of p-value calculation after seeing multiple p-value types. For this reason we provide only one p-value, calculated using the same idea as one of our preferred confidence intervals according to the user's choice of the input parameter "pval".
 
-# References
+## References
 
 Agresti, A. (2013) Categorical Data Analysis, 3rd edition, Wiley.
 
@@ -93,9 +93,9 @@ Mainali, K. P., & Slud, E. (2022). CooccurrenceAffinity: An R package for comput
 
 
 
-# Some examples of the usage of the functions and illustrations
+## Some examples of the usage of the functions and illustrations
 
-## 2x2 Contingency Table of Counts
+### 2x2 Contingency Table of Counts
 
 <img width="400" alt="2x2 contingency table of counts" src="https://user-images.githubusercontent.com/14167540/156708618-3a2bdee4-f437-4a01-8743-6e2479c8b035.png">
 
