@@ -33,7 +33,7 @@ plotgg(data = res, variable = "alpha_mle", legendlimit = "balanced")
 
 
 <details>
-<summary>🔍 ##Extended package description</summary>
+<summary><h3>🔍 Extended package description</h3></summary>
 
 
 This package computes affinity between two entities based on their co-occurrence (using binary presence/absence data). 
