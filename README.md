@@ -142,7 +142,7 @@ $Flag                              ## indicates MLE  falls in MedianIntrvl
                                    ## later output arguments same as AlphInts()
 ```
 
-## Species/Entity by Site Occupancy Table
+### Species/Entity by Site Occupancy Table
 
 <img width="400" alt="species by sites table" src="https://user-images.githubusercontent.com/14167540/156708652-5dea30e1-7522-4bc7-a597-49f3542ced63.png">
 
@@ -193,7 +193,7 @@ Geospiza conirostris         0     0      0    0
 
 
 
-# Median Interval vs Conﬁdence Interval
+## Median Interval vs Conﬁdence Interval
 
 To illustrate the relative sizes of the median interval and conﬁdence interval and their positioning with respect to MLE, we supply code to plot the point and interval estimates for X values from 1 to 49 on a single graph, in Figure 1. The graph is chopped oﬀ at α = ±5 for clarity. The maximum absolute value of log(2N^2) in this instance is 10.7. 
 
