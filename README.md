@@ -1,26 +1,39 @@
 # CooccurrenceAffinity
 
-***** NOTICE ABOUT MAJOR UPDATES ******
+````markdown
+# CooccurrenceAffinity
 
-May 3, 2023: Package published on CRAN; available at https://cran.r-project.org/web/packages/CooccurrenceAffinity/index.html.
+**Short summary**
 
-Feb 6, 2023: We are pleased to inform you that the interaction issue between our package and BiasedUrn v2.0.8 has been resolved in the latest version, BiasedUrn v2.0.9. We kindly request that you remove any previous versions of BiasedUrn and install v2.0.9 to ensure proper operation of the CooccurrenceAffinity package. We extend our heartfelt thanks to Agner Fox for promptly updating BiasedUrn and addressing these important issues.
+An R package for computing affinity metrics between co-occurring entities using presence/absence data. Key functions include:
 
-Jan 27, 2023: After inspecting this issue <https://github.com/kpmainali/CooccurrenceAffinity/issues/6>, we have discovered that the recent revision of our dependency package BiasedUrn is causing R to crash occasionally while running CooccurrenceAffinity. We are actively working to resolve this issue from within our package. In the meantime, we strongly advise against updating BiasedUrn to version 2.0.8. If you have already upgraded, we recommend removing this version and installing the prior version 1.07 as a temporary solution. We will provide updates as soon as the issue is resolved.
+- `affinity(data, row.or.col, ...)`: compute pairwise affinity statistics (MLE of alpha, expected co-occurrence, p-values, and optional square matrices) from presence/absence data
+- `AlphInts(x, mA_mB_N, lev, pvalType, ...)`: calculate various confidence intervals for alpha, including conservative (Clopper–Pearson, Blaker) and mid-P methods
+- `ML.Alpha(x, mA_mB_N, lev, ...)`: compute the maximum likelihood estimate of alpha and related likelihood-based metrics for co-occurrence counts
+- `plotgg(data, variable, legendlimit, ...)`: create configurable ggplot2 heatmaps of affinity outputs with customizable legends, text size, and color scales
 
-Nov 4, 2022: We have now completed writing the package manuscript which also serves as the vignette. A preprint version of the package manuscript is available here: https://www.biorxiv.org/content/10.1101/2022.11.01.514801v1
 
-Sept 23, 2022: CovrgPlot() has been revised to generate multipanel plot.
+**Quick install & start**
 
-Jul 12, 2022: We added a new function minmaxAlpha.pFNCH(). Without this function, BiasedUrn::pFNCHHypergeo() returns inconsistency message for extreme examples like: AlphInts(20,c(204,269,2016), lev=0.9, scal=10). This problem is solved within our package by restricting the range of allowed alpha to the computed (alphmin, alphmax) range.
+```r
+# CRAN version
+install.packages("CooccurrenceAffinity")
+library(CooccurrenceAffinity)
 
-Mar 18, 2022: An error was inadvertently introduced in ML.Alpha() in early March that affected computation of upper bound of Alpha MLE. The error was fixed on March 18, 2022. CooccurrenceAffinity package installed prior to March 18, 2022 should be removed and a new version currently available should be reinstalled for it to function properly.
+# Load example data and compute affinity
+data(finches, package = "cooccur")
+res <- affinity(data = finches, row.or.col = "col")
+CovrgPlot(marg = c(50,70,150), lev = 0.95)
+plotgg(data = res, variable = "alpha_mle", legendlimit = "balanced")
+````
 
-Feb-Mar 2022: In Feb and early March (until March 4) of 2022, the existing functions were substantially revised for their description, examples and sometimes even for their arguments. Now, we have also added several new functions to analyze binary presence/absence matrix as well as to make plots. This page gives some examples of data analysis. More examples can be found at the function documentation page. 
 
-Dec 2021: This package was released with a basic set of functions in Dec 2021. 
 
---------------------------------------
+
+
+
+<details>
+<summary>🔍 Extended package description</summary>
 
 
 This package computes affinity between two entities based on their co-occurrence (using binary presence/absence data). 
@@ -210,3 +223,12 @@ for(i in 1:49) {
 points(1:49,CIs[,3], pch=20) 
 legend(10,3, legend=c("CI interval","med interval","MLE"), pch=c(NA,NA,20), lwd=c(2,4,NA), col=c("blue","red","black"))
 ```
+
+
+
+</details>
+```
+
+
+
+

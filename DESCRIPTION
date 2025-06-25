@@ -1,8 +1,8 @@
 Package: CooccurrenceAffinity
 Type: Package
 Title: Affinity in Co-Occurrence Data
-Version: 1.0
-Date: 2023-05-02
+Version: 1.0.1
+Date: 2025-06-24
 Authors@R: c(
     person("Kumar", "Mainali", role = c("aut", "cre"), email = "kpmainali@gmail.com"),
     person("Eric", "Slud", role = c("aut"))
@@ -23,8 +23,6 @@ Imports:
     ggplot2, 
     plyr,    
     reshape
-Suggests: 
-    cooccur
 URL: https://github.com/kpmainali/CooccurrenceAffinity
 BugReports: https://github.com/kpmainali/CooccurrenceAffinity/issues
 RoxygenNote: 7.1.2
