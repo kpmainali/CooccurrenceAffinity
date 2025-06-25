@@ -33,9 +33,8 @@ plotgg(data = res, variable = "alpha_mle", legendlimit = "balanced")
 
 
 <details>
-<summary style="color:#0366d6; text-decoration:underline; cursor:pointer;">
-  🔍 Extended package description
-</summary>
+  <summary>🔍 **Extended package description**</summary>
+
 
 
 
