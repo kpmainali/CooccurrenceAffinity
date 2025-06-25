@@ -23,6 +23,8 @@ Imports:
     ggplot2, 
     plyr,    
     reshape
+Suggests:
+    cooccur
 URL: https://github.com/kpmainali/CooccurrenceAffinity
 BugReports: https://github.com/kpmainali/CooccurrenceAffinity/issues
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.1

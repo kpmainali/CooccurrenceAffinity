@@ -2,7 +2,8 @@ if(requireNamespace("cooccur", quietly = TRUE)) {
 
   data(finches, package = "cooccur")
   head(finches)
-  require(ggplot2)
+
+  library(ggplot2)
 
 
   # the remainder of the script has been enclosed under \donttest{}
@@ -21,7 +22,8 @@ if(requireNamespace("cooccur", quietly = TRUE)) {
     plotgg(data = myout, variable = "alpha_mle", legendlimit = "datarange")
     # in the example above, null expectation of the alpha_mle (=0) has white color,
     # and negative and positive values stretch between "#87beff" and "#fd6a6c", respectively
-    # so that the color spectrum is applied NOT to the range of data but to the same extent of values
+    # so that the color spectrum is applied NOT to the range of data
+    # but to the same extent of values
     # on both sides of zero, which is max(abs(valrange)) and -(max(abs(valrange))).
     # however, the legend can be printed to show the extent of data with "datarange"
     # or the entire spectrum where the color is applied with "balanced".

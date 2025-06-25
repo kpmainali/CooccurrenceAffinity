@@ -26,7 +26,7 @@ if(requireNamespace("cooccur", quietly = TRUE)) {
 
     # the rows of the outputs above include every single pair of the entities,
     # producing many columns for various quantities.
-    # for several of these columns, the function allows outputing the square NxN matrix of the entities
+    # # can output an NxN square matrix for selected columns.
     # an example is here
     myout <- affinity(data = finches, row.or.col = "col", squarematrix = c("alpha_mle", "jaccard"))
     # it is a list of three elements: one main dataframe and two square matrices
@@ -122,11 +122,3 @@ if(requireNamespace("cooccur", quietly = TRUE)) {
   message("The cooccur package is not installed.
           You can install it with install.packages('cooccur').")
 }
-
-
-
-
-
-
-
-
