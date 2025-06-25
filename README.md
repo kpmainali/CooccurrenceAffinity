@@ -221,7 +221,7 @@ legend(10,3, legend=c("CI interval","med interval","MLE"), pch=c(NA,NA,20), lwd=
 
 
 </details>
-```
+
 
 
 
