@@ -21,14 +21,11 @@ install.packages("CooccurrenceAffinity")
 library(CooccurrenceAffinity)
 
 # Load example data and compute affinity
-data(finches, package = "cooccur")
+data(finches)
 res <- affinity(data = finches, row.or.col = "col")
 CovrgPlot(marg = c(50,70,150), lev = 0.95)
 plotgg(data = res, variable = "alpha_mle", legendlimit = "balanced")
 ```
-
-
-
 
 
 
@@ -152,7 +149,6 @@ If you have an actual occurrence dataset where your entity of interest (e.g., sp
 
 ```
 > # load the binary presence/absence or abundance data
-> require(cooccur)
 > data(finches)
 > head(finches)
                       Seymour Baltra Isabella Fernandina Santiago Rabida Pinzon

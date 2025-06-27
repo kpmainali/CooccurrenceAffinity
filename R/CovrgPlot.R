@@ -17,7 +17,7 @@
 #' @param alim the absolute value of alpha at which the plotted figure is cutoff; so the x-axis limits are (-alim, alim)
 #' @param intpts an integer controlling how many points are used to interpolate between values alpha for which
 #' the Extended Hypergeometric distribution function is equal exactly to (1+lev)/2 or (1-lev)/2 at some integer co-occurrence value x
-#' @param plotCI a vector of up to 4 numbers out of the set \\{1,2,3,4\\}, corresponding to which
+#' @param plotCI a vector of up to 4 numbers out of the set \{1,2,3,4\}, corresponding to which
 #' Confidence Intervals (1=CP, 2=Blaker, 3=midQ, 4=midP) should have their coverage probability values plotted simultaneously (with different colors) in the figure
 #'
 #' @importFrom BiasedUrn pFNCHypergeo qFNCHypergeo dFNCHypergeo
