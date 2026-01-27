@@ -98,7 +98,6 @@ Mainali, K. P., & Slud, E. (2022). CooccurrenceAffinity: An R package for comput
 
 ### 2x2 Contingency Table of Counts
 
-#<img width="400" alt="2x2 contingency table of counts" src="https://user-images.githubusercontent.com/14167540/156708618-3a2bdee4-f437-4a01-8743-6e2479c8b035.png">
 <img src="man/figures/contingency_table.png" width="400" alt="2x2 Contingency Table of Counts">
 
 
@@ -108,7 +107,12 @@ We compute with an example X = 35, m A = 50, m B = 70, N = 150. The syntax and r
 
 ```
 
-> AlphInts(35,c(50,70,150), lev=0.9)    # pvalType="Blaker" by default
+AlphInts(35,c(50,70,150), lev=0.9)    # pvalType="Blaker" by default
+
+```
+
+
+```
 Loading required package: BiasedUrn 
 
 $MedianIntrvl
@@ -147,15 +151,17 @@ $Flag                              ## indicates MLE  falls in MedianIntrvl
 
 ### Species/Entity by Site Occupancy Table
 
-#<img width="400" alt="species by sites table" src="https://user-images.githubusercontent.com/14167540/156708652-5dea30e1-7522-4bc7-a597-49f3542ced63.png">
 <img src="man/figures/species_by_site_matrix.png" width="400" alt="Species by site presence/absence matrix">
 
 If you have an actual occurrence dataset where your entity of interest (e.g., species) are marked as present (1) or absent (0) in sites, then you can begin with affinity(). Note that this function utilizes the outputs of AlphInts() and ML.Alpha(), and so it is important to understand the output of all three functions. 
 
 ```
-> # load the binary presence/absence or abundance data
-> data(finches)
-> head(finches)
+# load the binary presence/absence or abundance data
+data(finches)
+head(finches)
+```
+
+```
                       Seymour Baltra Isabella Fernandina Santiago Rabida Pinzon
 Geospiza magnirostris       0      0        1          1        1      1      1
 Geospiza fortis             1      1        1          1        1      1      1
@@ -186,9 +192,9 @@ Geospiza conirostris         0     0      0    0
 myout <- affinity(data = finches, row.or.col = "row")
 plotgg(data = myout, variable = "alpha_mle", legendlimit = "datarange")
 ```
-# <img width="800" alt="alpha of species" src="https://user-images.githubusercontent.com/14167540/159144826-e249a4f8-b3fb-4ab6-8c64-4305214512a4.png">
 <img src="man/figures/mainexample_row.png" width="800" alt="Alpha MLE among species-pairs (row elements)">
 
+<br>
 
 On version 2.0.0, a new plotting behavior was introduced; entities whose values are entirely `NA` for the selected variable are now removed from both axes by default (`drop.empty = TRUE`). This avoids plotting empty rows or columns caused by degenerate distributions or missing data. Set `drop.empty = FALSE` to retain all entities and reproduce the legacy full-grid layout. When `sig.only` is used, `drop.empty` is applied after non-significant values are masked to NA.
 
@@ -198,6 +204,8 @@ plotgg(data = myout, variable = "alpha_mle", legendlimit = "datarange", drop.emp
 ```
 <img src="man/figures/mainexample_row_na.png" width="800" alt="Alpha MLE among species-pairs with empty elements shown">
 
+
+### Compute the affinity between elements in cols (= sites)
 
 Using the same matrix, the affinity between islands in columns can be computed based on presence/absence of species. Set `row.or.col = "col"`.
 
@@ -210,6 +218,8 @@ plotgg(data = myout, variable = "alpha_mle", legendlimit = "datarange")
 <img src="man/figures/mainexample_col.png" width="800" alt="Alpha MLE among site-pairs (col elements)">
 
 
+### Display significant results only
+
 The plot shows only the significant results with `sig.only = TRUE`.
 ```
 myout <- affinity(data = finches, row.or.col = "col")
@@ -220,6 +230,7 @@ plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", sig.only 
 ```
 <img src="man/figures/mainexample_col_sigtrue.png" width="800" alt="Alpha MLE - only significant values">
 
+<br>
 
 You can change the significance level.
 ```
