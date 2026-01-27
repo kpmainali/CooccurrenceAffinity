@@ -1,17 +1,17 @@
 Package: CooccurrenceAffinity
 Type: Package
 Title: Affinity in Co-Occurrence Data
-Version: 1.0.2
-Date: 2025-06-26
+Version: 2.0.0
+Date: 2026-01-27
 Authors@R: c(
     person("Kumar", "Mainali", role = c("aut", "cre"), email = "kpmainali@gmail.com"),
     person("Eric", "Slud", role = c("aut"))
     )
 Description: Computes a novel metric of affinity between two entities based on their co-occurrence 
-  (using binary presence/absence data). The metric and its MLE, alpha hat, were advanced in 
-  Mainali, Slud, et al, 2021 <doi:10.1126/sciadv.abj9204>. Various types of confidence intervals and median interval
-  were developed in Mainali and Slud, 2022 <doi:10.1101/2022.11.01.514801>. The `finches` dataset is now
-  bundled internally (no longer pulled via the cooccur package, which has been dropped).
+  (using binary presence/absence data). The metric and its maximum likelihood estimator (alpha hat) were advanced in 
+  Mainali, Slud, et al, 2021 <doi:10.1126/sciadv.abj9204>. Four types of confidence intervals and median interval
+  were developed in Mainali and Slud, 2022 <doi:10.1101/2022.11.01.514801>. The `finches` dataset is 
+  bundled with the package.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

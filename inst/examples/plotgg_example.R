@@ -47,6 +47,15 @@ library(ggplot2)
   plotgg(data = myout, variable = "entity_2_count_mB", legendlimit = "balanced")
 
 
+  # plot only statistically significant tiles (based on p_value)
+  # -----------------------------------------------------------
+  # sig.only = TRUE masks non-significant tiles (p_value > 0.05) to NA
+  plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", sig.only = TRUE)
+
+  # you can also supply a stricter p-value cutoff (e.g., 0.01)
+  plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", sig.only = 0.01)
+
+
   # change color of the plot
   # ---------------------------------------------
   plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced")
@@ -107,6 +116,28 @@ library(ggplot2)
     ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
     ggplot2::ggtitle("Affinity of island pairs measured with Alpha MLE") +
     ggplot2::labs(fill = 'Alpha MLE')
+
+
+  # show/hide entities that are entirely empty (all-NA tiles)
+  # --------------------------------------------------------
+  # Here we create an artificial "empty" entity by setting one column to NA.
+  # This guarantees that all pairwise comparisons involving that entity have no usable data,
+  # so the corresponding tiles become NA for variables such as alpha_mle.
+
+  finches2 <- as.matrix(finches)
+  storage.mode(finches2) <- "numeric"
+  finches2[, 3] <- NA_real_  # make the first entity entirely missing (choose any column)
+  myout2 <- affinity(data = finches2, row.or.col = "col")
+
+  # Default behavior: drop.empty = TRUE (empty entity removed from the axes)
+  plotgg(data = myout2, variable = "alpha_mle", legendlimit = "balanced")
+
+  # Keep empty entities (legacy/full grid): shows the empty row/column
+  plotgg(data = myout2, variable = "alpha_mle", legendlimit = "balanced", drop.empty = FALSE)
+
+  # keep empty entities even after masking (shows rows/columns with all-NA tiles)
+  plotgg(data = myout2, variable = "alpha_mle", legendlimit = "balanced",
+         sig.only = TRUE, drop.empty = FALSE)
 
 } #end of \donttest{}
 

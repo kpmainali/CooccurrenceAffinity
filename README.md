@@ -23,6 +23,8 @@ library(CooccurrenceAffinity)
 # Load example data and compute affinity
 data(finches)
 res <- affinity(data = finches, row.or.col = "col")
+
+# coverage plot illustration for a fixed (mA, mB, N)
 CovrgPlot(marg = c(50,70,150), lev = 0.95)
 plotgg(data = res, variable = "alpha_mle", legendlimit = "balanced")
 ```
@@ -50,7 +52,7 @@ Our primary functions ML.Alpha() and AlphInts() calculate the maximum likelihood
 
 which is probably a conservative confidence interval for alpha, analogous to the Clopper-Pearson (1934) interval for binomial proportions, or
 
-    ( (a1(x,0.95)+a2(x,0.95)/2, (a1(x,0.05)+a2(x,0.05)/2 )             (2)
+    ( (a1(x,0.95)+a2(x,0.95))/2 , (a1(x,0.05)+a2(x,0.05))/2 )          (2)
 
 which (as we will see below) has coverage much closer to its nominal level of 90%.  All these estimates and confidence intervals are viewed as functions of the co-occurrence count x for a 2x2 table with fixed marginal counts mA, mB and table-total N. 
 
@@ -96,7 +98,9 @@ Mainali, K. P., & Slud, E. (2022). CooccurrenceAffinity: An R package for comput
 
 ### 2x2 Contingency Table of Counts
 
-<img width="400" alt="2x2 contingency table of counts" src="https://user-images.githubusercontent.com/14167540/156708618-3a2bdee4-f437-4a01-8743-6e2479c8b035.png">
+#<img width="400" alt="2x2 contingency table of counts" src="https://user-images.githubusercontent.com/14167540/156708618-3a2bdee4-f437-4a01-8743-6e2479c8b035.png">
+<img src="man/figures/contingency_table.png" width="400" alt="2x2 Contingency Table of Counts">
+
 
 If you have a co-occurrence data that is already processed and you have a table of counts like in the 2x2 contingency table above, you should begin with AlphInts() and/or ML.Alpha() for the affinity analysis. 
 
@@ -143,7 +147,8 @@ $Flag                              ## indicates MLE  falls in MedianIntrvl
 
 ### Species/Entity by Site Occupancy Table
 
-<img width="400" alt="species by sites table" src="https://user-images.githubusercontent.com/14167540/156708652-5dea30e1-7522-4bc7-a597-49f3542ced63.png">
+#<img width="400" alt="species by sites table" src="https://user-images.githubusercontent.com/14167540/156708652-5dea30e1-7522-4bc7-a597-49f3542ced63.png">
+<img src="man/figures/species_by_site_matrix.png" width="400" alt="Species by site presence/absence matrix">
 
 If you have an actual occurrence dataset where your entity of interest (e.g., species) are marked as present (1) or absent (0) in sites, then you can begin with affinity(). Note that this function utilizes the outputs of AlphInts() and ML.Alpha(), and so it is important to understand the output of all three functions. 
 
@@ -173,21 +178,56 @@ Geospiza difficilis          0     1      1    1
 Geospiza scandens            1     1      0    0
 Geospiza conirostris         0     0      0    0
 
-> # compute the affinity between elements in rows (= species)
-> myout <- affinity(data = finches, row.or.col = "row", squarematrix = c("all"))
-> plotgg(data = myout, variable = "alpha_mle", legendlimit = "datarange")
 ```
 
-<img width="800" alt="alpha of species" src="https://user-images.githubusercontent.com/14167540/159144826-e249a4f8-b3fb-4ab6-8c64-4305214512a4.png">
-
+### Compute the affinity between elements in rows (= species)
 
 ```
-> # this matrix can be flipped to compute the affinity between islands in cols based on presence/absence of species 
-> myout <- affinity(data = finches, row.or.col = "col", squarematrix = c("all"))
-> plotgg(data = myout, variable = "alpha_mle", legendlimit = "datarange")
+myout <- affinity(data = finches, row.or.col = "row")
+plotgg(data = myout, variable = "alpha_mle", legendlimit = "datarange")
+```
+# <img width="800" alt="alpha of species" src="https://user-images.githubusercontent.com/14167540/159144826-e249a4f8-b3fb-4ab6-8c64-4305214512a4.png">
+<img src="man/figures/mainexample_row.png" width="800" alt="Alpha MLE among species-pairs (row elements)">
+
+
+On version 2.0.0, a new plotting behavior was introduced; entities whose values are entirely `NA` for the selected variable are now removed from both axes by default (`drop.empty = TRUE`). This avoids plotting empty rows or columns caused by degenerate distributions or missing data. Set `drop.empty = FALSE` to retain all entities and reproduce the legacy full-grid layout. When `sig.only` is used, `drop.empty` is applied after non-significant values are masked to NA.
+
+```
+myout <- affinity(data = finches, row.or.col = "row")
+plotgg(data = myout, variable = "alpha_mle", legendlimit = "datarange", drop.empty = FALSE)
+```
+<img src="man/figures/mainexample_row_na.png" width="800" alt="Alpha MLE among species-pairs with empty elements shown">
+
+
+Using the same matrix, the affinity between islands in columns can be computed based on presence/absence of species. Set `row.or.col = "col"`.
+
+```
+myout <- affinity(data = finches, row.or.col = "col")
+plotgg(data = myout, variable = "alpha_mle", legendlimit = "datarange")
 ```
 
-<img width="800" alt="alpha of sites" src="https://user-images.githubusercontent.com/14167540/159144833-ea048371-1659-49a9-9141-0b6f9f599fe5.png">
+# <img width="800" alt="alpha of sites" src="https://user-images.githubusercontent.com/14167540/159144833-ea048371-1659-49a9-9141-0b6f9f599fe5.png">
+<img src="man/figures/mainexample_col.png" width="800" alt="Alpha MLE among site-pairs (col elements)">
+
+
+The plot shows only the significant results with `sig.only = TRUE`.
+```
+myout <- affinity(data = finches, row.or.col = "col")
+plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", sig.only = TRUE)
+
+# The same plot can be obtained with:
+plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", sig.only = 0.05)
+```
+<img src="man/figures/mainexample_col_sigtrue.png" width="800" alt="Alpha MLE - only significant values">
+
+
+You can change the significance level.
+```
+myout <- affinity(data = finches, row.or.col = "col")
+plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", sig.only = 0.01)
+```
+<img src="man/figures/mainexample_col_sig1perc.png" width="800" alt="Alpha MLE - only significant at 0.01">
+
 
 
 

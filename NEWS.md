@@ -1,6 +1,26 @@
+2.0.0 (2026-01-27)
+------------------
+
+### plotgg()
+
+- **Changed default behavior:** entities whose values are entirely `NA` for the selected variable are now removed from both axes by default (`drop.empty = TRUE`).
+  This avoids plotting empty rows or columns caused by degenerate distributions or missing data.
+  Set `drop.empty = FALSE` to retain all entities and reproduce the legacy full-grid layout.
+
+- **New argument `sig.only`.**
+  When enabled, values of the selected variable are masked to `NA` wherever `p_value` exceeds a specified cutoff.
+  - `sig.only = TRUE` applies a default cutoff of 0.05
+  - `sig.only = <numeric>` uses a user-specified p-value cutoff
+  This option requires a `p_value` column in `data$all` and is not allowed when `variable = "p_value"`.
+
+- **Stable legend scaling under significance filtering.**
+  When `sig.only` is used, legend limits and color scaling (`"datarange"` or `"balanced"`) are computed from the original, unfiltered data, ensuring visual comparability between full and significance-filtered plots.
+
+
 1.0.2 (2025-06-26)
 ------------------
 - Dropped **cooccur** from Suggests; the `finches` dataset now ships internally and can be loaded via `data(finches)` without requiring **cooccur**.
+
 
 1.0.1 (2025-06-24)
 ------------------

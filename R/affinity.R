@@ -233,12 +233,15 @@ affinity <-
           # ----------- CONTINUE LONG DATAFRAME OUTPUT --------------
 
           # round P-value to 4 digits if it is >0.0001. If not, save it in scientific notation with 4 digits
-          if(mle$pval > 0.0001) {
-            output.long$p_value[serialnum] <- round(mle$pval, 4)
-          }
-          if(mle$pval <= 0.0001) {
-            output.long$p_value[serialnum] <- formatC(mle$pval, format = "e", digits = 4)
-          }
+          # if(mle$pval > 0.0001) {
+          #   output.long$p_value[serialnum] <- round(mle$pval, 4)
+          # }
+          # if(mle$pval <= 0.0001) {
+          #   output.long$p_value[serialnum] <- formatC(mle$pval, format = "e", digits = 4)
+          # }
+
+          output.long$p_value[serialnum] <- mle$pval
+
 
           output.long$exp_cooccur[serialnum] <- round(mle$Null.Exp, sigdigit)
           output.long$alpha_mle[serialnum] <- round(mle$est, sigdigit)

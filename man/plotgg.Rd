@@ -13,63 +13,96 @@ plotgg(
   value.digit = NULL,
   text.size = NULL,
   plot.margin = NULL,
+  drop.empty = TRUE,
+  sig.only = FALSE,
   ...
 )
 }
 \arguments{
-\item{data}{the output of affinity()}
+\item{data}{Output list returned by \code{\link{affinity}}.}
 
-\item{variable}{a column name in $all dataframe in affinity() output; should be a quantitative column;
-can be one of the following: "entity_1_count_mA", "entity_2_count_mB", "obs_cooccur_X", "sites_total_N",
-"p_value", "exp_cooccur", "alpha_mle", "jaccard", "sorensen", "simpson"}
+\item{variable}{Name of a numeric column in \code{data$all} to plot.}
 
-\item{legendlimit}{"datarange" or "balanced"; if "datarange", the legend spans to the range of data,
-if "balanced, the legend spans in equal magnitude from the center (= white by default) in both directions;
-note that, irrespective of the value-span in legend, the color spectrum of the plot and legend always goes from the center (=white by default)
-to two directions in equal magnitude. See details for more information.}
+\item{legendlimit}{Either \code{"datarange"} or \code{"balanced"}.}
 
-\item{col}{a set of three colors c("#87beff", "white", "#fd6a6c") by default to represent low, mid and high values in the plot;
-these colors are applied with ggplot::scale_fill_gradient2()}
+\item{col}{Vector of three colors (low, mid, high) passed to
+\code{ggplot2::scale_fill_gradient2()}.}
 
-\item{show.value}{a boolean to show ("TRUE") or hide ("FALSE") values in the plot; "TRUE" by default if <=20 entities to compare, otherwise "FALSE" by default}
+\item{show.value}{Logical; if \code{TRUE}, values are printed on tiles. If
+\code{NULL}, values are printed automatically when the number of plotted
+entities is \eqn{\le 20}.}
 
-\item{value.digit}{the number of digits in values if they are printed; default 2}
+\item{value.digit}{Number of digits used when printing values; default is 2.}
 
-\item{text.size}{the size of values if they are printed; default 2.5}
+\item{text.size}{Size of printed values; default is 2.5.}
 
-\item{plot.margin}{same as ggplot's plot.margin which includes top, right, bottom and left margins as "margin(1,1,5,2, "cm")"}
+\item{plot.margin}{Plot margin passed to \code{ggplot2::theme()}.}
 
-\item{...}{Additional arguments to control behavior of the function.}
+\item{drop.empty}{Logical; if \code{TRUE} (default), entities whose values are
+all \code{NA} for the selected \code{variable} are removed from the plot.
+Set to \code{FALSE} to keep all entities.
+#' @param sig.only Logical or numeric. If \code{FALSE} (default), plot all values.
+If \code{TRUE}, show only significant tiles using cutoff 0.05 by masking
+non-significant values to \code{NA}. If numeric, the value is used as the
+p-value cutoff (e.g., \code{sig.only = 0.01}). Requires a \code{p_value}
+column in \code{data$all}. Not allowed when \code{variable = "p_value"}.}
+
+\item{sig.only}{Logical or numeric. If \code{FALSE} (default), all values are
+plotted. If \code{TRUE}, only statistically significant tiles are shown
+using a default cutoff of 0.05 by masking non-significant values to
+\code{NA}. If numeric, the value is used as the p-value cutoff (e.g.,
+\code{sig.only = 0.01}). Requires a \code{p_value} column in
+\code{data$all} and is not allowed when \code{variable = "p_value"}.}
+
+\item{...}{Additional arguments (currently unused).}
 }
 \value{
-This function returns a heatmap plot generated with ggplot() behind the scene.
+A heatmap plot generated with \code{ggplot2}.
 }
 \description{
-This function works on the output of affinity() and uses ggplot2::ggplot() to plot a heatmap plot for the numeric columns of $all dataframe except
-the interval columns (median interval and confidence intervals) and confidence level (which is a constant for all pairs in one run of the code)
+This function works on the output of \code{\link{affinity}} and uses
+\code{ggplot2::ggplot()} to generate a heatmap for numeric columns of the
+\code{$all} dataframe, excluding interval columns (median interval and
+confidence intervals) and the confidence level (which is constant across
+pairs in a single run).
 }
 \details{
-This function is really a ggplot behind the scene where I have taken care of the default value of many arguments for generating a useful plot.
-It generates a plot for the lower triangle of an NxN square matrix where both row and columns carry the same set of entities,
-such that all pairwise analyses are shown in the plot (upper triangle is the mirror image of the lower triange
-and diagonals are the relation to the self which are excluded).
+This function is a wrapper around \code{ggplot2} with carefully chosen
+defaults to generate an interpretable heatmap of pairwise associations.
+The plot shows the lower triangle of an \eqn{N \times N} matrix (diagonal
+excluded), where both rows and columns represent the same set of entities.
+The upper triangle is omitted because it is a mirror image of the lower
+triangle.
 
-The plots can be requested using the column names of $all of the main output of affinity(). The function can include additional arguments
-either inside plot.gg() or by appending to it with a "+" that is characteristic of ggplot().
+By default (\code{drop.empty = TRUE}), entities whose values are entirely
+\code{NA} for the selected \code{variable} are removed from both axes. This
+avoids plotting empty rows and columns when an entity has no usable values
+(e.g., due to degenerate distributions or missing data). Set
+\code{drop.empty = FALSE} to retain all entities and reproduce the full grid,
+including empty rows or columns.
 
-"legendlimit" centers the legend color to white by default at null expectation in the case of alpha_mle,
-and negative and positive values stretch between pastel blue and pastel red colors, respectively
-such that the color spectrum is applied NOT to the range of data but to the same extent of values
-on both sides of zero, which is max(abs(valrange)) and -(max(abs(valrange))). For example, if alpha_mle
-ranges between -1.25 to 2.0, then the color spectrum always ranges between -2.0 and 2.0 but the legend can be printed
-to span between -1.25 and 2.0 with "dataframe" and -2.0 and 2.0 with "balanced".
+If \code{sig.only} is enabled, values of the selected \code{variable} are
+masked to \code{NA} wherever \code{p_value} exceeds the specified cutoff, so
+only statistically significant tiles are shown. Use \code{sig.only = TRUE}
+to apply the default cutoff (0.05), or supply a numeric cutoff (e.g.,
+\code{sig.only = 0.01}). This option cannot be used when
+\code{variable = "p_value"}.
 
-For "entity_1_count_mA", "entity_2_count_mB", and "sites_total_N", there is no natural midpoint.
-So, "balanced" and "datarange" both use the natural behavior of ggplot in creating the color spectrum that spans between the extremes of the data.
+The plot can be requested using column names from the \code{$all} dataframe
+returned by \code{affinity}. Additional \code{ggplot2} layers or theme
+modifications can be added by appending them with \code{+}, as in standard
+\code{ggplot2} usage.
 
-For "obs_cooccur_X", and "exp_cooccur" also, there is no natural midpoint.
-To make the two plots of observed and expected cooccurrence counts comparable visually, one color scale has been applied in these two plots
-such that the spectrum ranges between the extremes of "obs_cooccur_X", and "exp_cooccur" collectively.
+The \code{legendlimit} argument controls how the color scale is defined.
+For \code{alpha_mle}, the default midpoint is 0 (null expectation), and the
+color scale can be either data-driven (\code{"datarange"}) or symmetrically
+balanced around zero (\code{"balanced"}), using the maximum absolute value
+observed. For indices bounded in \eqn{[0,1]} (\code{p_value}, \code{jaccard},
+\code{sorensen}, \code{simpson}), the balanced scale uses limits \eqn{[0,1]} with
+midpoint 0.5. For count-based variables, no natural midpoint exists; the
+color scale spans the observed range. For \code{obs_cooccur_X} and
+\code{exp_cooccur}, a shared color scale is applied so the two plots are
+visually comparable.
 }
 \examples{
 data(finches)
@@ -119,6 +152,15 @@ library(ggplot2)
   # for "entity_1_count_mA", "entity_2_count_mB", "sites_total_N",
   # if legendlimit is set to "balanced", it will be changed to "datarange"
   plotgg(data = myout, variable = "entity_2_count_mB", legendlimit = "balanced")
+
+
+  # plot only statistically significant tiles (based on p_value)
+  # -----------------------------------------------------------
+  # sig.only = TRUE masks non-significant tiles (p_value > 0.05) to NA
+  plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", sig.only = TRUE)
+
+  # you can also supply a stricter p-value cutoff (e.g., 0.01)
+  plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", sig.only = 0.01)
 
 
   # change color of the plot
@@ -181,6 +223,28 @@ library(ggplot2)
     ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
     ggplot2::ggtitle("Affinity of island pairs measured with Alpha MLE") +
     ggplot2::labs(fill = 'Alpha MLE')
+
+
+  # show/hide entities that are entirely empty (all-NA tiles)
+  # --------------------------------------------------------
+  # Here we create an artificial "empty" entity by setting one column to NA.
+  # This guarantees that all pairwise comparisons involving that entity have no usable data,
+  # so the corresponding tiles become NA for variables such as alpha_mle.
+
+  finches2 <- as.matrix(finches)
+  storage.mode(finches2) <- "numeric"
+  finches2[, 3] <- NA_real_  # make the first entity entirely missing (choose any column)
+  myout2 <- affinity(data = finches2, row.or.col = "col")
+
+  # Default behavior: drop.empty = TRUE (empty entity removed from the axes)
+  plotgg(data = myout2, variable = "alpha_mle", legendlimit = "balanced")
+
+  # Keep empty entities (legacy/full grid): shows the empty row/column
+  plotgg(data = myout2, variable = "alpha_mle", legendlimit = "balanced", drop.empty = FALSE)
+
+  # keep empty entities even after masking (shows rows/columns with all-NA tiles)
+  plotgg(data = myout2, variable = "alpha_mle", legendlimit = "balanced",
+         sig.only = TRUE, drop.empty = FALSE)
 
 } #end of \donttest{}
 
