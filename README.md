@@ -29,11 +29,11 @@ CovrgPlot(marg = c(50,70,150), lev = 0.95)
 plotgg(data = res, variable = "alpha_mle", legendlimit = "balanced")
 ```
 
-> ⬇️ *More detailed documentation and examples below*
+> ⬇️ *More detailed documentation and examples below* ⬇
 
 
 <details>
-<summary><strong>📖 Extended package description (click to expand)</strong></summary>
+<summary><strong>🧠🧠🧠 Extended package description (click to expand)</strong></summary>
 
 
 
