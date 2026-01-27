@@ -194,7 +194,8 @@ plotgg(data = myout, variable = "alpha_mle", legendlimit = "datarange")
 ```
 <img src="man/figures/mainexample_row.png" width="800" alt="Alpha MLE among species-pairs (row elements)">
 
-<br>
+<br><br>
+
 
 On version 2.0.0, a new plotting behavior was introduced; entities whose values are entirely `NA` for the selected variable are now removed from both axes by default (`drop.empty = TRUE`). This avoids plotting empty rows or columns caused by degenerate distributions or missing data. Set `drop.empty = FALSE` to retain all entities and reproduce the legacy full-grid layout. When `sig.only` is used, `drop.empty` is applied after non-significant values are masked to NA.
 
@@ -214,7 +215,6 @@ myout <- affinity(data = finches, row.or.col = "col")
 plotgg(data = myout, variable = "alpha_mle", legendlimit = "datarange")
 ```
 
-# <img width="800" alt="alpha of sites" src="https://user-images.githubusercontent.com/14167540/159144833-ea048371-1659-49a9-9141-0b6f9f599fe5.png">
 <img src="man/figures/mainexample_col.png" width="800" alt="Alpha MLE among site-pairs (col elements)">
 
 
@@ -230,7 +230,7 @@ plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", sig.only 
 ```
 <img src="man/figures/mainexample_col_sigtrue.png" width="800" alt="Alpha MLE - only significant values">
 
-<br>
+<br><br>
 
 You can change the significance level.
 ```
