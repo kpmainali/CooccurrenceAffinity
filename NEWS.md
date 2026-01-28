@@ -44,6 +44,7 @@
 
 
 
+
 1.0.2 (2025-06-26)
 ------------------
 - Dropped **cooccur** from Suggests; the `finches` dataset now ships internally and can be loaded via `data(finches)` without requiring **cooccur**.

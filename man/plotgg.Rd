@@ -263,7 +263,7 @@ library(ggplot2)
 
 
   # automatic suppression of numeric values on tiles
-  # ------------------------------------------------
+  # -------------------------------------------------
   # By default, numeric values are printed on tiles only when the number of
   # plotted entities is reasonably small (<= 20). This avoids severe visual
   # clutter when the heatmap becomes large.
@@ -282,6 +282,7 @@ library(ggplot2)
 
   # To force printing numeric values despite the large number of entities:
   plotgg(data = myout_big, variable = "alpha_mle", legendlimit = "balanced", show.value = TRUE)
+
 
 } #end of \donttest{}
 

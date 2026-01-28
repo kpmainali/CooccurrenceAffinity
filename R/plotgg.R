@@ -55,6 +55,8 @@
 #' Rounding and text appearance are controlled by \code{value.digit},
 #' \code{text.size}, and \code{text.col}.
 #'
+#'
+#'
 #' @param data Output list returned by \code{\link{affinity}}.
 #' @param variable Name of a numeric column in \code{data$all} to plot.
 #' @param legendlimit Either \code{"datarange"} or \code{"balanced"}.
@@ -170,8 +172,8 @@ plotgg <- function (data,
   }
   fill_title <- fill_title_tbl$fill_title[[idx]]
 
-  # defaults
   # Color policy:
+  # -------------
   # - Defaults (when col is NULL):
   #   * alpha_mle (diverging): blue -> white -> red  (negative -> 0 -> positive)
   #   * all sequential variables: single-hue sequential lightened(high) -> high
@@ -461,7 +463,6 @@ plotgg <- function (data,
   if (variable %in% vars_signed) {
 
     gp <- gp + ggplot2::scale_fill_gradient2(
-      # name = fill_title,
       midpoint = 0,
       low = col[1], mid = col[2], high = col[3],
       space = "Lab",
@@ -477,7 +478,6 @@ plotgg <- function (data,
     # Reverse color mapping ONLY for p_value (legend numeric direction stays low->high)
     if (variable == "p_value") {
       gp <- gp + ggplot2::scale_fill_gradient(
-        # name = fill_title,
         low = seq_high,
         high = seq_low,
         na.value = "grey50",
@@ -485,7 +485,6 @@ plotgg <- function (data,
       )
     } else {
       gp <- gp + ggplot2::scale_fill_gradient(
-        # name = fill_title,
         low = seq_low,
         high = seq_high,
         na.value = "grey50",
@@ -494,27 +493,6 @@ plotgg <- function (data,
     }
   }
 
-  # --------------------------- value label handling ---------------------------
-  # n_entities_plot <- length(keep)
-  #
-  # if ((is.null(show.value) && n_entities_plot <= 20) || isTRUE(show.value)) {
-  #
-  #   gp <- gp + ggplot2::geom_text(
-  #     ggplot2::aes(label = round(.data[[variable]], value.digit)),
-  #     size = text.size,
-  #     color = text.col
-  #   )
-  #
-  #   message(paste0(
-  #     "------------------------------ plotgg() notes ------------------------------\n",
-  #     "- Values are printed on tiles. To hide them: show.value = FALSE\n",
-  #     "- To change rounding of printed values: value.digit = <integer>\n",
-  #     "- To change label size: text.size = <numeric>\n",
-  #     "- To change text color: text.col = <color>\n",
-  #     "- To keep entities whose tiles are all NA: drop.empty = FALSE\n",
-  #     "---------------------------------------------------------------------------"
-  #   ))
-  # }
 
   n_entities_plot <- length(keep)
 
