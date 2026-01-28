@@ -12,6 +12,7 @@ plotgg(
   show.value = NULL,
   value.digit = NULL,
   text.size = NULL,
+  text.col = NULL,
   plot.margin = NULL,
   drop.empty = TRUE,
   sig.only = FALSE,
@@ -25,8 +26,11 @@ plotgg(
 
 \item{legendlimit}{Either \code{"datarange"} or \code{"balanced"}.}
 
-\item{col}{Vector of three colors (low, mid, high) passed to
-\code{ggplot2::scale_fill_gradient2()}.}
+\item{col}{Color specification for the fill scale. For \code{alpha_mle}
+(diverging), supply \code{c(low, high)} or \code{c(low, mid, high)}.
+For all other variables (sequential), supply \code{c(low, high)}.
+If \code{NULL}, defaults are used (including an auto-generated low color for
+sequential scales).}
 
 \item{show.value}{Logical; if \code{TRUE}, values are printed on tiles. If
 \code{NULL}, values are printed automatically when the number of plotted
@@ -36,23 +40,21 @@ entities is \eqn{\le 20}.}
 
 \item{text.size}{Size of printed values; default is 2.5.}
 
-\item{plot.margin}{Plot margin passed to \code{ggplot2::theme()}.}
+\item{text.col}{Color of printed values on tiles (used when values are shown).}
+
+\item{plot.margin}{Plot margin passed to \code{ggplot2::theme(plot.margin = ...)}.
+Typically a \code{ggplot2::margin(t, r, b, l, unit)} object.}
 
 \item{drop.empty}{Logical; if \code{TRUE} (default), entities whose values are
 all \code{NA} for the selected \code{variable} are removed from the plot.
-Set to \code{FALSE} to keep all entities.
-#' @param sig.only Logical or numeric. If \code{FALSE} (default), plot all values.
-If \code{TRUE}, show only significant tiles using cutoff 0.05 by masking
-non-significant values to \code{NA}. If numeric, the value is used as the
-p-value cutoff (e.g., \code{sig.only = 0.01}). Requires a \code{p_value}
-column in \code{data$all}. Not allowed when \code{variable = "p_value"}.}
+Set to \code{FALSE} to keep all entities.}
 
 \item{sig.only}{Logical or numeric. If \code{FALSE} (default), all values are
-plotted. If \code{TRUE}, only statistically significant tiles are shown
-using a default cutoff of 0.05 by masking non-significant values to
-\code{NA}. If numeric, the value is used as the p-value cutoff (e.g.,
-\code{sig.only = 0.01}). Requires a \code{p_value} column in
-\code{data$all} and is not allowed when \code{variable = "p_value"}.}
+plotted. If \code{TRUE}, tiles are masked to \code{NA} wherever
+\code{p_value > 0.05}. If numeric, the value is used as the p-value cutoff
+(e.g., \code{sig.only = 0.01}). Requires a \code{p_value} column in
+\code{data$all}. When \code{variable = "p_value"}, p-values above the cutoff
+are masked to \code{NA}.}
 
 \item{...}{Additional arguments (currently unused).}
 }
@@ -85,8 +87,12 @@ If \code{sig.only} is enabled, values of the selected \code{variable} are
 masked to \code{NA} wherever \code{p_value} exceeds the specified cutoff, so
 only statistically significant tiles are shown. Use \code{sig.only = TRUE}
 to apply the default cutoff (0.05), or supply a numeric cutoff (e.g.,
-\code{sig.only = 0.01}). This option cannot be used when
-\code{variable = "p_value"}.
+\code{sig.only = 0.01}). Requires a \code{p_value} column in \code{data$all}.
+When \code{variable = "p_value"}, p-values above the cutoff are masked to
+\code{NA}.
+
+Legend titles are mapped to human-readable labels (some shown on two lines),
+rather than using raw column names from \code{data$all}.
 
 The plot can be requested using column names from the \code{$all} dataframe
 returned by \code{affinity}. Additional \code{ggplot2} layers or theme
@@ -97,12 +103,19 @@ The \code{legendlimit} argument controls how the color scale is defined.
 For \code{alpha_mle}, the default midpoint is 0 (null expectation), and the
 color scale can be either data-driven (\code{"datarange"}) or symmetrically
 balanced around zero (\code{"balanced"}), using the maximum absolute value
-observed. For indices bounded in \eqn{[0,1]} (\code{p_value}, \code{jaccard},
-\code{sorensen}, \code{simpson}), the balanced scale uses limits \eqn{[0,1]} with
-midpoint 0.5. For count-based variables, no natural midpoint exists; the
+observed.  For indices bounded in \eqn{[0,1]} (\code{p_value}, \code{jaccard},
+\code{sorensen}, \code{simpson}), the balanced scale uses fixed limits
+\eqn{[0,1]}. For \code{p_value}, the color mapping is reversed so smaller
+p-values appear more intense. For count-based variables, no natural midpoint exists; the
 color scale spans the observed range. For \code{obs_cooccur_X} and
 \code{exp_cooccur}, a shared color scale is applied so the two plots are
 visually comparable.
+
+When \code{show.value = TRUE}, numeric values are printed on each tile using
+\code{ggplot2::geom_text()}. If \code{show.value = NULL} (default), values are
+printed automatically when the number of plotted entities is \eqn{\le 20}.
+Rounding and text appearance are controlled by \code{value.digit},
+\code{text.size}, and \code{text.col}.
 }
 \examples{
 data(finches)
@@ -163,15 +176,17 @@ library(ggplot2)
   plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", sig.only = 0.01)
 
 
-  # change color of the plot
+  # change color of the plot and text
   # ---------------------------------------------
   plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced")
   plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced",
-         col = c('#99cc33', 'white', '#ff9933'))
+         col = c('#99cc33', 'black', '#ff9933'), text.col = "white")
+  plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced",
+         col = c('#99cc33', '#ff9933'), text.col = "white")
 
   plotgg(data = myout, variable = "obs_cooccur_X", legendlimit = "balanced")
   plotgg(data = myout, variable = "obs_cooccur_X", legendlimit = "balanced",
-         col = c('#99cc33', 'white', '#ff9933'))
+         col = c('black', 'red'), text.col = "white")
 
 
   # change the characteristics of text printed in the plot
@@ -184,15 +199,12 @@ library(ggplot2)
   # make the fonts bigger; the default is 2.5
   plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", text.size = 3.5)
 
-
-
   # hide values from the plot
   plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", show.value = FALSE)
 
 
   # increase or decrease margin
   # ---------------------------------------------
-
   myout <- affinity(data = finches, row.or.col = "row")
   # myout
 
@@ -208,8 +220,10 @@ library(ggplot2)
     ggplot2::theme(axis.text.x = element_text(angle = 45))
 
   # to change to 90 degrees, adjust vjust
+  # bad ->
   plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced") +
     ggplot2::theme(axis.text.x = element_text(angle = 90))
+  # good ->
   plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced") +
     ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 
@@ -222,7 +236,8 @@ library(ggplot2)
   plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced") +
     ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
     ggplot2::ggtitle("Affinity of island pairs measured with Alpha MLE") +
-    ggplot2::labs(fill = 'Alpha MLE')
+    ggplot2::labs(fill = 'My Personal\nTitle')
+
 
 
   # show/hide entities that are entirely empty (all-NA tiles)
@@ -246,8 +261,34 @@ library(ggplot2)
   plotgg(data = myout2, variable = "alpha_mle", legendlimit = "balanced",
          sig.only = TRUE, drop.empty = FALSE)
 
+
+  # automatic suppression of numeric values on tiles
+  # ------------------------------------------------
+  # By default, numeric values are printed on tiles only when the number of
+  # plotted entities is reasonably small (<= 20). This avoids severe visual
+  # clutter when the heatmap becomes large.
+
+  finches_big <- finches
+
+  # duplicate columns to artificially inflate the number of entities
+  finches_big <- cbind(finches_big, finches_big[, 1:5])
+  colnames(finches_big)[(ncol(finches) + 1):ncol(finches_big)] <-
+    paste0(colnames(finches)[1:5], "_dup")
+
+  myout_big <- affinity(data = finches_big, row.or.col = "col")
+
+  # Numeric values are NOT printed because the number of entities exceeds 20
+  plotgg(data = myout_big, variable = "alpha_mle", legendlimit = "balanced")
+
+  # To force printing numeric values despite the large number of entities:
+  plotgg(data = myout_big, variable = "alpha_mle", legendlimit = "balanced", show.value = TRUE)
+
 } #end of \donttest{}
 
+
+}
+\seealso{
+\code{\link{affinity}}
 }
 \author{
 Kumar Mainali

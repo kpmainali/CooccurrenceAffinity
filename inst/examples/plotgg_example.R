@@ -56,15 +56,17 @@ library(ggplot2)
   plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", sig.only = 0.01)
 
 
-  # change color of the plot
+  # change color of the plot and text
   # ---------------------------------------------
   plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced")
   plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced",
-         col = c('#99cc33', 'white', '#ff9933'))
+         col = c('#99cc33', 'black', '#ff9933'), text.col = "white")
+  plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced",
+         col = c('#99cc33', '#ff9933'), text.col = "white")
 
   plotgg(data = myout, variable = "obs_cooccur_X", legendlimit = "balanced")
   plotgg(data = myout, variable = "obs_cooccur_X", legendlimit = "balanced",
-         col = c('#99cc33', 'white', '#ff9933'))
+         col = c('black', 'red'), text.col = "white")
 
 
   # change the characteristics of text printed in the plot
@@ -77,15 +79,12 @@ library(ggplot2)
   # make the fonts bigger; the default is 2.5
   plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", text.size = 3.5)
 
-
-
   # hide values from the plot
   plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced", show.value = FALSE)
 
 
   # increase or decrease margin
   # ---------------------------------------------
-
   myout <- affinity(data = finches, row.or.col = "row")
   # myout
 
@@ -101,8 +100,10 @@ library(ggplot2)
     ggplot2::theme(axis.text.x = element_text(angle = 45))
 
   # to change to 90 degrees, adjust vjust
+  # bad ->
   plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced") +
     ggplot2::theme(axis.text.x = element_text(angle = 90))
+  # good ->
   plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced") +
     ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 
@@ -115,7 +116,8 @@ library(ggplot2)
   plotgg(data = myout, variable = "alpha_mle", legendlimit = "balanced") +
     ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
     ggplot2::ggtitle("Affinity of island pairs measured with Alpha MLE") +
-    ggplot2::labs(fill = 'Alpha MLE')
+    ggplot2::labs(fill = 'My Personal\nTitle')
+
 
 
   # show/hide entities that are entirely empty (all-NA tiles)
@@ -139,5 +141,28 @@ library(ggplot2)
   plotgg(data = myout2, variable = "alpha_mle", legendlimit = "balanced",
          sig.only = TRUE, drop.empty = FALSE)
 
+
+  # automatic suppression of numeric values on tiles
+  # ------------------------------------------------
+  # By default, numeric values are printed on tiles only when the number of
+  # plotted entities is reasonably small (<= 20). This avoids severe visual
+  # clutter when the heatmap becomes large.
+
+  finches_big <- finches
+
+  # duplicate columns to artificially inflate the number of entities
+  finches_big <- cbind(finches_big, finches_big[, 1:5])
+  colnames(finches_big)[(ncol(finches) + 1):ncol(finches_big)] <-
+    paste0(colnames(finches)[1:5], "_dup")
+
+  myout_big <- affinity(data = finches_big, row.or.col = "col")
+
+  # Numeric values are NOT printed because the number of entities exceeds 20
+  plotgg(data = myout_big, variable = "alpha_mle", legendlimit = "balanced")
+
+  # To force printing numeric values despite the large number of entities:
+  plotgg(data = myout_big, variable = "alpha_mle", legendlimit = "balanced", show.value = TRUE)
+
 } #end of \donttest{}
+
 

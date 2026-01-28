@@ -1,20 +1,47 @@
-2.0.0 (2026-01-27)
+2.0.0 (2026-01-28)
 ------------------
 
 ### plotgg()
 
-- **Changed default behavior:** entities whose values are entirely `NA` for the selected variable are now removed from both axes by default (`drop.empty = TRUE`).
+- Changed default behavior: entities whose values are entirely `NA` for the selected variable are now removed from both axes by default (`drop.empty = TRUE`).
   This avoids plotting empty rows or columns caused by degenerate distributions or missing data.
   Set `drop.empty = FALSE` to retain all entities and reproduce the legacy full-grid layout.
+  If fewer than two entities remain after dropping empty rows/columns, `plotgg()` now stops with an informative error rather than producing an empty or misleading plot.
 
-- **New argument `sig.only`.**
-  When enabled, values of the selected variable are masked to `NA` wherever `p_value` exceeds a specified cutoff.
-  - `sig.only = TRUE` applies a default cutoff of 0.05
+- New argument `sig.only`:
+  When enabled, values of the selected variable are masked to `NA` wherever `p_value` exceeds a specified cutoff, so only statistically significant tiles are displayed.
+
+  - `sig.only = TRUE` applies a default cutoff of `0.05`
   - `sig.only = <numeric>` uses a user-specified p-value cutoff
-  This option requires a `p_value` column in `data$all` and is not allowed when `variable = "p_value"`.
+    This option requires a `p_value` column in `data$all`.
+    When `variable = "p_value"`, p-values above the cutoff are masked to `NA`, allowing direct visualization of significant p-values.
 
-- **Stable legend scaling under significance filtering.**
-  When `sig.only` is used, legend limits and color scaling (`"datarange"` or `"balanced"`) are computed from the original, unfiltered data, ensuring visual comparability between full and significance-filtered plots.
+- Stable legend scaling under significance filtering:
+  When `sig.only` is used, legend limits and color scaling (`"datarange"` or `"balanced"`) are computed from the original, unfiltered data rather than the masked tiles.
+  This prevents legend collapse and ensures visual comparability between full and significance-filtered plots.
+
+- Stricter input validation and supported-variable enforcement:
+  `plotgg()` now requires `data$occur_mat` to be present and uses it as the authoritative source for entity ordering on both axes.
+  Only explicitly supported variables can be plotted; interval and confidence-related columns are rejected, and unsupported or legacy variable names are no longer accepted.
+
+- Revised color-scale logic:
+  Color scales are now variable-aware rather than uniform:
+
+  - `alpha_mle` uses a diverging color scale centered at zero (null expectation)
+  - All other variables use sequential color scales
+  - Variables bounded in `[0,1]` (`p_value`, `jaccard`, `sorensen`, `simpson`) use fixed `[0,1]` limits under `"balanced"` scaling
+  - For `p_value`, color mapping is reversed so smaller p-values appear more intense
+  - `obs_cooccur_X` and `exp_cooccur` share a common color scale to enable direct visual comparison
+    When `col` is not supplied, appropriate defaults are generated automatically.
+
+- Improved legend titles and diagnostics:
+  Legend titles are now mapped to human-readable labels (including multi-line titles and mathematical notation where appropriate) rather than raw column names.
+  Standardized legend notes are printed describing palette type, effective scaling mode, applied limits, and whether masking affects the plot.
+
+- Improved value labeling:
+  A new argument `text.col` controls the color of numeric labels printed on tiles.
+  Values continue to be printed automatically when the number of plotted entities is ≤ 20, or when `show.value = TRUE`.
+
 
 
 1.0.2 (2025-06-26)
